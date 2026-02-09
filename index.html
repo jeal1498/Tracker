@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="WorkTracker Pro - Sistema de seguimiento de nómina y asistencia">
+    <meta name="description" content="ControlCheck - Sistema de seguimiento de nómina y asistencia">
     <meta name="theme-color" content="#10b981">
     
     <!-- PWA Meta Tags -->
@@ -11,10 +11,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="WorkTracker">
+    <meta name="apple-mobile-web-app-title" content="ControlCheck">
     <link rel="apple-touch-icon" href="./icon-192.png">
     
-    <title>WorkTracker Pro • 2026</title>
+    <title>ControlCheck • Control de Asistencia</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -171,28 +171,32 @@
         
         /* Theme Variables */
         :root {
-            --theme-primary: #10b981;
-            --theme-primary-light: rgba(16, 185, 129, 0.1);
+            --theme-color: #10b981;
+            --theme-color-light: rgba(16, 185, 129, 0.1);
+            --theme-color-border: rgba(16, 185, 129, 0.3);
         }
         
-        .theme-blue {
-            --theme-primary: #3b82f6;
-            --theme-primary-light: rgba(59, 130, 246, 0.1);
+        /* Aplicar color de tema dinámicamente */
+        .text-emerald-400,
+        .text-theme {
+            color: var(--theme-color) !important;
         }
         
-        .theme-purple {
-            --theme-primary: #8b5cf6;
-            --theme-primary-light: rgba(139, 92, 246, 0.1);
+        .bg-emerald-500 {
+            background-color: var(--theme-color) !important;
         }
         
-        .theme-rose {
-            --theme-primary: #f43f5e;
-            --theme-primary-light: rgba(244, 63, 94, 0.1);
+        .border-emerald-500\/30,
+        .hover\:border-emerald-500\/30:hover {
+            border-color: var(--theme-color-border) !important;
         }
         
-        .theme-amber {
-            --theme-primary: #f59e0b;
-            --theme-primary-light: rgba(245, 158, 11, 0.1);
+        .bg-emerald-500\/20 {
+            background-color: var(--theme-color-light) !important;
+        }
+        
+        .ring-emerald-400 {
+            --tw-ring-color: var(--theme-color) !important;
         }
         
         /* Light Mode Styles */
@@ -389,20 +393,39 @@
         };
 
         const HOLIDAYS_2026 = [
-            "2026-01-01", "2026-02-02", "2026-03-16", "2026-05-01", 
-            "2026-09-16", "2026-11-16", "2026-12-25"
+            { date: "2026-01-01", name: "Año Nuevo" },
+            { date: "2026-02-02", name: "Día de la Constitución" },
+            { date: "2026-03-16", name: "Natalicio de Benito Juárez" },
+            { date: "2026-05-01", name: "Día del Trabajo" },
+            { date: "2026-09-16", name: "Día de la Independencia" },
+            { date: "2026-11-16", name: "Día de la Revolución" },
+            { date: "2026-12-25", name: "Navidad" }
         ];
 
         const MONTH_NAMES_SHORT = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         const MONTH_NAMES_FULL = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         const DAY_NAMES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
+        // Función para obtener saludo según la hora
+        const getGreeting = () => {
+            const hour = new Date().getHours();
+            const name = "Eduardo";
+            
+            if (hour >= 6 && hour < 12) {
+                return `Buenos días, ${name}`;
+            } else if (hour >= 12 && hour < 19) {
+                return `Buenas tardes, ${name}`;
+            } else {
+                return `Buenas noches, ${name}`;
+            }
+        };
+
         const THEMES = {
-            green: { name: 'Esmeralda', color: '#10b981', class: '' },
-            blue: { name: 'Azul', color: '#3b82f6', class: 'theme-blue' },
-            purple: { name: 'Púrpura', color: '#8b5cf6', class: 'theme-purple' },
-            rose: { name: 'Rosa', color: '#f43f5e', class: 'theme-rose' },
-            amber: { name: 'Ámbar', color: '#f59e0b', class: 'theme-amber' }
+            green: { name: 'Esmeralda', color: '#10b981', gradient: 'from-emerald-600 via-emerald-700 to-emerald-800' },
+            blue: { name: 'Azul', color: '#3b82f6', gradient: 'from-blue-600 via-blue-700 to-blue-800' },
+            purple: { name: 'Púrpura', color: '#8b5cf6', gradient: 'from-purple-600 via-purple-700 to-purple-800' },
+            rose: { name: 'Rosa', color: '#f43f5e', gradient: 'from-rose-600 via-rose-700 to-rose-800' },
+            amber: { name: 'Ámbar', color: '#f59e0b', gradient: 'from-amber-600 via-amber-700 to-amber-800' }
         };
 
         // ============================================
@@ -551,7 +574,7 @@
         // ============================================
         // FUNCIONES DE EXPORTACIÓN
         // ============================================
-        const exportToCSV = (records, includeSalary = true, includeCommissions = true) => {
+        const exportToCSV = (records, includeSalary = true, includeCommissions = true, includeExpenses = true) => {
             try {
                 if (!includeSalary && !includeCommissions) {
                     return false; // No hay nada que exportar
@@ -565,8 +588,11 @@
                 if (includeCommissions) {
                     headers.push('Comisiones');
                 }
+                if (includeExpenses) {
+                    headers.push('Gastos');
+                }
                 
-                headers.push('Gastos', 'Total', 'Descripción');
+                headers.push('Total', 'Hora Inicio', 'Hora Fin', 'Horas', 'Descripción');
                 
                 const csvRows = [headers.join(',')];
                 
@@ -583,14 +609,19 @@
                     if (includeCommissions) {
                         row.push(record.totalComm.toFixed(2));
                     }
+                    if (includeExpenses) {
+                        row.push(record.totalExp.toFixed(2));
+                    }
                     
                     const total = (includeSalary ? record.baseSalary : 0) + 
                                   (includeCommissions ? record.totalComm : 0) - 
-                                  record.totalExp;
+                                  (includeExpenses ? record.totalExp : 0);
                     
                     row.push(
-                        record.totalExp.toFixed(2),
                         total.toFixed(2),
+                        record.startTime || 'N/A',
+                        record.endTime || 'N/A',
+                        record.hoursWorked ? record.hoursWorked.toFixed(2) : 'N/A',
                         `"${(record.description || '').replace(/"/g, '""')}"`
                     );
                     
@@ -603,9 +634,13 @@
                 const url = URL.createObjectURL(blob);
                 link.setAttribute('href', url);
                 
-                const exportType = includeSalary && includeCommissions ? 'Completo' : 
-                                   includeSalary ? 'Nomina' : 'Comisiones';
-                link.setAttribute('download', `WorkTracker_${exportType}_${new Date().toISOString().split('T')[0]}.csv`);
+                const parts = [];
+                if (includeSalary) parts.push('Nomina');
+                if (includeCommissions) parts.push('Comisiones');
+                if (!includeExpenses) parts.push('SinGastos');
+                const exportType = parts.length > 0 ? parts.join('_') : 'Completo';
+                
+                link.setAttribute('download', `ControlCheck_${exportType}_${new Date().toISOString().split('T')[0]}.csv`);
                 link.style.visibility = 'hidden';
                 document.body.appendChild(link);
                 link.click();
@@ -618,7 +653,7 @@
             }
         };
 
-        const exportToPDF = (records, totals, includeSalary = true, includeCommissions = true) => {
+        const exportToPDF = (records, totals, includeSalary = true, includeCommissions = true, includeExpenses = true) => {
             try {
                 if (!includeSalary && !includeCommissions) {
                     return false; // No hay nada que exportar
@@ -630,15 +665,19 @@
                 // Título
                 doc.setFontSize(20);
                 doc.setFont(undefined, 'bold');
-                doc.text('WorkTracker Pro - Reporte', 105, 20, { align: 'center' });
+                doc.text('ControlCheck - Reporte', 105, 20, { align: 'center' });
                 
                 // Fecha del reporte
                 doc.setFontSize(10);
                 doc.setFont(undefined, 'normal');
                 doc.text(`Fecha: ${new Date().toLocaleDateString('es-MX')}`, 105, 28, { align: 'center' });
                 
-                const exportType = includeSalary && includeCommissions ? 'Completo' : 
-                                   includeSalary ? 'Solo Nómina' : 'Solo Comisiones';
+                const parts = [];
+                if (includeSalary) parts.push('Nómina');
+                if (includeCommissions) parts.push('Comisiones');
+                if (!includeExpenses) parts.push('Sin Gastos');
+                const exportType = parts.length > 0 ? parts.join(' + ') : 'Completo';
+                
                 doc.text(`Tipo: ${exportType}`, 105, 34, { align: 'center' });
                 
                 // Resumen
@@ -658,14 +697,15 @@
                     doc.text(`Total Comisiones: $${totals.commissions.toFixed(2)}`, 20, yPos);
                     yPos += 6;
                 }
-                
-                doc.text(`Total Gastos: $${totals.expenses.toFixed(2)}`, 20, yPos);
-                yPos += 6;
+                if (includeExpenses) {
+                    doc.text(`Total Gastos: $${totals.expenses.toFixed(2)}`, 20, yPos);
+                    yPos += 6;
+                }
                 
                 doc.setFont(undefined, 'bold');
                 const totalAmount = (includeSalary ? totals.worked : 0) + 
                                    (includeCommissions ? totals.commissions : 0) - 
-                                   totals.expenses;
+                                   (includeExpenses ? totals.expenses : 0);
                 doc.text(`TOTAL: $${totalAmount.toFixed(2)}`, 20, yPos);
                 yPos += 10;
                 
@@ -673,7 +713,8 @@
                 const headers = ['Fecha', 'Estado', 'Unidad'];
                 if (includeSalary) headers.push('Salario');
                 if (includeCommissions) headers.push('Comisión');
-                headers.push('Gastos', 'Total');
+                if (includeExpenses) headers.push('Gastos');
+                headers.push('Total');
                 
                 const tableData = records.map(record => {
                     const row = [
@@ -688,15 +729,15 @@
                     if (includeCommissions) {
                         row.push(`$${record.totalComm.toFixed(2)}`);
                     }
+                    if (includeExpenses) {
+                        row.push(`$${record.totalExp.toFixed(2)}`);
+                    }
                     
                     const total = (includeSalary ? record.baseSalary : 0) + 
                                   (includeCommissions ? record.totalComm : 0) - 
-                                  record.totalExp;
+                                  (includeExpenses ? record.totalExp : 0);
                     
-                    row.push(
-                        `$${record.totalExp.toFixed(2)}`,
-                        `$${total.toFixed(2)}`
-                    );
+                    row.push(`$${total.toFixed(2)}`);
                     
                     return row;
                 });
@@ -710,7 +751,7 @@
                     styles: { fontSize: 8 }
                 });
                 
-                const fileName = `WorkTracker_${exportType.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                const fileName = `ControlCheck_${exportType.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
                 doc.save(fileName);
                 return true;
             } catch (error) {
@@ -809,6 +850,11 @@
             // Estados para exportación
             const [exportSalary, setExportSalary] = useState(true);
             const [exportCommissions, setExportCommissions] = useState(true);
+            const [exportExpenses, setExportExpenses] = useState(true);
+            
+            // Estado para configuración de tarifas
+            const [showRatesConfig, setShowRatesConfig] = useState(false);
+            const [customRates, setCustomRates] = useState(null);
             
             // Estado para modo de tema del sistema
             const [systemThemeMode, setSystemThemeMode] = useState('dark');
@@ -817,6 +863,8 @@
                 date: '',
                 status: 'worked',
                 unit: '',
+                startTime: '',
+                endTime: '',
                 commissions: [],
                 expenses: [],
                 description: ''
@@ -837,6 +885,11 @@
                     const savedTheme = safeLocalStorage.getItem('worktracker_theme');
                     if (savedTheme) {
                         setTheme(savedTheme);
+                    }
+                    
+                    const savedRates = safeLocalStorage.getItem('worktracker_rates');
+                    if (savedRates) {
+                        setCustomRates(JSON.parse(savedRates));
                     }
                     
                     // Detectar tema del sistema
@@ -864,14 +917,23 @@
                 }
             }, [records]);
 
-            // Guardar tema
+            // Guardar y aplicar tema
             useEffect(() => {
                 safeLocalStorage.setItem('worktracker_theme', theme);
                 
-                // Aplicar clase de tema y modo
-                const themeClass = THEMES[theme]?.class || '';
+                // Aplicar modo del sistema
                 const modeClass = systemThemeMode === 'light' ? 'light-mode' : 'dark-mode';
-                document.documentElement.className = `${themeClass} ${modeClass}`;
+                document.documentElement.className = modeClass;
+                
+                // Aplicar color del tema a todo el documento
+                const themeColor = THEMES[theme].color;
+                document.documentElement.style.setProperty('--theme-color', themeColor);
+                
+                // Cambiar meta theme-color para navegador
+                const metaTheme = document.querySelector('meta[name="theme-color"]');
+                if (metaTheme) {
+                    metaTheme.setAttribute('content', themeColor);
+                }
             }, [theme, systemThemeMode]);
 
             // Toast helper
@@ -882,6 +944,18 @@
 
             const removeToast = (id) => {
                 setToasts(prev => prev.filter(t => t.id !== id));
+            };
+
+            // Obtener tarifas actuales (personalizadas o por defecto)
+            const getCurrentRates = () => {
+                return customRates || RATES;
+            };
+
+            // Guardar tarifas personalizadas
+            const saveCustomRates = (newRates) => {
+                setCustomRates(newRates);
+                safeLocalStorage.setItem('worktracker_rates', JSON.stringify(newRates));
+                showToast('✓ Tarifas actualizadas correctamente', 'success');
             };
 
             // Funciones de formulario
@@ -909,6 +983,14 @@
                     return;
                 }
                 
+                // Validar horas si están presentes
+                if (formData.startTime && formData.endTime) {
+                    if (formData.startTime >= formData.endTime) {
+                        showToast('La hora de fin debe ser posterior a la hora de inicio', 'error');
+                        return;
+                    }
+                }
+                
                 // Validar comisiones y gastos
                 const invalidComm = formData.commissions.some(c => c.name && (!c.amount || parseFloat(c.amount) < 0));
                 const invalidExp = formData.expenses.some(e => e.name && (!e.amount || parseFloat(e.amount) < 0));
@@ -920,14 +1002,24 @@
                 
                 const totalComm = formData.commissions.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0);
                 const totalExp = formData.expenses.reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0);
-                const baseSalary = RATES[formData.status];
+                const currentRates = getCurrentRates();
+                const baseSalary = currentRates[formData.status];
+                
+                // Calcular horas trabajadas si están presentes
+                let hoursWorked = null;
+                if (formData.startTime && formData.endTime) {
+                    const start = new Date(`2000-01-01T${formData.startTime}`);
+                    const end = new Date(`2000-01-01T${formData.endTime}`);
+                    hoursWorked = (end - start) / (1000 * 60 * 60); // Horas
+                }
                 
                 const newRecord = {
                     id: editingId || Date.now(),
                     ...formData,
                     baseSalary,
                     totalComm,
-                    totalExp
+                    totalExp,
+                    hoursWorked
                 };
                 
                 if (editingId) {
@@ -1226,21 +1318,21 @@
 
                     {/* Header con título */}
                     <div className="glass-effect sticky top-0 z-40 px-6 py-4 mb-1">
-                        <div className="max-w-md mx-auto flex items-center justify-between">
-                            <div className="flex items-center gap-3">
+                        <div className="max-w-md mx-auto">
+                            <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
                                     <Briefcase size={20} className="text-white" />
                                 </div>
-                                <div>
-                                    <h1 className="text-lg font-black text-white tracking-tight">WorkTracker</h1>
-                                    <p className="text-[10px] font-semibold text-emerald-400">Nómina 2026</p>
+                                <div className="flex-1">
+                                    <h1 className="text-lg font-black text-white tracking-tight">ControlCheck</h1>
+                                    <p className="text-[10px] font-semibold text-emerald-400">{getGreeting()}</p>
                                 </div>
-                            </div>
-                            <div className="text-right">
-                                <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Total</p>
-                                <p className="text-lg font-black text-emerald-400">
-                                    ${totals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                </p>
+                                <div className="text-right">
+                                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Total</p>
+                                    <p className="text-lg font-black text-emerald-400">
+                                        ${totals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1310,7 +1402,7 @@
 
                                 {/* Card Principal de Totales */}
                                 <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800"></div>
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${THEMES[theme].gradient}`}></div>
                                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
                                     
                                     <div className="relative p-6">
@@ -1473,17 +1565,18 @@
                                                     
                                                     const record = getRecordForDate(day);
                                                     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                                                    const isHoliday = HOLIDAYS_2026.includes(dateStr);
+                                                    const holiday = HOLIDAYS_2026.find(h => h.date === dateStr);
                                                     const isToday = new Date().getDate() === day && new Date().getMonth() === currentMonth && new Date().getFullYear() === currentYear;
                                                     
                                                     return (
                                                         <button
                                                             key={idx}
                                                             onClick={() => handleDayClick(day)}
+                                                            title={holiday ? holiday.name : ''}
                                                             className={`aspect-square rounded-lg p-1.5 flex flex-col items-center justify-center text-xs font-bold transition-all relative group ${
                                                                 record 
                                                                     ? `${STATUS_COLORS[record.status]} text-white shadow-lg hover:scale-105` 
-                                                                    : isHoliday
+                                                                    : holiday
                                                                         ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 hover:bg-purple-500/30'
                                                                         : 'bg-dark-card hover:bg-dark-hover text-gray-400 border border-dark-border hover:border-emerald-500/30'
                                                             } ${isToday ? 'ring-2 ring-emerald-400 ring-offset-2 ring-offset-dark-bg' : ''}`}
@@ -1494,8 +1587,10 @@
                                                                     ${(record.baseSalary + record.totalComm - record.totalExp).toFixed(0)}
                                                                 </span>
                                                             )}
-                                                            {isHoliday && !record && (
-                                                                <span className="text-[7px] opacity-75 font-semibold mt-0.5">Fest</span>
+                                                            {holiday && !record && (
+                                                                <span className="text-[7px] opacity-75 font-semibold mt-0.5 text-center leading-tight">
+                                                                    {holiday.name.split(' ').slice(0, 2).join(' ')}
+                                                                </span>
                                                             )}
                                                         </button>
                                                     );
@@ -1554,11 +1649,44 @@
                                                     onChange={e => setFormData({...formData, status: e.target.value})} 
                                                     className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
                                                 >
-                                                    {Object.entries(STATUS_LABELS).map(([k,v]) => (
-                                                        <option key={k} value={k}>{v} - ${RATES[k].toFixed(2)}</option>
-                                                    ))}
+                                                    {Object.entries(STATUS_LABELS).map(([k,v]) => {
+                                                        const currentRates = getCurrentRates();
+                                                        return (
+                                                            <option key={k} value={k}>{v} - ${currentRates[k].toFixed(2)}</option>
+                                                        );
+                                                    })}
                                                 </select>
                                             </div>
+
+                                            {/* Campos de hora */}
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Hora Inicio</label>
+                                                    <input 
+                                                        type="time" 
+                                                        value={formData.startTime} 
+                                                        onChange={e => setFormData({...formData, startTime: e.target.value})} 
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Hora Fin</label>
+                                                    <input 
+                                                        type="time" 
+                                                        value={formData.endTime} 
+                                                        onChange={e => setFormData({...formData, endTime: e.target.value})} 
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                    />
+                                                </div>
+                                            </div>
+                                            
+                                            {formData.startTime && formData.endTime && formData.startTime < formData.endTime && (
+                                                <div className="p-3 bg-emerald-500/20 border border-emerald-500/30 rounded-xl">
+                                                    <p className="text-xs text-emerald-400 font-semibold">
+                                                        ⏱️ Horas trabajadas: {((new Date(`2000-01-01T${formData.endTime}`) - new Date(`2000-01-01T${formData.startTime}`)) / (1000 * 60 * 60)).toFixed(2)}h
+                                                    </p>
+                                                </div>
+                                            )}
 
                                             <div>
                                                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Unidad</label>
@@ -1960,6 +2088,18 @@
                                                 <span className="text-xs text-gray-500">Comisiones y bonos adicionales</span>
                                             </div>
                                         </label>
+                                        <label className="flex items-center gap-3 p-3 rounded-lg bg-dark-hover hover:bg-dark-card transition-all cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={exportExpenses}
+                                                onChange={(e) => setExportExpenses(e.target.checked)}
+                                                className="w-5 h-5 rounded border-2 border-dark-border text-emerald-500 focus:ring-emerald-500"
+                                            />
+                                            <div className="flex-1">
+                                                <span className="text-sm font-bold text-white block">Gastos</span>
+                                                <span className="text-xs text-gray-500">Incluir columna de gastos en el reporte</span>
+                                            </div>
+                                        </label>
                                     </div>
                                     
                                     {(!exportSalary && !exportCommissions) && (
@@ -1979,13 +2119,16 @@
                                                     return;
                                                 }
                                                 if (!exportSalary && !exportCommissions) {
-                                                    showToast('Selecciona al menos una opción', 'warning');
+                                                    showToast('Selecciona al menos Nómina o Comisiones', 'warning');
                                                     return;
                                                 }
-                                                if (exportToPDF(filteredRecords, totals, exportSalary, exportCommissions)) {
-                                                    const type = exportSalary && exportCommissions ? 'completo' : 
-                                                                exportSalary ? 'de nómina' : 'de comisiones';
-                                                    showToast(`✓ PDF ${type} generado exitosamente`, 'success');
+                                                if (exportToPDF(filteredRecords, totals, exportSalary, exportCommissions, exportExpenses)) {
+                                                    const parts = [];
+                                                    if (exportSalary) parts.push('nómina');
+                                                    if (exportCommissions) parts.push('comisiones');
+                                                    if (!exportExpenses) parts.push('sin gastos');
+                                                    const type = parts.join(', ');
+                                                    showToast(`✓ PDF con ${type} generado`, 'success');
                                                 } else {
                                                     showToast('Error al generar el PDF', 'error');
                                                 }
@@ -2007,13 +2150,16 @@
                                                     return;
                                                 }
                                                 if (!exportSalary && !exportCommissions) {
-                                                    showToast('Selecciona al menos una opción', 'warning');
+                                                    showToast('Selecciona al menos Nómina o Comisiones', 'warning');
                                                     return;
                                                 }
-                                                if (exportToCSV(filteredRecords, exportSalary, exportCommissions)) {
-                                                    const type = exportSalary && exportCommissions ? 'completo' : 
-                                                                exportSalary ? 'de nómina' : 'de comisiones';
-                                                    showToast(`✓ CSV ${type} exportado exitosamente`, 'success');
+                                                if (exportToCSV(filteredRecords, exportSalary, exportCommissions, exportExpenses)) {
+                                                    const parts = [];
+                                                    if (exportSalary) parts.push('nómina');
+                                                    if (exportCommissions) parts.push('comisiones');
+                                                    if (!exportExpenses) parts.push('sin gastos');
+                                                    const type = parts.join(', ');
+                                                    showToast(`✓ CSV con ${type} exportado`, 'success');
                                                 } else {
                                                     showToast('Error al exportar CSV', 'error');
                                                 }
@@ -2118,6 +2264,84 @@
                                         ))}
                                     </div>
                                     <p className="text-xs text-gray-500 mt-3 text-center font-semibold">{THEMES[theme].name}</p>
+                                </div>
+
+                                {/* Configuración de Tarifas */}
+                                <div className="glass-effect p-5 rounded-2xl shadow-xl">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h4 className="text-sm font-bold flex items-center gap-2">
+                                            <Settings size={16} className="text-blue-400" />
+                                            Configuración de Tarifas
+                                        </h4>
+                                        <button
+                                            onClick={() => setShowRatesConfig(!showRatesConfig)}
+                                            className="text-xs font-bold text-emerald-400 hover:text-emerald-300"
+                                        >
+                                            {showRatesConfig ? 'Ocultar' : 'Editar'}
+                                        </button>
+                                    </div>
+                                    
+                                    {showRatesConfig && (
+                                        <div className="space-y-3 animate-slide-up">
+                                            {Object.entries(STATUS_LABELS).map(([key, label]) => {
+                                                const currentRates = getCurrentRates();
+                                                return (
+                                                    <div key={key}>
+                                                        <label className="text-xs font-semibold text-gray-400 mb-1.5 block">
+                                                            {label}
+                                                        </label>
+                                                        <input
+                                                            type="number"
+                                                            step="0.01"
+                                                            value={customRates ? customRates[key] : RATES[key]}
+                                                            onChange={(e) => {
+                                                                const newRates = customRates ? {...customRates} : {...RATES};
+                                                                newRates[key] = parseFloat(e.target.value) || 0;
+                                                                setCustomRates(newRates);
+                                                            }}
+                                                            className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-bold text-emerald-400 outline-none hover:border-emerald-500/50"
+                                                        />
+                                                    </div>
+                                                );
+                                            })}
+                                            <div className="flex gap-3 pt-2">
+                                                <button
+                                                    onClick={() => {
+                                                        setCustomRates(null);
+                                                        safeLocalStorage.removeItem('worktracker_rates');
+                                                        showToast('✓ Tarifas restauradas a valores por defecto', 'success');
+                                                    }}
+                                                    className="flex-1 px-4 py-3 bg-dark-hover rounded-xl text-xs font-bold text-gray-400 hover:bg-dark-card transition-all"
+                                                >
+                                                    Restaurar
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        if (customRates) {
+                                                            saveCustomRates(customRates);
+                                                            setShowRatesConfig(false);
+                                                        }
+                                                    }}
+                                                    className="flex-1 px-4 py-3 bg-emerald-500 rounded-xl text-xs font-bold text-white hover:bg-emerald-600 transition-all"
+                                                >
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                    
+                                    {!showRatesConfig && (
+                                        <div className="text-xs text-gray-500">
+                                            {customRates ? (
+                                                <p className="flex items-center gap-2">
+                                                    <Check size={14} className="text-emerald-400" />
+                                                    Usando tarifas personalizadas
+                                                </p>
+                                            ) : (
+                                                <p>Usando tarifas por defecto</p>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Reset de Datos */}

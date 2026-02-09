@@ -1,6 +1,6 @@
 {
-  "name": "WorkTracker Pro",
-  "short_name": "WorkTracker",
+  "name": "ControlCheck - Control de Asistencia",
+  "short_name": "ControlCheck",
   "description": "Sistema profesional de seguimiento de nómina y asistencia 2026",
   "start_url": "./index.html",
   "display": "standalone",
