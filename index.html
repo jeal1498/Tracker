@@ -112,7 +112,18 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .stat-card:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+        
         input:focus, select:focus, textarea:focus {
             outline: 2px solid rgba(16, 185, 129, 0.5);
             outline-offset: 2px;
@@ -121,7 +132,16 @@
         button:active {
             transform: scale(0.98);
         }
-
+        
+        .pulse-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         /* Toast Container */
         .toast-container {
             position: fixed;
@@ -301,6 +321,7 @@
         const FileText = (props) => <IconBase {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></IconBase>;
         const Download = (props) => <IconBase {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></IconBase>;
         const Upload = (props) => <IconBase {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></IconBase>;
+        const MoreHorizontal = (props) => <IconBase {...props}><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></IconBase>;
         const Clock = (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>;
         const ChevronLeft = (props) => <IconBase {...props}><path d="m15 18-6-6 6-6"/></IconBase>;
         const ChevronRight = (props) => <IconBase {...props}><path d="m9 18 6-6-6-6"/></IconBase>;
@@ -314,6 +335,7 @@
         const Check = (props) => <IconBase {...props}><polyline points="20 6 9 17 4 12"/></IconBase>;
         const Sparkles = (props) => <IconBase {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></IconBase>;
         const Trash2 = (props) => <IconBase {...props}><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></IconBase>;
+        const RefreshCw = (props) => <IconBase {...props}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></IconBase>;
         const Search = (props) => <IconBase {...props}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></IconBase>;
         const BarChart3 = (props) => <IconBase {...props}><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></IconBase>;
         const Settings = (props) => <IconBase {...props}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></IconBase>;
@@ -321,6 +343,12 @@
         const CheckSquare = (props) => <IconBase {...props}><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></IconBase>;
         const Square = (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></IconBase>;
         const Shield = (props) => <IconBase {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>;
+        
+        const StarFilled = ({ size = 24, className = "" }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+        );
 
         // ============================================
         // CONSTANTES
@@ -349,6 +377,14 @@
             absent: 'bg-rose-500'      
         };
 
+        const STATUS_COLORS_LIGHT = {
+            worked: 'bg-emerald-500/10', 
+            rest: 'bg-blue-500/10',      
+            permit: 'bg-amber-500/10',  
+            holiday: 'bg-purple-500/10', 
+            absent: 'bg-rose-500/10'      
+        };
+
         const STATUS_COLORS_TEXT = {
             worked: 'text-emerald-400', 
             rest: 'text-blue-400',      
@@ -374,14 +410,13 @@
         // Función para obtener saludo según la hora
         const getGreeting = () => {
             const hour = new Date().getHours();
-            const name = "Eduardo";
             
             if (hour >= 6 && hour < 12) {
-                return `Buenos días, ${name}`;
+                return `Buenos días`;
             } else if (hour >= 12 && hour < 19) {
-                return `Buenas tardes, ${name}`;
+                return `Buenas tardes`;
             } else {
-                return `Buenas noches, ${name}`;
+                return `Buenas noches`;
             }
         };
 
@@ -479,6 +514,7 @@
                     startDate: new Date(prevYear, prevMonth, 27),
                     endDate: new Date(year, month, 7),
                     payDay: 14,
+                    payMonth: month,
                     type: 'payroll'
                 });
                 
@@ -487,6 +523,7 @@
                     startDate: new Date(year, month, 8),
                     endDate: new Date(year, month, 26),
                     payDay: 29,
+                    payMonth: month,
                     type: 'payroll'
                 });
             }
@@ -531,7 +568,7 @@
         // ============================================
         // FUNCIONES DE EXPORTACIÓN
         // ============================================
-        const exportToCSV = (records, includeSalary = true, includeCommissions = true, includeExpenses = true, periodLabel = 'Personalizado') => {
+        const exportToCSV = (records, selectedPeriod, includeSalary = true, includeCommissions = true, includeExpenses = true) => {
             try {
                 if (!includeCommissions) {
                     // Si no incluye comisiones, usar formato tradicional
@@ -611,7 +648,7 @@
                 csvLines.push('');
                 csvLines.push('Nombre:,ALVARADO LOPEZ JOSE EDUARDO');
                 csvLines.push('ID:,15724');
-                csvLines.push(`Periodo:,${periodLabel}`);
+                csvLines.push(`Periodo:,${selectedPeriod === 'custom' ? 'Personalizado' : selectedPeriod}`);
                 csvLines.push(`Folios:,${foliosCount}`);
                 csvLines.push(`Total:,$${totalComisiones.toFixed(2)}`);
                 csvLines.push('');
@@ -639,7 +676,7 @@
             }
         };
 
-        const exportToPDF = (records, totals, includeSalary = true, includeCommissions = true, includeExpenses = true, periodLabel = 'Personalizado') => {
+        const exportToPDF = (records, totals, selectedPeriod, includeSalary = true, includeCommissions = true, includeExpenses = true) => {
             try {
                 if (!includeCommissions) {
                     // Formato tradicional para nómina
@@ -726,7 +763,7 @@
                 doc.setFont(undefined, 'bold');
                 doc.text('Periodo:', 20, yPos);
                 doc.setFont(undefined, 'normal');
-                doc.text(periodLabel, 50, yPos);
+                doc.text(selectedPeriod === 'custom' ? 'Personalizado' : selectedPeriod, 50, yPos);
                 
                 // Calcular totales
                 let totalComisiones = 0;
@@ -870,6 +907,31 @@
             const payrollPeriods = useMemo(() => generatePayrollPeriods(2026), []);
             const commissionPeriods = useMemo(() => generateCommissionPeriods(2026), []);
             
+            // Intercalar periodos de nómina y comisión
+            const interleavedPeriods = useMemo(() => {
+                const result = [];
+                const maxLength = Math.max(payrollPeriods.length, commissionPeriods.length);
+                
+                for (let i = 0; i < maxLength; i++) {
+                    if (payrollPeriods[i]) {
+                        result.push({
+                            ...payrollPeriods[i],
+                            type: 'payroll',
+                            icon: '💰'
+                        });
+                    }
+                    if (commissionPeriods[i]) {
+                        result.push({
+                            ...commissionPeriods[i],
+                            type: 'commission',
+                            icon: '⭐'
+                        });
+                    }
+                }
+                
+                return result;
+            }, [payrollPeriods, commissionPeriods]);
+            
             const [viewMode, setViewMode] = useState('calendar');
             const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
             const [currentYear, setCurrentYear] = useState(2026);
@@ -877,11 +939,16 @@
             const [showMonthDropdown, setShowMonthDropdown] = useState(false);
             
             const [toasts, setToasts] = useState([]);
-            const [modalState, setModalState] = useState({ isOpen: false });
+            const [modalState, setModalState] = useState({ isOpen: false, type: null, data: null });
             
             const [theme, setTheme] = useState('green');
             const [selectedRecords, setSelectedRecords] = useState([]);
             const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
+            
+            // Estados para exportación
+            const [exportSalary, setExportSalary] = useState(true);
+            const [exportCommissions, setExportCommissions] = useState(true);
+            const [exportExpenses, setExportExpenses] = useState(true);
             
             // Estado para configuración de tarifas
             const [showRatesConfig, setShowRatesConfig] = useState(false);
@@ -894,8 +961,170 @@
             // Estado para selector de periodo de exportación
             const [showExportPeriodModal, setShowExportPeriodModal] = useState(false);
             const [exportPeriodSelection, setExportPeriodSelection] = useState('all');
-            // Estado para menú desplegable de ControlCheck
-            const [showMenu, setShowMenu] = useState(false);
+            const [pendingExportType, setPendingExportType] = useState(null); // 'pdf' o 'csv'
+            
+            // Estado para mostrar periodos anteriores
+            const [showPastPeriods, setShowPastPeriods] = useState(false);
+            
+            // Estados para filtros rápidos de historial
+            const [filterCommissionsOnly, setFilterCommissionsOnly] = useState(false);
+            const [filterExpensesOnly, setFilterExpensesOnly] = useState(false);
+            
+            // Estado para selector de periodo en dashboard
+            const [showPeriodSelector, setShowPeriodSelector] = useState(false);
+            
+            // Estado para modal de comisiones preconfiguradas
+            const [showCommissionsModal, setShowCommissionsModal] = useState(false);
+            const [selectedUnitType, setSelectedUnitType] = useState('all'); // 'all', 'crafter', 'navigator', 'autobus'
+            
+            // Comisiones preconfiguradas basadas en las tablas oficiales
+            const presetCommissions = {
+                'Desde Aeropuerto Cancún': {
+                    'Playa Mujeres / Costa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'Playa Mujeres / Costa Mujeres (Limosina/Suburban/Navigator)': 120,
+                    'Playa Mujeres / Costa Mujeres (Autobús)': 120,
+                    'Zona Hotelera Cancún (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'Zona Hotelera Cancún (Limosina/Suburban/Navigator)': 100,
+                    'Zona Hotelera Cancún (Autobús)': 100,
+                    'Cancún Centro (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'Cancún Centro (Limosina/Suburban/Navigator)': 100,
+                    'Cancún Centro (Autobús)': 100,
+                    'Puerto Morelos (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'Puerto Morelos (Limosina/Suburban/Navigator)': 100,
+                    'Puerto Morelos (Autobús)': 100,
+                    'Playa del Carmen (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'Playa del Carmen (Limosina/Suburban/Navigator)': 120,
+                    'Playa del Carmen (Autobús)': 120,
+                    'Puerto Aventuras (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Puerto Aventuras (Limosina/Suburban/Navigator)': 140,
+                    'Puerto Aventuras (Autobús)': 140,
+                    'Akumal (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Akumal (Limosina/Suburban/Navigator)': 140,
+                    'Akumal (Autobús)': 140,
+                    'Tulúm (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Tulúm (Limosina/Suburban/Navigator)': 150,
+                    'Tulúm (Autobús)': 150,
+                },
+                'Desde Aeropuerto Tulúm': {
+                    'Tulúm (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'Tulúm (Limosina/Suburban/Navigator)': 120,
+                    'Tulúm (Autobús)': 120,
+                    'Akumal (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Akumal (Limosina/Suburban/Navigator)': 140,
+                    'Akumal (Autobús)': 180,
+                    'Puerto Aventuras (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Puerto Aventuras (Limosina/Suburban/Navigator)': 140,
+                    'Puerto Aventuras (Autobús)': 180,
+                    'Playa del Carmen (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Playa del Carmen (Limosina/Suburban/Navigator)': 160,
+                    'Playa del Carmen (Autobús)': 200,
+                    'Puerto Morelos (Crafter/Sprinter/Transporter/Urvan)': 140,
+                    'Puerto Morelos (Limosina/Suburban/Navigator)': 180,
+                    'Puerto Morelos (Autobús)': 220,
+                    'Cancún Centro (Crafter/Sprinter/Transporter/Urvan)': 160,
+                    'Cancún Centro (Limosina/Suburban/Navigator)': 200,
+                    'Cancún Centro (Autobús)': 240,
+                    'Zona Hotelera Cancún (Crafter/Sprinter/Transporter/Urvan)': 160,
+                    'Zona Hotelera Cancún (Limosina/Suburban/Navigator)': 200,
+                    'Zona Hotelera Cancún (Autobús)': 240,
+                    'Playa Mujeres / Costa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 180,
+                    'Playa Mujeres / Costa Mujeres (Limosina/Suburban/Navigator)': 220,
+                    'Playa Mujeres / Costa Mujeres (Autobús)': 260,
+                },
+                'Punto a Punto': {
+                    // Desde Playa Mujeres / Costa Mujeres
+                    'Playa Mujeres → ZH Cancún / Cancún Centro / Pto. Morelos (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'Playa Mujeres → ZH Cancún / Cancún Centro / Pto. Morelos (Limosina/Suburban/Navigator)': 78,
+                    'Playa Mujeres → Playa Carmen (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Playa Mujeres → Playa Carmen (Limosina/Suburban/Navigator)': 130,
+                    'Playa Mujeres → Pto Aventuras / Akumal (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Playa Mujeres → Pto Aventuras / Akumal (Limosina/Suburban/Navigator)': 156,
+                    'Playa Mujeres → Tulum (Crafter/Sprinter/Transporter/Urvan)': 140,
+                    'Playa Mujeres → Tulum (Limosina/Suburban/Navigator)': 182,
+                    // Desde ZH Cancún / Cancún Centro / Pto. Morelos
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Playa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Playa Mujeres (Limosina/Suburban/Navigator)': 78,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Playa Carmen (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Playa Carmen (Limosina/Suburban/Navigator)': 104,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Pto Aventuras / Akumal (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Pto Aventuras / Akumal (Limosina/Suburban/Navigator)': 130,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Tulum (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'ZH Cancún / Cancún Centro / Pto. Morelos → Tulum (Limosina/Suburban/Navigator)': 156,
+                    // Desde Playa del Carmen
+                    'Playa Carmen → Playa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Playa Carmen → Playa Mujeres (Limosina/Suburban/Navigator)': 130,
+                    'Playa Carmen → ZH Cancún / Cancún Centro / Pto. Morelos (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'Playa Carmen → ZH Cancún / Cancún Centro / Pto. Morelos (Limosina/Suburban/Navigator)': 104,
+                    'Playa Carmen → Pto Aventuras / Akumal (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Playa Carmen → Pto Aventuras / Akumal (Limosina/Suburban/Navigator)': 130,
+                    'Playa Carmen → Tulum (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Playa Carmen → Tulum (Limosina/Suburban/Navigator)': 156,
+                    // Desde Pto. Aventuras / Akumal
+                    'Pto Aventuras / Akumal → Playa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Pto Aventuras / Akumal → Playa Mujeres (Limosina/Suburban/Navigator)': 156,
+                    'Pto Aventuras / Akumal → ZH Cancún / Cancún Centro / Pto. Morelos (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Pto Aventuras / Akumal → ZH Cancún / Cancún Centro / Pto. Morelos (Limosina/Suburban/Navigator)': 130,
+                    'Pto Aventuras / Akumal → Playa Carmen (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Pto Aventuras / Akumal → Playa Carmen (Limosina/Suburban/Navigator)': 130,
+                    'Pto Aventuras / Akumal → Tulum (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Pto Aventuras / Akumal → Tulum (Limosina/Suburban/Navigator)': 130,
+                    // Desde Tulum
+                    'Tulum → Playa Mujeres (Crafter/Sprinter/Transporter/Urvan)': 140,
+                    'Tulum → Playa Mujeres (Limosina/Suburban/Navigator)': 182,
+                    'Tulum → ZH Cancún / Cancún Centro / Pto. Morelos (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Tulum → ZH Cancún / Cancún Centro / Pto. Morelos (Limosina/Suburban/Navigator)': 156,
+                    'Tulum → Playa Carmen (Crafter/Sprinter/Transporter/Urvan)': 120,
+                    'Tulum → Playa Carmen (Limosina/Suburban/Navigator)': 156,
+                    'Tulum → Pto Aventuras / Akumal (Crafter/Sprinter/Transporter/Urvan)': 100,
+                    'Tulum → Pto Aventuras / Akumal (Limosina/Suburban/Navigator)': 130,
+                },
+                'Servicios Especiales': {
+                    'Abierto por Hora (Crafter/Sprinter/Transporter/Urvan)': 50,
+                    'Abierto por Hora (Limosina/Suburban/Navigator)': 65,
+                    'Abierto por Hora (Autobús)': 65,
+                    'Personal Local (Crafter/Sprinter/Transporter/Urvan)': 40,
+                    'Personal Local (Autobús)': 60,
+                    'Personal Playa (Crafter/Sprinter/Transporter/Urvan)': 60,
+                    'Personal Playa (Autobús)': 90,
+                    'Personal Corredor (Crafter/Sprinter/Transporter/Urvan)': 80,
+                    'Personal Corredor (Autobús)': 120,
+                }
+            };
+            
+            // Función para filtrar comisiones por tipo de unidad
+            const getFilteredCommissions = (unitType) => {
+                if (unitType === 'all') return presetCommissions;
+                
+                const filtered = {};
+                
+                Object.entries(presetCommissions).forEach(([category, commissions]) => {
+                    const filteredCommissions = {};
+                    
+                    Object.entries(commissions).forEach(([name, amount]) => {
+                        const nameLower = name.toLowerCase();
+                        
+                        if (unitType === 'crafter') {
+                            if (nameLower.includes('crafter') || nameLower.includes('transporter') || nameLower.includes('sprinter') || nameLower.includes('urvan')) {
+                                filteredCommissions[name] = amount;
+                            }
+                        } else if (unitType === 'navigator') {
+                            if (nameLower.includes('navigator') || nameLower.includes('suburban') || nameLower.includes('limosina')) {
+                                filteredCommissions[name] = amount;
+                            }
+                        } else if (unitType === 'autobus') {
+                            if (nameLower.includes('autobús') || nameLower.includes('bus')) {
+                                filteredCommissions[name] = amount;
+                            }
+                        }
+                    });
+                    
+                    if (Object.keys(filteredCommissions).length > 0) {
+                        filtered[category] = filteredCommissions;
+                    }
+                });
+                
+                return filtered;
+            };
             
             // Estado para modo de tema del sistema
             const [systemThemeMode, setSystemThemeMode] = useState('dark');
@@ -1079,6 +1308,8 @@
             const deleteRecord = (id) => {
                 setModalState({
                     isOpen: true,
+                    type: 'delete',
+                    data: id,
                     title: '¿Eliminar registro?',
                     message: 'Esta acción no se puede deshacer.',
                     confirmText: 'Eliminar',
@@ -1090,9 +1321,28 @@
                 });
             };
 
+            const handleResetData = () => {
+                setModalState({
+                    isOpen: true,
+                    type: 'reset',
+                    title: '⚠️ Restablecer Datos',
+                    message: 'Esto eliminará TODOS los registros permanentemente. Esta acción no se puede deshacer.',
+                    confirmText: 'Eliminar Todo',
+                    confirmColor: 'rose',
+                    onConfirm: () => {
+                        setRecords([]);
+                        safeLocalStorage.removeItem('worktracker_records');
+                        setSelectedRecords([]);
+                        setIsMultiSelectMode(false);
+                        showToast('Todos los datos han sido eliminados', 'info');
+                    }
+                });
+            };
+
             const handleBulkDelete = () => {
                 setModalState({
                     isOpen: true,
+                    type: 'bulkDelete',
                     title: `¿Eliminar ${selectedRecords.length} registros?`,
                     message: 'Esta acción no se puede deshacer.',
                     confirmText: 'Eliminar',
@@ -1353,7 +1603,7 @@
                         confirmColor={modalState.confirmColor}
                     />
 
-                    {/* Header con título y menú desplegable */}
+                    {/* Header simplificado */}
                     <div className="glass-effect sticky top-0 z-40 px-6 py-4 mb-1">
                         <div className="max-w-md mx-auto">
                             <div className="flex items-center gap-3 mb-2">
@@ -1361,13 +1611,7 @@
                                     <Briefcase size={20} className="text-white" />
                                 </div>
                                 <div className="flex-1">
-                                    <button 
-                                        onClick={() => setShowMenu(!showMenu)}
-                                        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                                    >
-                                        <h1 className="text-lg font-black text-white tracking-tight">ControlCheck</h1>
-                                        <ChevronDown size={16} className={`text-emerald-400 transition-transform ${showMenu ? 'rotate-180' : ''}`} />
-                                    </button>
+                                    <h1 className="text-lg font-black text-white tracking-tight">ControlCheck</h1>
                                     <p className="text-[10px] font-semibold text-emerald-400">{getGreeting()}</p>
                                 </div>
                                 <div className="text-right">
@@ -1377,82 +1621,6 @@
                                     </p>
                                 </div>
                             </div>
-                            
-                            {/* Menú desplegable de ControlCheck */}
-                            {showMenu && (
-                                <div className="mt-4 bg-dark-card rounded-2xl p-4 shadow-2xl border border-dark-border animate-slide-down space-y-3">
-                                    <button
-                                        onClick={() => {
-                                            setShowMenu(false);
-                                            setShowSettingsModal(true);
-                                        }}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-dark-hover hover:bg-dark-card transition-all text-left"
-                                    >
-                                        <Palette size={18} className="text-purple-400" />
-                                        <span className="text-sm font-bold text-white">Tema de Color</span>
-                                    </button>
-                                    
-                                    <button
-                                        onClick={() => {
-                                            setShowMenu(false);
-                                            setShowRatesConfig(true);
-                                        }}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-dark-hover hover:bg-dark-card transition-all text-left"
-                                    >
-                                        <Settings size={18} className="text-blue-400" />
-                                        <span className="text-sm font-bold text-white">Configuración de Tarifas</span>
-                                    </button>
-                                    
-                                    <button
-                                        onClick={() => {
-                                            setShowMenu(false);
-                                            setShowExportPeriodModal(true);
-                                        }}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-dark-hover hover:bg-dark-card transition-all text-left"
-                                    >
-                                        <Download size={18} className="text-emerald-400" />
-                                        <span className="text-sm font-bold text-white">Exportar Datos</span>
-                                    </button>
-                                    
-                                    <button
-                                        onClick={() => {
-                                            setShowMenu(false);
-                                            setShowBackupModal(true);
-                                        }}
-                                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-dark-hover hover:bg-dark-card transition-all text-left"
-                                    >
-                                        <Shield size={18} className="text-amber-400" />
-                                        <span className="text-sm font-bold text-white">Respaldo y Restauración</span>
-                                    </button>
-                                    
-                                    <div className="border-t border-dark-border pt-3 mt-3">
-                                        <button
-                                            onClick={() => {
-                                                setModalState({
-                                                    isOpen: true,
-                                                    title: '⚠️ Restablecer Datos',
-                                                    message: 'Esto eliminará TODOS tus registros y configuración. Esta acción NO se puede deshacer.',
-                                                    confirmText: 'Eliminar Todo',
-                                                    confirmColor: 'rose',
-                                                    onConfirm: () => {
-                                                        setRecords([]);
-                                                        safeLocalStorage.removeItem('worktracker_records');
-                                                        setSelectedRecords([]);
-                                                        setIsMultiSelectMode(false);
-                                                        showToast('Todos los datos han sido eliminados', 'info');
-                                                    }
-                                                });
-                                                setShowMenu(false);
-                                            }}
-                                            disabled={records.length === 0}
-                                            className="w-full flex items-center gap-3 p-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 transition-all text-left disabled:opacity-50 disabled:cursor-not-allowed"
-                                        >
-                                            <Trash2 size={18} className="text-rose-400" />
-                                            <span className="text-sm font-bold text-rose-400">Restablecer Datos</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
 
@@ -1468,17 +1636,48 @@
                                     
                                     <div className="relative p-6">
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className="flex items-center gap-2">
+                                            <button 
+                                                onClick={() => setShowPeriodSelector(!showPeriodSelector)}
+                                                className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+                                            >
                                                 <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center backdrop-blur">
                                                     <DollarSign size={18} className="text-white" />
                                                 </div>
-                                                <span className="text-emerald-100 text-xs font-bold uppercase tracking-wider">Periodo Actual</span>
-                                            </div>
+                                                <span className="text-emerald-100 text-xs font-bold uppercase tracking-wider">
+                                                    {selectedPeriod === 'custom' ? 'Periodo Actual' : selectedPeriod}
+                                                </span>
+                                                <ChevronDown size={14} className={`text-emerald-200 transition-transform ${showPeriodSelector ? 'rotate-180' : ''}`} />
+                                            </button>
                                             <div className="flex items-center gap-1.5">
                                                 <TrendingUp size={14} className="text-emerald-200" />
                                                 <span className="text-[10px] font-bold text-emerald-200">{filteredRecords.length} días</span>
                                             </div>
                                         </div>
+                                        
+                                        {/* Selector de periodo desplegable */}
+                                        {showPeriodSelector && (
+                                            <div className="mb-4 bg-white/10 backdrop-blur rounded-xl p-3 border border-white/20 animate-slide-down">
+                                                <select 
+                                                    value={selectedPeriod} 
+                                                    onChange={e => {
+                                                        setSelectedPeriod(e.target.value);
+                                                        setShowPeriodSelector(false);
+                                                        if (e.target.value !== 'custom') {
+                                                            setFilterStartDate('');
+                                                            setFilterEndDate('');
+                                                        }
+                                                    }}
+                                                    className="w-full bg-dark-bg border border-dark-border p-2.5 rounded-lg text-xs font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                >
+                                                    <option value="custom">📅 Periodo Actual (Personalizado)</option>
+                                                    {interleavedPeriods.map((period, idx) => (
+                                                        <option key={`period-${idx}`} value={period.label}>
+                                                            {period.icon} {period.label}{period.type === 'payroll' ? ` • Pago: ${period.payDay}` : ''}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        )}
                                         
                                         <div className="mb-6">
                                             <p className="text-white text-5xl font-black tracking-tight mb-1">
@@ -1772,6 +1971,21 @@
                                             </div>
 
                                             <div>
+                                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Tipo de Unidad</label>
+                                                <select 
+                                                    value={selectedUnitType}
+                                                    onChange={e => setSelectedUnitType(e.target.value)}
+                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                >
+                                                    <option value="all">📋 Todas las unidades</option>
+                                                    <option value="crafter">🚐 Crafter / Sprinter / Transporter / Urvan</option>
+                                                    <option value="navigator">🚙 Limosina / Suburban / Navigator</option>
+                                                    <option value="autobus">🚌 Autobús</option>
+                                                </select>
+                                                <p className="text-[9px] text-gray-500 mt-1.5 font-semibold">Filtra las comisiones preconfiguradas por tipo de vehículo</p>
+                                            </div>
+
+                                            <div>
                                                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 block">Descripción</label>
                                                 <textarea 
                                                     placeholder="Notas adicionales..." 
@@ -1789,9 +2003,22 @@
                                                         <Sparkles size={12} />
                                                         Comisiones
                                                     </label>
-                                                    <button type="button" onClick={addCommission} className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors">
-                                                        <Plus size={14} /> Agregar
-                                                    </button>
+                                                    <div className="flex gap-2">
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => setShowCommissionsModal(true)} 
+                                                            className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+                                                        >
+                                                            <Sparkles size={14} /> Preconfiguradas
+                                                        </button>
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={addCommission} 
+                                                            className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                                                        >
+                                                            <Plus size={14} /> Agregar
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div className="space-y-2">
                                                     {formData.commissions.map((comm, i) => (
@@ -1993,20 +2220,11 @@
                                             className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
                                         >
                                             <option value="custom">📅 Personalizado</option>
-                                            <optgroup label="💰 Nómina">
-                                                {payrollPeriods.map((period, idx) => (
-                                                    <option key={`payroll-${idx}`} value={period.label}>
-                                                        {period.label} • Pago: ${period.payDay}
-                                                    </option>
-                                                ))}
-                                            </optgroup>
-                                            <optgroup label="⭐ Comisiones">
-                                                {commissionPeriods.map((period, idx) => (
-                                                    <option key={`commission-${idx}`} value={period.label}>
-                                                        {period.label}
-                                                    </option>
-                                                ))}
-                                            </optgroup>
+                                            {interleavedPeriods.map((period, idx) => (
+                                                <option key={`period-${idx}`} value={period.label}>
+                                                    {period.icon} {period.label}{period.type === 'payroll' ? ` • Pago: ${period.payDay}` : ''}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
 
@@ -2157,15 +2375,198 @@
                             </div>
                         )}
 
+                        {activeTab === 'more' && (
+                            <div className="space-y-4 animate-fade-in">
+                                <h2 className="text-xl font-black text-white px-1">Más Opciones</h2>
+                                
+                                {/* Tema de Color */}
+                                <button
+                                    onClick={() => setShowSettingsModal(true)}
+                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                                        <Palette size={24} className="text-purple-400" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <h4 className="text-sm font-bold text-white">Tema de Color</h4>
+                                        <p className="text-xs text-gray-500 mt-0.5">Personaliza el tema de la app</p>
+                                    </div>
+                                    <ChevronRight size={20} className="text-gray-500" />
+                                </button>
+                                
+                                {/* Configuración de Tarifas */}
+                                <button
+                                    onClick={() => setShowRatesConfig(true)}
+                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                                        <Settings size={24} className="text-blue-400" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <h4 className="text-sm font-bold text-white">Configuración de Tarifas</h4>
+                                        <p className="text-xs text-gray-500 mt-0.5">Ajusta las tarifas por día</p>
+                                    </div>
+                                    <ChevronRight size={20} className="text-gray-500" />
+                                </button>
+                                
+                                {/* Exportar Datos */}
+                                <button
+                                    onClick={() => setShowExportPeriodModal(true)}
+                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                                        <Download size={24} className="text-emerald-400" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <h4 className="text-sm font-bold text-white">Exportar Datos</h4>
+                                        <p className="text-xs text-gray-500 mt-0.5">Descarga en PDF o CSV</p>
+                                    </div>
+                                    <ChevronRight size={20} className="text-gray-500" />
+                                </button>
+                                
+                                {/* Respaldo y Restauración */}
+                                <button
+                                    onClick={() => setShowBackupModal(true)}
+                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                                        <Shield size={24} className="text-amber-400" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <h4 className="text-sm font-bold text-white">Respaldo y Restauración</h4>
+                                        <p className="text-xs text-gray-500 mt-0.5">Guarda o restaura tus datos</p>
+                                    </div>
+                                    <ChevronRight size={20} className="text-gray-500" />
+                                </button>
+                                
+                                {/* Restablecer Datos */}
+                                <button
+                                    onClick={() => {
+                                        setModalState({
+                                            isOpen: true,
+                                            type: 'reset',
+                                            title: '⚠️ Restablecer Datos',
+                                            message: 'Esto eliminará TODOS tus registros y configuración. Esta acción NO se puede deshacer.',
+                                            confirmText: 'Eliminar Todo',
+                                            confirmColor: 'rose',
+                                            onConfirm: () => {
+                                                setRecords([]);
+                                                safeLocalStorage.removeItem('worktracker_records');
+                                                setSelectedRecords([]);
+                                                setIsMultiSelectMode(false);
+                                                showToast('Todos los datos han sido eliminados', 'info');
+                                            }
+                                        });
+                                    }}
+                                    disabled={records.length === 0}
+                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-rose-500/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center">
+                                        <Trash2 size={24} className="text-rose-400" />
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <h4 className="text-sm font-bold text-rose-400">Restablecer Datos</h4>
+                                        <p className="text-xs text-gray-500 mt-0.5">Elimina todos los registros</p>
+                                    </div>
+                                    <ChevronRight size={20} className="text-gray-500" />
+                                </button>
+                                
+                                {/* Información */}
+                                <div className="glass-effect p-5 rounded-2xl shadow-xl">
+                                    <h4 className="text-sm font-bold mb-3 flex items-center gap-2 text-gray-400">
+                                        <AlertCircle size={16} />
+                                        Información
+                                    </h4>
+                                    <div className="space-y-2 text-xs text-gray-500">
+                                        <p><span className="font-bold text-gray-400">Versión:</span> 3.5</p>
+                                        <p><span className="font-bold text-gray-400">Registros:</span> {records.length}</p>
+                                        <p><span className="font-bold text-gray-400">PWA:</span> Instalable ✓</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                     </main>
 
                     {/* Modales de Configuración */}
+                    
+                    
+                    {/* Modal de Comisiones Preconfiguradas */}
+                    {showCommissionsModal && (
+                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+                             onClick={() => setShowCommissionsModal(false)}>
+                            <div className="glass-effect rounded-3xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto animate-slide-up"
+                                 onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg font-black text-white flex items-center gap-2">
+                                        <Sparkles size={20} className="text-blue-400" />
+                                        Comisiones Preconfiguradas
+                                    </h3>
+                                    <button onClick={() => setShowCommissionsModal(false)} className="text-gray-500 hover:text-white">
+                                        <X size={24} />
+                                    </button>
+                                </div>
+                                
+                                {/* Indicador de filtro activo */}
+                                {selectedUnitType !== 'all' && (
+                                    <div className="mb-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-xl">
+                                        <p className="text-xs text-blue-400 font-semibold flex items-center gap-2">
+                                            <AlertCircle size={14} />
+                                            Mostrando solo comisiones para: {
+                                                selectedUnitType === 'crafter' ? '🚐 Crafter / Sprinter / Transporter / Urvan' :
+                                                selectedUnitType === 'navigator' ? '🚙 Limosina / Suburban / Navigator' :
+                                                '🚌 Autobús'
+                                            }
+                                        </p>
+                                    </div>
+                                )}
+                                
+                                <div className="space-y-4">
+                                    {Object.keys(getFilteredCommissions(selectedUnitType)).length === 0 ? (
+                                        <div className="text-center py-12">
+                                            <Sparkles size={48} className="text-gray-600 mx-auto mb-3" />
+                                            <p className="text-gray-500 text-sm font-semibold">No hay comisiones para este tipo de unidad</p>
+                                            <p className="text-gray-600 text-xs mt-1">Selecciona "Todas las unidades" para ver todas las opciones</p>
+                                        </div>
+                                    ) : (
+                                        Object.entries(getFilteredCommissions(selectedUnitType)).map(([category, commissions]) => (
+                                        <div key={category} className="space-y-2">
+                                            <h4 className="text-sm font-bold text-emerald-400 mb-2">{category}</h4>
+                                            <div className="grid grid-cols-1 gap-2">
+                                                {Object.entries(commissions).map(([name, amount]) => (
+                                                    <button
+                                                        key={name}
+                                                        onClick={() => {
+                                                            const newComm = { name, amount: amount.toString(), folio: '' };
+                                                            setFormData({
+                                                                ...formData,
+                                                                commissions: [...formData.commissions, newComm]
+                                                            });
+                                                            setShowCommissionsModal(false);
+                                                            showToast(`✓ ${name} agregada`, 'success');
+                                                        }}
+                                                        className="text-center p-3 rounded-xl bg-dark-hover hover:bg-dark-card border border-dark-border hover:border-emerald-500/30 transition-all group"
+                                                    >
+                                                        <div className="flex flex-col items-center justify-center gap-1">
+                                                            <span className="text-xs font-semibold text-white group-hover:text-emerald-400 transition-colors">{name}</span>
+                                                            <span className="text-sm font-black text-emerald-400">${amount}</span>
+                                                        </div>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     
                     {/* Modal de Tema de Color */}
                     {showSettingsModal && (
                         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
                              onClick={() => setShowSettingsModal(false)}>
-                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto animate-scale-in"
+                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto animate-slide-up"
                                  onClick={(e) => e.stopPropagation()}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-black text-white flex items-center gap-2">
@@ -2222,7 +2623,7 @@
                     {showRatesConfig && (
                         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
                              onClick={() => setShowRatesConfig(false)}>
-                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto animate-scale-in"
+                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto animate-slide-up"
                                  onClick={(e) => e.stopPropagation()}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-black text-white flex items-center gap-2">
@@ -2284,140 +2685,11 @@
                         </div>
                     )}
                     
-                    {/* Modal de Exportar Datos */}
-                    {showExportPeriodModal && (() => {
-                        const exportRecords = exportPeriodSelection === 'all'
-                            ? records
-                            : records.filter(r => {
-                                const period = [...payrollPeriods, ...commissionPeriods].find(p => p.label === exportPeriodSelection);
-                                if (!period) return true;
-                                const d = new Date(r.date + "T00:00:00");
-                                return d >= period.startDate && d <= period.endDate;
-                            });
-                        const exportPeriodLabel = exportPeriodSelection === 'all' ? 'Todos los registros' : exportPeriodSelection;
-                        const exportTotals = {
-                            total: exportRecords.reduce((s, r) => s + r.baseSalary + r.totalComm - r.totalExp, 0),
-                            commissions: exportRecords.reduce((s, r) => s + r.totalComm, 0),
-                            expenses: exportRecords.reduce((s, r) => s + r.totalExp, 0)
-                        };
-
-                        return (
-                            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
-                                 onClick={() => setShowExportPeriodModal(false)}>
-                                <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto animate-scale-in"
-                                     onClick={(e) => e.stopPropagation()}>
-
-                                    {/* Encabezado */}
-                                    <div className="flex items-center justify-between mb-5">
-                                        <h3 className="text-lg font-black text-white flex items-center gap-2">
-                                            <Download size={20} className="text-emerald-400" />
-                                            Exportar Datos
-                                        </h3>
-                                        <button onClick={() => setShowExportPeriodModal(false)} className="text-gray-500 hover:text-white">
-                                            <X size={24} />
-                                        </button>
-                                    </div>
-
-                                    {/* Selector de periodo */}
-                                    <div className="mb-5">
-                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-2">
-                                            Periodo a exportar
-                                        </label>
-                                        <select
-                                            value={exportPeriodSelection}
-                                            onChange={(e) => setExportPeriodSelection(e.target.value)}
-                                            className="w-full bg-dark-hover border border-dark-border text-white text-sm font-semibold p-3 rounded-xl outline-none hover:border-emerald-500/50 focus:border-emerald-500"
-                                        >
-                                            <option value="all">Todos los registros</option>
-                                            <optgroup label="── Periodos de Nómina ──">
-                                                {payrollPeriods.map((p, i) => (
-                                                    <option key={`pay-${i}`} value={p.label}>{p.label}</option>
-                                                ))}
-                                            </optgroup>
-                                            <optgroup label="── Periodos de Comisiones ──">
-                                                {commissionPeriods.map((p, i) => (
-                                                    <option key={`com-${i}`} value={p.label}>{p.label}</option>
-                                                ))}
-                                            </optgroup>
-                                        </select>
-
-                                        {/* Resumen del periodo */}
-                                        <div className="mt-3 flex items-center justify-between bg-dark-hover rounded-xl px-4 py-2.5">
-                                            <span className="text-xs text-gray-500 font-semibold">Registros encontrados</span>
-                                            <span className={`text-sm font-black ${exportRecords.length > 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                                                {exportRecords.length} días
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Botones de exportación */}
-                                    <div className="space-y-2">
-                                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Formato CSV</p>
-
-                                        <button
-                                            onClick={() => {
-                                                if (exportRecords.length === 0) { showToast('No hay registros en el periodo seleccionado', 'warning'); return; }
-                                                if (exportToCSV(exportRecords, true, false, true, exportPeriodLabel)) {
-                                                    showToast('✓ Nómina exportada como CSV', 'success');
-                                                    setShowExportPeriodModal(false);
-                                                } else { showToast('Error al exportar CSV', 'error'); }
-                                            }}
-                                            className="w-full flex items-center gap-3 px-4 py-3 bg-emerald-500/10 rounded-xl text-sm font-bold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all text-left"
-                                        >
-                                            <FileText size={18} /> Nómina (CSV)
-                                        </button>
-
-                                        <button
-                                            onClick={() => {
-                                                if (exportRecords.length === 0) { showToast('No hay registros en el periodo seleccionado', 'warning'); return; }
-                                                if (exportToCSV(exportRecords, true, true, true, exportPeriodLabel)) {
-                                                    showToast('✓ Comisiones exportadas como CSV', 'success');
-                                                    setShowExportPeriodModal(false);
-                                                } else { showToast('Error al exportar CSV', 'error'); }
-                                            }}
-                                            className="w-full flex items-center gap-3 px-4 py-3 bg-blue-500/10 rounded-xl text-sm font-bold text-blue-400 border border-blue-500/30 hover:bg-blue-500/20 transition-all text-left"
-                                        >
-                                            <FileText size={18} /> Comisiones (CSV)
-                                        </button>
-
-                                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider pt-3 pb-1 border-t border-dark-border mt-3">Formato PDF</p>
-
-                                        <button
-                                            onClick={() => {
-                                                if (exportRecords.length === 0) { showToast('No hay registros en el periodo seleccionado', 'warning'); return; }
-                                                if (exportToPDF(exportRecords, exportTotals, true, false, true, exportPeriodLabel)) {
-                                                    showToast('✓ Nómina exportada como PDF', 'success');
-                                                    setShowExportPeriodModal(false);
-                                                } else { showToast('Error al exportar PDF', 'error'); }
-                                            }}
-                                            className="w-full flex items-center gap-3 px-4 py-3 bg-rose-500/10 rounded-xl text-sm font-bold text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-all text-left"
-                                        >
-                                            <Download size={18} /> Nómina (PDF)
-                                        </button>
-
-                                        <button
-                                            onClick={() => {
-                                                if (exportRecords.length === 0) { showToast('No hay registros en el periodo seleccionado', 'warning'); return; }
-                                                if (exportToPDF(exportRecords, exportTotals, true, true, true, exportPeriodLabel)) {
-                                                    showToast('✓ Comisiones exportadas como PDF', 'success');
-                                                    setShowExportPeriodModal(false);
-                                                } else { showToast('Error al exportar PDF', 'error'); }
-                                            }}
-                                            className="w-full flex items-center gap-3 px-4 py-3 bg-purple-500/10 rounded-xl text-sm font-bold text-purple-400 border border-purple-500/30 hover:bg-purple-500/20 transition-all text-left"
-                                        >
-                                            <Download size={18} /> Comisiones (PDF)
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })()}
-
                     {/* Modal de Respaldo y Restauración */}
                     {showBackupModal && (
                         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
                              onClick={() => setShowBackupModal(false)}>
-                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full animate-scale-in"
+                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full animate-slide-up"
                                  onClick={(e) => e.stopPropagation()}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-black text-white flex items-center gap-2">
@@ -2470,7 +2742,111 @@
                         </div>
                     )}
 
-                    {/* Navegación Inferior - Rediseñada */}
+                    {/* Modal de Exportar Datos */}
+                    {showExportPeriodModal && (
+                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+                             onClick={() => setShowExportPeriodModal(false)}>
+                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full animate-slide-up"
+                                 onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg font-black text-white flex items-center gap-2">
+                                        <Download size={20} className="text-emerald-400" />
+                                        Exportar Datos
+                                    </h3>
+                                    <button onClick={() => setShowExportPeriodModal(false)} className="text-gray-500 hover:text-white">
+                                        <X size={24} />
+                                    </button>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="text-xs font-semibold text-gray-400 mb-2 block">Formato de exportación</label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <button
+                                                onClick={() => {
+                                                    if (filteredRecords.length === 0) {
+                                                        showToast('No hay registros para exportar', 'warning');
+                                                        return;
+                                                    }
+                                                    if (exportToPDF(filteredRecords, totals, selectedPeriod, exportSalary, exportCommissions, exportExpenses)) {
+                                                        showToast('✓ PDF exportado exitosamente', 'success');
+                                                        setShowExportPeriodModal(false);
+                                                    } else {
+                                                        showToast('Error al exportar PDF', 'error');
+                                                    }
+                                                }}
+                                                className="flex flex-col items-center gap-2 p-4 bg-rose-500/20 rounded-xl text-sm font-bold text-rose-400 border border-rose-500/30 hover:bg-rose-500/30 transition-all"
+                                            >
+                                                <FileText size={24} />
+                                                <span>PDF</span>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    if (filteredRecords.length === 0) {
+                                                        showToast('No hay registros para exportar', 'warning');
+                                                        return;
+                                                    }
+                                                    if (exportToCSV(filteredRecords, selectedPeriod, exportSalary, exportCommissions, exportExpenses)) {
+                                                        showToast('✓ CSV exportado exitosamente', 'success');
+                                                        setShowExportPeriodModal(false);
+                                                    } else {
+                                                        showToast('Error al exportar CSV', 'error');
+                                                    }
+                                                }}
+                                                className="flex flex-col items-center gap-2 p-4 bg-emerald-500/20 rounded-xl text-sm font-bold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all"
+                                            >
+                                                <FileText size={24} />
+                                                <span>CSV</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="border-t border-dark-border pt-4">
+                                        <label className="text-xs font-semibold text-gray-400 mb-3 block">¿Qué incluir en la exportación?</label>
+                                        <div className="space-y-2">
+                                            <label className="flex items-center gap-3 p-3 rounded-xl bg-dark-hover cursor-pointer hover:bg-dark-card transition-all">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={exportSalary}
+                                                    onChange={(e) => setExportSalary(e.target.checked)}
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                />
+                                                <span className="text-sm font-semibold text-white">Salarios</span>
+                                            </label>
+                                            <label className="flex items-center gap-3 p-3 rounded-xl bg-dark-hover cursor-pointer hover:bg-dark-card transition-all">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={exportCommissions}
+                                                    onChange={(e) => setExportCommissions(e.target.checked)}
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                />
+                                                <span className="text-sm font-semibold text-white">Comisiones</span>
+                                            </label>
+                                            <label className="flex items-center gap-3 p-3 rounded-xl bg-dark-hover cursor-pointer hover:bg-dark-card transition-all">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={exportExpenses}
+                                                    onChange={(e) => setExportExpenses(e.target.checked)}
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                />
+                                                <span className="text-sm font-semibold text-white">Gastos</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="text-xs text-gray-500 bg-blue-500/10 border border-blue-500/30 rounded-xl p-3">
+                                        <p className="flex items-center gap-2 text-blue-400 font-semibold">
+                                            <AlertCircle size={14} />
+                                            Información
+                                        </p>
+                                        <p className="mt-1">Se exportarán {filteredRecords.length} registro{filteredRecords.length !== 1 ? 's' : ''} del período seleccionado.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Navegación Inferior */}
                     <nav className="fixed bottom-0 left-0 right-0 glass-effect h-20 flex justify-around items-center px-4 z-50 border-t border-dark-border">
                         <button 
                             onClick={() => setActiveTab('dashboard')} 
@@ -2482,27 +2858,13 @@
                            <span className="text-[10px] font-bold uppercase tracking-wider">Resumen</span>
                         </button>
                         
-                        {/* Botón central de acción rápida */}
-                        <button 
-                            onClick={() => {
-                                setActiveTab('calendar');
-                                setViewMode('form');
-                                setEditingId(null);
-                                setFormData(initialFormData);
-                            }} 
-                            className="relative -mt-8"
-                        >
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95">
-                                <Plus size={32} className="text-white" strokeWidth={3} />
-                            </div>
-                            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-emerald-500/30 rounded-full blur-sm"></div>
-                        </button>
-                        
                         <button 
                             onClick={() => {
                                 setActiveTab('history');
                                 setIsMultiSelectMode(false);
                                 setSelectedRecords([]);
+                                setFilterCommissionsOnly(false);
+                                setFilterExpensesOnly(false);
                             }} 
                             className={`flex flex-col items-center gap-1.5 flex-1 transition-all group ${activeTab === 'history' ? 'text-emerald-400' : 'text-gray-600'}`}
                         >
@@ -2511,7 +2873,33 @@
                            </div>
                            <span className="text-[10px] font-bold uppercase tracking-wider">Historial</span>
                         </button>
+                        
+                        <button 
+                            onClick={() => setActiveTab('more')} 
+                            className={`flex flex-col items-center gap-1.5 flex-1 transition-all group ${activeTab === 'more' ? 'text-emerald-400' : 'text-gray-600'}`}
+                        >
+                           <div className={`w-12 h-10 rounded-xl flex items-center justify-center transition-all ${activeTab === 'more' ? 'bg-emerald-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
+                               <MoreHorizontal size={22} />
+                           </div>
+                           <span className="text-[10px] font-bold uppercase tracking-wider">Más</span>
+                        </button>
                     </nav>
+                    
+                    {/* Botón Flotante de Acción Rápida (FAB) */}
+                    <button 
+                        onClick={() => {
+                            setActiveTab('calendar');
+                            setViewMode('form');
+                            setEditingId(null);
+                            setFormData(initialFormData);
+                        }} 
+                        className="fixed bottom-24 right-6 z-[60] group"
+                    >
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group-hover:shadow-emerald-500/50">
+                            <Plus size={32} className="text-white" strokeWidth={3} />
+                        </div>
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-emerald-500/30 rounded-full blur-sm"></div>
+                    </button>
                 </div>
             );
         };
