@@ -20,6 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -343,6 +344,7 @@
         const CheckSquare = (props) => <IconBase {...props}><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></IconBase>;
         const Square = (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></IconBase>;
         const Shield = (props) => <IconBase {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>;
+        const User = (props) => <IconBase {...props}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconBase>;
         
         const StarFilled = ({ size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -945,6 +947,11 @@
             const [selectedRecords, setSelectedRecords] = useState([]);
             const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
             
+            // Estados para perfil de usuario
+            const [userName, setUserName] = useState(() => safeLocalStorage.getItem('worktracker_userName') || '');
+            const [employeeId, setEmployeeId] = useState(() => safeLocalStorage.getItem('worktracker_employeeId') || '');
+            const [showUserProfile, setShowUserProfile] = useState(false);
+            
             // Estados para exportación
             const [exportSalary, setExportSalary] = useState(true);
             const [exportCommissions, setExportCommissions] = useState(true);
@@ -973,9 +980,15 @@
             // Estado para selector de periodo en dashboard
             const [showPeriodSelector, setShowPeriodSelector] = useState(false);
             
-            // Estado para modal de comisiones preconfiguradas
+            // Estado para modal de comisiones preconfiguradas con QR
             const [showCommissionsModal, setShowCommissionsModal] = useState(false);
+            const [showQRModal, setShowQRModal] = useState(false); // Nuevo modal de QR
             const [selectedUnitType, setSelectedUnitType] = useState('all'); // 'all', 'crafter', 'navigator', 'autobus'
+            const [selectedCategory, setSelectedCategory] = useState('Desde Aeropuerto Cancún'); // Categoría seleccionada
+            const [selectedQRCategory, setSelectedQRCategory] = useState('Desde Aeropuerto Cancún'); // Categoría para el modal QR
+            const [selectedQRUnitType, setSelectedQRUnitType] = useState('crafter'); // Tipo de unidad para el modal QR
+            const [qrImage, setQRImage] = useState(safeLocalStorage.getItem('worktracker_qrImage') || ''); // Imagen del código QR
+            const qrCodeRef = React.useRef(null);
             
             // Comisiones preconfiguradas basadas en las tablas oficiales
             const presetCommissions = {
@@ -1126,6 +1139,64 @@
                 return filtered;
             };
             
+            // Función para filtrar comisiones por categoría Y tipo de unidad (para el modal de QR)
+            const getFilteredCommissionsByCategory = (category, unitType) => {
+                if (!presetCommissions[category]) return {};
+                
+                const commissions = presetCommissions[category];
+                
+                if (unitType === 'all') return commissions;
+                
+                const filtered = {};
+                
+                Object.entries(commissions).forEach(([name, amount]) => {
+                    const nameLower = name.toLowerCase();
+                    
+                    if (unitType === 'crafter') {
+                        if (nameLower.includes('crafter') || nameLower.includes('transporter') || nameLower.includes('sprinter') || nameLower.includes('urvan')) {
+                            filtered[name] = amount;
+                        }
+                    } else if (unitType === 'navigator') {
+                        if (nameLower.includes('navigator') || nameLower.includes('suburban') || nameLower.includes('limosina')) {
+                            filtered[name] = amount;
+                        }
+                    } else if (unitType === 'autobus') {
+                        if (nameLower.includes('autobús') || nameLower.includes('bus')) {
+                            filtered[name] = amount;
+                        }
+                    }
+                });
+                
+                return filtered;
+            };
+            
+            // Efecto para generar el código QR cuando se abre el modal - DESHABILITADO: Ahora se usa imagen subida por el usuario
+            /*
+            useEffect(() => {
+                if (showQRModal && qrCodeRef.current) {
+                    // Limpiar QR anterior
+                    qrCodeRef.current.innerHTML = '';
+                    
+                    // Generar nuevo QR
+                    const qrData = `ControlCheck - Comisiones\nCategoría: ${selectedCategory}\nTipo de Unidad: ${
+                        selectedUnitType === 'all' ? 'Todas' :
+                        selectedUnitType === 'crafter' ? 'Crafter/Sprinter/Transporter/Urvan' :
+                        selectedUnitType === 'navigator' ? 'Limosina/Suburban/Navigator' :
+                        'Autobús'
+                    }`;
+                    
+                    new QRCode(qrCodeRef.current, {
+                        text: qrData,
+                        width: 200,
+                        height: 200,
+                        colorDark: '#10b981',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                }
+            }, [showQRModal, selectedCategory, selectedUnitType]);
+            */
+            
             // Estado para modo de tema del sistema
             const [systemThemeMode, setSystemThemeMode] = useState('dark');
 
@@ -1226,6 +1297,35 @@
                 setCustomRates(newRates);
                 safeLocalStorage.setItem('worktracker_rates', JSON.stringify(newRates));
                 showToast('✓ Tarifas actualizadas correctamente', 'success');
+            };
+
+            // Manejar carga de imagen QR
+            const handleQRImageUpload = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    // Verificar que sea una imagen
+                    if (!file.type.startsWith('image/')) {
+                        showToast('Por favor selecciona una imagen', 'error');
+                        return;
+                    }
+                    
+                    // Leer la imagen como base64
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64String = reader.result;
+                        setQRImage(base64String);
+                        safeLocalStorage.setItem('worktracker_qrImage', base64String);
+                        showToast('✓ Código QR guardado', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // Eliminar imagen QR
+            const removeQRImage = () => {
+                setQRImage('');
+                safeLocalStorage.removeItem('worktracker_qrImage');
+                showToast('Código QR eliminado', 'info');
             };
 
             // Funciones de formulario
@@ -1614,12 +1714,12 @@
                                     <h1 className="text-lg font-black text-white tracking-tight">ControlCheck</h1>
                                     <p className="text-[10px] font-semibold text-emerald-400">{getGreeting()}</p>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Total</p>
-                                    <p className="text-lg font-black text-emerald-400">
-                                        ${totals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                    </p>
-                                </div>
+                                <button 
+                                    onClick={() => setShowUserProfile(true)}
+                                    className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95"
+                                >
+                                    <User size={22} className="text-white" />
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1752,6 +1852,116 @@
                                                 </div>
                                             );
                                         })}
+                                    </div>
+                                </div>
+
+                                {/* Calendario del Mes */}
+                                <div className="glass-effect rounded-2xl p-4 shadow-xl">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <button 
+                                            onClick={() => navigateMonth(-1)}
+                                            className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-hover hover:bg-dark-card transition-all"
+                                        >
+                                            <ChevronLeft size={20} className="text-gray-400" />
+                                        </button>
+                                        
+                                        <div className="relative">
+                                            <button 
+                                                onClick={() => setShowMonthDropdown(!showMonthDropdown)}
+                                                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-dark-hover hover:bg-dark-card transition-all"
+                                            >
+                                                <span className="text-sm font-black text-white">
+                                                    {MONTH_NAMES_FULL[currentMonth]} {currentYear}
+                                                </span>
+                                                <ChevronDown size={16} className="text-gray-400" />
+                                            </button>
+                                            
+                                            {showMonthDropdown && (
+                                                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 glass-effect rounded-xl p-2 shadow-2xl z-50 dropdown-menu w-48">
+                                                    {MONTH_NAMES_FULL.map((month, idx) => (
+                                                        <button
+                                                            key={idx}
+                                                            onClick={() => selectMonth(idx)}
+                                                            className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all ${
+                                                                idx === currentMonth 
+                                                                    ? 'bg-emerald-500 text-white' 
+                                                                    : 'text-gray-400 hover:bg-dark-hover'
+                                                            }`}
+                                                        >
+                                                            {month}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        
+                                        <button 
+                                            onClick={() => navigateMonth(1)}
+                                            className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-hover hover:bg-dark-card transition-all"
+                                        >
+                                            <ChevronRight size={20} className="text-gray-400" />
+                                        </button>
+                                    </div>
+
+                                    {/* Días de la semana */}
+                                    <div className="calendar-grid mb-2">
+                                        {DAY_NAMES.map(day => (
+                                            <div key={day} className="text-center text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                                                {day}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Grid de días del mes */}
+                                    <div className="calendar-grid">
+                                        {calendarDays.map((day, idx) => {
+                                            if (!day) return <div key={idx} className="aspect-square"></div>;
+                                            
+                                            const record = getRecordForDate(day);
+                                            const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                            const holiday = HOLIDAYS_2026.find(h => h.date === dateStr);
+                                            const isToday = new Date().getDate() === day && new Date().getMonth() === currentMonth && new Date().getFullYear() === currentYear;
+                                            
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => handleDayClick(day)}
+                                                    title={holiday ? holiday.name : ''}
+                                                    className={`aspect-square rounded-lg p-1.5 flex flex-col items-center justify-center text-xs font-bold transition-all relative group ${
+                                                        record 
+                                                            ? `${STATUS_COLORS[record.status]} text-white shadow-lg hover:scale-105` 
+                                                            : holiday
+                                                                ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 hover:bg-purple-500/30'
+                                                                : 'bg-dark-card hover:bg-dark-hover text-gray-400 border border-dark-border hover:border-emerald-500/30'
+                                                    } ${isToday ? 'ring-2 ring-emerald-400 ring-offset-2 ring-offset-dark-bg' : ''}`}
+                                                >
+                                                    <span className="text-sm font-black">{day}</span>
+                                                    {record && (
+                                                        <span className="text-[8px] opacity-90 font-bold mt-0.5">
+                                                            ${(record.baseSalary + record.totalComm - record.totalExp).toFixed(0)}
+                                                        </span>
+                                                    )}
+                                                    {holiday && !record && (
+                                                        <span className="text-[7px] opacity-75 font-semibold mt-0.5 text-center leading-tight">
+                                                            {holiday.name.split(' ').slice(0, 2).join(' ')}
+                                                        </span>
+                                                    )}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* Leyenda */}
+                                <div className="glass-effect p-4 rounded-xl">
+                                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-3">Leyenda</p>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {Object.entries(STATUS_LABELS).map(([key, label]) => (
+                                            <div key={key} className="flex items-center gap-2">
+                                                <div className={`w-3 h-3 rounded ${STATUS_COLORS[key]}`}></div>
+                                                <span className="text-xs font-semibold text-gray-400">{label}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -2375,118 +2585,201 @@
                             </div>
                         )}
 
-                        {activeTab === 'more' && (
-                            <div className="space-y-4 animate-fade-in">
-                                <h2 className="text-xl font-black text-white px-1">Más Opciones</h2>
+
+                    </main>
+
+                    {/* Modal de Perfil de Usuario */}
+                    {showUserProfile && (
+                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+                             onClick={() => setShowUserProfile(false)}>
+                            <div className="glass-effect rounded-3xl p-6 max-w-md w-full max-h-[85vh] overflow-y-auto animate-slide-up"
+                                 onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg font-black text-white flex items-center gap-2">
+                                        <User size={20} className="text-emerald-400" />
+                                        Perfil
+                                    </h3>
+                                    <button onClick={() => setShowUserProfile(false)} className="text-gray-500 hover:text-white">
+                                        <X size={24} />
+                                    </button>
+                                </div>
                                 
-                                {/* Tema de Color */}
-                                <button
-                                    onClick={() => setShowSettingsModal(true)}
-                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                                        <Palette size={24} className="text-purple-400" />
+                                {/* Información del Usuario */}
+                                <div className="space-y-4 mb-6">
+                                    <div>
+                                        <label className="text-xs font-semibold text-gray-400 mb-2 block">Nombre Completo</label>
+                                        <input
+                                            type="text"
+                                            value={userName}
+                                            onChange={(e) => {
+                                                setUserName(e.target.value);
+                                                safeLocalStorage.setItem('worktracker_userName', e.target.value);
+                                            }}
+                                            placeholder="Ingresa tu nombre completo"
+                                            className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-600 hover:border-emerald-500/50"
+                                        />
                                     </div>
-                                    <div className="flex-1 text-left">
-                                        <h4 className="text-sm font-bold text-white">Tema de Color</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">Personaliza el tema de la app</p>
+                                    
+                                    <div>
+                                        <label className="text-xs font-semibold text-gray-400 mb-2 block">Número de Empleado</label>
+                                        <input
+                                            type="text"
+                                            value={employeeId}
+                                            onChange={(e) => {
+                                                setEmployeeId(e.target.value);
+                                                safeLocalStorage.setItem('worktracker_employeeId', e.target.value);
+                                            }}
+                                            placeholder="Ej: 15724"
+                                            className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-600 hover:border-emerald-500/50"
+                                        />
                                     </div>
-                                    <ChevronRight size={20} className="text-gray-500" />
-                                </button>
+                                </div>
                                 
-                                {/* Configuración de Tarifas */}
-                                <button
-                                    onClick={() => setShowRatesConfig(true)}
-                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                                        <Settings size={24} className="text-blue-400" />
-                                    </div>
-                                    <div className="flex-1 text-left">
-                                        <h4 className="text-sm font-bold text-white">Configuración de Tarifas</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">Ajusta las tarifas por día</p>
-                                    </div>
-                                    <ChevronRight size={20} className="text-gray-500" />
-                                </button>
-                                
-                                {/* Exportar Datos */}
-                                <button
-                                    onClick={() => setShowExportPeriodModal(true)}
-                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                        <Download size={24} className="text-emerald-400" />
-                                    </div>
-                                    <div className="flex-1 text-left">
-                                        <h4 className="text-sm font-bold text-white">Exportar Datos</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">Descarga en PDF o CSV</p>
-                                    </div>
-                                    <ChevronRight size={20} className="text-gray-500" />
-                                </button>
-                                
-                                {/* Respaldo y Restauración */}
-                                <button
-                                    onClick={() => setShowBackupModal(true)}
-                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-dark-hover transition-all"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                                        <Shield size={24} className="text-amber-400" />
-                                    </div>
-                                    <div className="flex-1 text-left">
-                                        <h4 className="text-sm font-bold text-white">Respaldo y Restauración</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">Guarda o restaura tus datos</p>
-                                    </div>
-                                    <ChevronRight size={20} className="text-gray-500" />
-                                </button>
-                                
-                                {/* Restablecer Datos */}
-                                <button
-                                    onClick={() => {
-                                        setModalState({
-                                            isOpen: true,
-                                            type: 'reset',
-                                            title: '⚠️ Restablecer Datos',
-                                            message: 'Esto eliminará TODOS tus registros y configuración. Esta acción NO se puede deshacer.',
-                                            confirmText: 'Eliminar Todo',
-                                            confirmColor: 'rose',
-                                            onConfirm: () => {
-                                                setRecords([]);
-                                                safeLocalStorage.removeItem('worktracker_records');
-                                                setSelectedRecords([]);
-                                                setIsMultiSelectMode(false);
-                                                showToast('Todos los datos han sido eliminados', 'info');
-                                            }
-                                        });
-                                    }}
-                                    disabled={records.length === 0}
-                                    className="w-full glass-effect p-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-rose-500/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    <div className="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center">
-                                        <Trash2 size={24} className="text-rose-400" />
-                                    </div>
-                                    <div className="flex-1 text-left">
-                                        <h4 className="text-sm font-bold text-rose-400">Restablecer Datos</h4>
-                                        <p className="text-xs text-gray-500 mt-0.5">Elimina todos los registros</p>
-                                    </div>
-                                    <ChevronRight size={20} className="text-gray-500" />
-                                </button>
-                                
-                                {/* Información */}
-                                <div className="glass-effect p-5 rounded-2xl shadow-xl">
-                                    <h4 className="text-sm font-bold mb-3 flex items-center gap-2 text-gray-400">
-                                        <AlertCircle size={16} />
-                                        Información
-                                    </h4>
-                                    <div className="space-y-2 text-xs text-gray-500">
-                                        <p><span className="font-bold text-gray-400">Versión:</span> 3.5</p>
-                                        <p><span className="font-bold text-gray-400">Registros:</span> {records.length}</p>
-                                        <p><span className="font-bold text-gray-400">PWA:</span> Instalable ✓</p>
+                                <div className="border-t border-dark-border pt-4 space-y-3">
+                                    {/* Código QR y Comisiones */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setShowQRModal(true);
+                                        }}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                            </svg>
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-white">Código QR y Comisiones</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">Gestiona tu QR y asigna comisiones</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Tema de Color */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setShowSettingsModal(true);
+                                        }}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                                            <Palette size={20} className="text-purple-400" />
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-white">Tema de Color</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">Personaliza la app</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Configuración de Tarifas */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setShowRatesConfig(true);
+                                        }}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                            <Settings size={20} className="text-blue-400" />
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-white">Tarifas</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">Ajusta las tarifas</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Exportar Datos */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setShowExportPeriodModal(true);
+                                        }}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                                            <Download size={20} className="text-emerald-400" />
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-white">Exportar</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">PDF o CSV</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Respaldo y Restauración */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setShowBackupModal(true);
+                                        }}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                                            <Shield size={20} className="text-amber-400" />
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-white">Respaldo</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">Guarda tus datos</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Restablecer Datos */}
+                                    <button
+                                        onClick={() => {
+                                            setShowUserProfile(false);
+                                            setModalState({
+                                                isOpen: true,
+                                                type: 'reset',
+                                                title: '⚠️ Restablecer Datos',
+                                                message: 'Esto eliminará TODOS tus registros y configuración. Esta acción NO se puede deshacer.',
+                                                confirmText: 'Eliminar Todo',
+                                                confirmColor: 'rose',
+                                                onConfirm: () => {
+                                                    setRecords([]);
+                                                    safeLocalStorage.removeItem('worktracker_records');
+                                                    setSelectedRecords([]);
+                                                    setIsMultiSelectMode(false);
+                                                    showToast('Todos los datos han sido eliminados', 'info');
+                                                }
+                                            });
+                                        }}
+                                        disabled={records.length === 0}
+                                        className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-rose-500/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-rose-500/20 flex items-center justify-center">
+                                            <Trash2 size={20} className="text-rose-400" />
+                                        </div>
+                                        <div className="flex-1 text-left">
+                                            <h4 className="text-sm font-bold text-rose-400">Restablecer</h4>
+                                            <p className="text-[10px] text-gray-500 mt-0.5">Eliminar todo</p>
+                                        </div>
+                                        <ChevronRight size={18} className="text-gray-500" />
+                                    </button>
+                                    
+                                    {/* Información */}
+                                    <div className="glass-effect p-4 rounded-xl mt-4">
+                                        <h4 className="text-xs font-bold mb-2 flex items-center gap-2 text-gray-400">
+                                            <AlertCircle size={14} />
+                                            Información
+                                        </h4>
+                                        <div className="space-y-1 text-[10px] text-gray-500">
+                                            <p><span className="font-bold text-gray-400">Versión:</span> 3.5</p>
+                                            <p><span className="font-bold text-gray-400">Registros:</span> {records.length}</p>
+                                            <p><span className="font-bold text-gray-400">PWA:</span> Instalable ✓</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        )}
+                        </div>
+                    )}
 
-                    </main>
+
+                    {/* Modal de QR y Gestión de Imagen - Solo desde Usuario */}
 
                     {/* Modales de Configuración */}
                     
@@ -2530,32 +2823,293 @@
                                         </div>
                                     ) : (
                                         Object.entries(getFilteredCommissions(selectedUnitType)).map(([category, commissions]) => (
-                                        <div key={category} className="space-y-2">
-                                            <h4 className="text-sm font-bold text-emerald-400 mb-2">{category}</h4>
-                                            <div className="grid grid-cols-1 gap-2">
-                                                {Object.entries(commissions).map(([name, amount]) => (
-                                                    <button
-                                                        key={name}
-                                                        onClick={() => {
-                                                            const newComm = { name, amount: amount.toString(), folio: '' };
-                                                            setFormData({
-                                                                ...formData,
-                                                                commissions: [...formData.commissions, newComm]
-                                                            });
-                                                            setShowCommissionsModal(false);
-                                                            showToast(`✓ ${name} agregada`, 'success');
-                                                        }}
-                                                        className="text-center p-3 rounded-xl bg-dark-hover hover:bg-dark-card border border-dark-border hover:border-emerald-500/30 transition-all group"
-                                                    >
-                                                        <div className="flex flex-col items-center justify-center gap-1">
-                                                            <span className="text-xs font-semibold text-white group-hover:text-emerald-400 transition-colors">{name}</span>
-                                                            <span className="text-sm font-black text-emerald-400">${amount}</span>
-                                                        </div>
-                                                    </button>
-                                                ))}
+                                        <div key={category} className="space-y-3">
+                                            <h4 className="text-sm font-bold text-emerald-400 mb-3">{category}</h4>
+                                            <div className="space-y-2">
+                                                {Object.entries(commissions).map(([name, amount]) => {
+                                                    // Separar el nombre del destino y el tipo de vehículo
+                                                    const parts = name.match(/^(.+?)\s*\((.+?)\)$/);
+                                                    const destination = parts ? parts[1].trim() : name;
+                                                    const vehicleType = parts ? parts[2].trim() : '';
+                                                    
+                                                    return (
+                                                        <button
+                                                            key={name}
+                                                            onClick={() => {
+                                                                const newComm = { name, amount: amount.toString(), folio: '' };
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    commissions: [...formData.commissions, newComm]
+                                                                });
+                                                                setShowCommissionsModal(false);
+                                                                showToast(`✓ ${name} agregada`, 'success');
+                                                            }}
+                                                            className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-emerald-500/50 transition-all group"
+                                                        >
+                                                            <div className="flex items-center justify-between">
+                                                                <div className="text-left flex-1">
+                                                                    <p className="text-base font-black text-white group-hover:text-emerald-400 transition-colors mb-1">
+                                                                        {destination}
+                                                                    </p>
+                                                                    {vehicleType && (
+                                                                        <p className="text-xs font-semibold text-gray-500">
+                                                                            ({vehicleType})
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                                <div className="text-right ml-4">
+                                                                    <p className="text-3xl font-black text-emerald-400">
+                                                                        ${amount}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     ))
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {/* Modal de QR con Comisiones */}
+                    {showQRModal && (
+                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+                             onClick={() => setShowQRModal(false)}>
+                            <div className="glass-effect rounded-3xl p-6 max-w-2xl w-full max-h-[85vh] overflow-y-auto animate-slide-up"
+                                 onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-lg font-black text-white flex items-center gap-2">
+                                        <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                        </svg>
+                                        Comisiones con QR
+                                    </h3>
+                                    <button onClick={() => setShowQRModal(false)} className="text-gray-500 hover:text-white">
+                                        <X size={24} />
+                                    </button>
+                                </div>
+                                
+                                {/* Área de Código QR */}
+                                <div className="mb-6">
+                                    {!qrImage ? (
+                                        <div 
+                                            onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                                            className="border-2 border-dashed border-dark-border rounded-2xl p-12 text-center cursor-pointer hover:border-emerald-500/50 hover:bg-dark-hover/50 transition-all"
+                                        >
+                                            <div className="flex flex-col items-center gap-3">
+                                                <svg className="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                                                </svg>
+                                                <div>
+                                                    <p className="text-lg font-bold text-white mb-1">Sube tu QR</p>
+                                                    <p className="text-xs text-gray-500">Haz clic para seleccionar una imagen</p>
+                                                </div>
+                                            </div>
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleQRImageUpload}
+                                                className="hidden"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="relative">
+                                            <div className="flex justify-center mb-4">
+                                                <div 
+                                                    onClick={() => {
+                                                        // Crear modal de ampliación
+                                                        const fullscreenModal = document.createElement('div');
+                                                        fullscreenModal.className = 'fixed inset-0 bg-black/95 backdrop-blur-md z-[100] flex items-center justify-center p-4 animate-fade-in';
+                                                        fullscreenModal.onclick = () => fullscreenModal.remove();
+                                                        
+                                                        const container = document.createElement('div');
+                                                        container.className = 'relative max-w-4xl w-full';
+                                                        container.onclick = (e) => e.stopPropagation();
+                                                        
+                                                        const img = document.createElement('img');
+                                                        img.src = qrImage;
+                                                        img.alt = 'Código QR Ampliado';
+                                                        img.className = 'w-full h-auto rounded-2xl shadow-2xl';
+                                                        
+                                                        const closeBtn = document.createElement('button');
+                                                        closeBtn.className = 'absolute -top-4 -right-4 w-12 h-12 rounded-full bg-white text-gray-900 flex items-center justify-center hover:bg-gray-200 transition-all shadow-xl';
+                                                        closeBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
+                                                        closeBtn.onclick = () => fullscreenModal.remove();
+                                                        
+                                                        const hint = document.createElement('div');
+                                                        hint.className = 'absolute -bottom-12 left-1/2 -translate-x-1/2 text-white text-sm font-semibold bg-black/50 px-4 py-2 rounded-full';
+                                                        hint.textContent = '📱 Toca para cerrar';
+                                                        
+                                                        container.appendChild(img);
+                                                        container.appendChild(closeBtn);
+                                                        container.appendChild(hint);
+                                                        fullscreenModal.appendChild(container);
+                                                        document.body.appendChild(fullscreenModal);
+                                                    }}
+                                                    className="bg-white p-4 rounded-2xl shadow-2xl cursor-pointer hover:scale-105 transition-transform group relative"
+                                                >
+                                                    <img src={qrImage} alt="Código QR" className="w-48 h-48 object-contain" />
+                                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-2xl transition-all flex items-center justify-center">
+                                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                                                            🔍 Ampliar
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-2 justify-center">
+                                                <button
+                                                    onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                                                    className="px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg text-sm font-bold text-blue-400 hover:bg-blue-500/30 transition-all flex items-center gap-2"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                    Editar QR
+                                                </button>
+                                                <button
+                                                    onClick={removeQRImage}
+                                                    className="px-4 py-2 bg-rose-500/20 border border-rose-500/30 rounded-lg text-sm font-bold text-rose-400 hover:bg-rose-500/30 transition-all flex items-center gap-2"
+                                                >
+                                                    <X size={16} />
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleQRImageUpload}
+                                                className="hidden"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                                
+                                {/* Mensaje informativo sobre el QR */}
+                                {qrImage && (
+                                    <div className="mb-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+                                        <p className="text-xs text-blue-400 font-semibold text-center flex items-center justify-center gap-2">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Haz clic en el QR para verlo en tamaño completo
+                                        </p>
+                                    </div>
+                                )}
+                                
+                                {/* Leyenda */}
+                                <div className="text-center mb-6">
+                                    <h4 className="text-2xl font-black text-white mb-2">
+                                        ¿A dónde vamos? 🤑🫰🏽
+                                    </h4>
+                                </div>
+                                
+                                {/* Selector de Tipo de Unidad */}
+                                <div className="mb-4">
+                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Tipo de Unidad</label>
+                                    <select 
+                                        value={selectedUnitType}
+                                        onChange={(e) => setSelectedUnitType(e.target.value)}
+                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50 transition-all"
+                                    >
+                                        <option value="all">📋 Todas las unidades</option>
+                                        <option value="crafter">🚐 Crafter / Sprinter / Transporter / Urvan</option>
+                                        <option value="navigator">🚙 Limosina / Suburban / Navigator</option>
+                                        <option value="autobus">🚌 Autobús</option>
+                                    </select>
+                                </div>
+                                
+                                {/* Botones tipo Chip de Categorías */}
+                                <div className="mb-6">
+                                    <div className="flex flex-wrap gap-2 justify-center">
+                                        <button
+                                            onClick={() => setSelectedCategory('Desde Aeropuerto Cancún')}
+                                            className={`px-6 py-3 rounded-full text-sm font-bold transition-all ${
+                                                selectedCategory === 'Desde Aeropuerto Cancún'
+                                                    ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg scale-105'
+                                                    : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:bg-dark-card hover:border-emerald-500/50'
+                                            }`}
+                                        >
+                                            APTO CANCUN
+                                        </button>
+                                        <button
+                                            onClick={() => setSelectedCategory('Punto a Punto')}
+                                            className={`px-6 py-3 rounded-full text-sm font-bold transition-all ${
+                                                selectedCategory === 'Punto a Punto'
+                                                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg scale-105'
+                                                    : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:bg-dark-card hover:border-blue-500/50'
+                                            }`}
+                                        >
+                                            Punto a Punto
+                                        </button>
+                                        <button
+                                            onClick={() => setSelectedCategory('Desde Aeropuerto Tulúm')}
+                                            className={`px-6 py-3 rounded-full text-sm font-bold transition-all ${
+                                                selectedCategory === 'Desde Aeropuerto Tulúm'
+                                                    ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg scale-105'
+                                                    : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:bg-dark-card hover:border-purple-500/50'
+                                            }`}
+                                        >
+                                            APTO TULUM
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                {/* Lista de Comisiones Filtradas */}
+                                <div className="space-y-2">
+                                    <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Comisiones Disponibles</h4>
+                                    {Object.entries(getFilteredCommissionsByCategory(selectedCategory, selectedUnitType)).length === 0 ? (
+                                        <div className="text-center py-12">
+                                            <Sparkles size={48} className="text-gray-600 mx-auto mb-3" />
+                                            <p className="text-gray-500 text-sm font-semibold">No hay comisiones disponibles</p>
+                                            <p className="text-gray-600 text-xs mt-1">Selecciona otro tipo de unidad o categoría</p>
+                                        </div>
+                                    ) : (
+                                        Object.entries(getFilteredCommissionsByCategory(selectedCategory, selectedUnitType)).map(([name, amount]) => {
+                                            // Separar el nombre del destino y el tipo de vehículo
+                                            const parts = name.match(/^(.+?)\s*\((.+?)\)$/);
+                                            const destination = parts ? parts[1].trim() : name;
+                                            const vehicleType = parts ? parts[2].trim() : '';
+                                            
+                                            return (
+                                                <button
+                                                    key={name}
+                                                    onClick={() => {
+                                                        const newComm = { name, amount: amount.toString(), folio: '' };
+                                                        setFormData({
+                                                            ...formData,
+                                                            commissions: [...formData.commissions, newComm]
+                                                        });
+                                                        setShowQRModal(false);
+                                                        showToast(`✓ ${name} agregada`, 'success');
+                                                    }}
+                                                    className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-emerald-500/50 transition-all group"
+                                                >
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="text-left flex-1">
+                                                            <p className="text-base font-black text-white group-hover:text-emerald-400 transition-colors mb-1">
+                                                                {destination}
+                                                            </p>
+                                                            {vehicleType && (
+                                                                <p className="text-xs font-semibold text-gray-500">
+                                                                    ({vehicleType})
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                        <div className="text-right ml-4">
+                                                            <p className="text-3xl font-black text-emerald-400">
+                                                                ${amount}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            );
+                                        })
                                     )}
                                 </div>
                             </div>
@@ -2846,6 +3400,20 @@
                         </div>
                     )}
 
+                    {/* Botón Flotante de QR */}
+                    <button
+                        onClick={() => setShowQRModal(true)}
+                        className="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-amber-600 shadow-2xl flex items-center justify-center hover:scale-110 transition-all active:scale-95 z-50 group"
+                        aria-label="Abrir Código QR y Comisiones"
+                    >
+                        <svg className="w-7 h-7 text-white group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                        </svg>
+                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-dark-bg flex items-center justify-center">
+                            <Sparkles size={12} className="text-white" />
+                        </div>
+                    </button>
+
                     {/* Navegación Inferior */}
                     <nav className="fixed bottom-0 left-0 right-0 glass-effect h-20 flex justify-around items-center px-4 z-50 border-t border-dark-border">
                         <button 
@@ -2857,6 +3425,23 @@
                            </div>
                            <span className="text-[10px] font-bold uppercase tracking-wider">Resumen</span>
                         </button>
+                        
+                        {/* Botón Central + (se oculta en vista de formulario) */}
+                        {!(activeTab === 'calendar' && viewMode === 'form') && (
+                            <button 
+                                onClick={() => {
+                                    setActiveTab('calendar');
+                                    setViewMode('form');
+                                    setEditingId(null);
+                                    setFormData(initialFormData);
+                                }} 
+                                className="flex-shrink-0 -mt-8"
+                            >
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95">
+                                    <Plus size={32} className="text-white" strokeWidth={3} />
+                                </div>
+                            </button>
+                        )}
                         
                         <button 
                             onClick={() => {
@@ -2873,33 +3458,7 @@
                            </div>
                            <span className="text-[10px] font-bold uppercase tracking-wider">Historial</span>
                         </button>
-                        
-                        <button 
-                            onClick={() => setActiveTab('more')} 
-                            className={`flex flex-col items-center gap-1.5 flex-1 transition-all group ${activeTab === 'more' ? 'text-emerald-400' : 'text-gray-600'}`}
-                        >
-                           <div className={`w-12 h-10 rounded-xl flex items-center justify-center transition-all ${activeTab === 'more' ? 'bg-emerald-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
-                               <MoreHorizontal size={22} />
-                           </div>
-                           <span className="text-[10px] font-bold uppercase tracking-wider">Más</span>
-                        </button>
                     </nav>
-                    
-                    {/* Botón Flotante de Acción Rápida (FAB) */}
-                    <button 
-                        onClick={() => {
-                            setActiveTab('calendar');
-                            setViewMode('form');
-                            setEditingId(null);
-                            setFormData(initialFormData);
-                        }} 
-                        className="fixed bottom-24 right-6 z-[60] group"
-                    >
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group-hover:shadow-emerald-500/50">
-                            <Plus size={32} className="text-white" strokeWidth={3} />
-                        </div>
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-emerald-500/30 rounded-full blur-sm"></div>
-                    </button>
                 </div>
             );
         };
