@@ -990,12 +990,13 @@
         // ============================================
         // FUNCIONES DE RESPALDO
         // ============================================
-        const exportBackup = (records) => {
+        const exportBackup = (records, settings = {}) => {
             try {
                 const backup = {
-                    version: '2.0',
+                    version: '2.1',
                     exportDate: new Date().toISOString(),
                     records: records,
+                    settings: settings,
                     metadata: {
                         totalRecords: records.length,
                         appName: 'WorkTracker Pro'
@@ -1020,7 +1021,7 @@
             }
         };
 
-        const importBackup = (file, setRecords, showToast) => {
+        const importBackup = (file, setRecords, showToast, restoreSettings) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
@@ -1035,6 +1036,12 @@
                     // Restaurar datos
                     setRecords(backup.records);
                     safeLocalStorage.setItem('worktracker_records', JSON.stringify(backup.records));
+                    
+                    // Restaurar configuraciones
+                    if (backup.settings && restoreSettings) {
+                        restoreSettings(backup.settings);
+                    }
+                    
                     showToast(`✓ ${backup.records.length} registros restaurados exitosamente`, 'success');
                 } catch (error) {
                     console.error('Error al importar respaldo:', error);
@@ -1121,11 +1128,16 @@
             
             // Estado para modal de comisiones preconfiguradas con QR
             const [showCommissionsModal, setShowCommissionsModal] = useState(false);
-            const [preconfFilter, setPreconfFilter] = useState('Desde Aeropuerto Cancún');
+            const [preconfFilter, setPreconfFilter] = useState(null);
             const [showQRModal, setShowQRModal] = useState(false); // Modal de registro de jornada
             const [showQRConfigModal, setShowQRConfigModal] = useState(false); // Modal para configurar QR (solo en perfil)
             const [showQuickCommissionModal, setShowQuickCommissionModal] = useState(false); // Modal de comisión rápida
-            const [selectedUnitType, setSelectedUnitType] = useState(''); // '' por defecto para forzar selección
+            const [selectedUnitType, _setSelectedUnitType] = useState(() => safeLocalStorage.getItem('worktracker_unitType') || 'crafter');
+            const setSelectedUnitType = (val) => {
+                const v = typeof val === 'function' ? val(selectedUnitType) : val;
+                _setSelectedUnitType(v);
+                if (v) safeLocalStorage.setItem('worktracker_unitType', v);
+            };
             const [selectedCategory, setSelectedCategory] = useState('Desde Aeropuerto Cancún');
             const [selectedQRCategory, setSelectedQRCategory] = useState('Desde Aeropuerto Cancún');
             const [selectedQRUnitType, setSelectedQRUnitType] = useState('crafter');
@@ -1776,7 +1788,7 @@
                     }
                     
                     setFormData(initialFormData);
-                    setSelectedUnitType(''); // Reset
+                    // Keep selectedUnitType - don't reset
                     setEditingId(null);
                     setViewMode('calendar');
                     setActiveTab(returnTab);
@@ -1932,6 +1944,7 @@
                     // Si existe registro → abrir formulario en modo edición
                     setEditingId(existingRecord.id);
                     setFormData(existingRecord);
+                    if (existingRecord.unitType) setSelectedUnitType(existingRecord.unitType);
                 } else {
                     // Si no existe → abrir formulario nuevo con fecha pre-llenada
                     setEditingId(null);
@@ -2645,7 +2658,7 @@
                                                     <div className="flex gap-2">
                                                         <button 
                                                             type="button" 
-                                                            onClick={() => { setPreconfFilter('Desde Aeropuerto Cancún'); setShowCommissionsModal(true); }} 
+                                                            onClick={() => { setPreconfFilter(null); setShowCommissionsModal(true); }} 
                                                             className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
                                                         >
                                                             <Sparkles size={14} /> Preconfiguradas
@@ -3238,6 +3251,7 @@
                                                     setShowDayDetailModal(false);
                                                     setEditingId(selectedDayRecord.id);
                                                     setFormData(selectedDayRecord);
+                                                    if (selectedDayRecord.unitType) setSelectedUnitType(selectedDayRecord.unitType);
                                                     setReturnTab(activeTab);
                                                     setActiveTab('calendar');
                                                     setViewMode('form');
@@ -3873,19 +3887,19 @@
                                 
                                 {/* Category pills */}
                                 <div className="flex flex-wrap gap-2 mb-4">
-                                    <button onClick={() => setPreconfFilter('Desde Aeropuerto Cancún')}
+                                    <button onClick={() => setPreconfFilter(f => f === 'Desde Aeropuerto Cancún' ? null : 'Desde Aeropuerto Cancún')}
                                         className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                             preconfFilter === 'Desde Aeropuerto Cancún' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-emerald-500/50'
                                         }`}>✈️ APTO CANCÚN</button>
-                                    <button onClick={() => setPreconfFilter('Desde Aeropuerto Tulúm')}
+                                    <button onClick={() => setPreconfFilter(f => f === 'Desde Aeropuerto Tulúm' ? null : 'Desde Aeropuerto Tulúm')}
                                         className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                             preconfFilter === 'Desde Aeropuerto Tulúm' ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-purple-500/50'
                                         }`}>✈️ APTO TULÚM</button>
-                                    <button onClick={() => setPreconfFilter('Punto a Punto')}
+                                    <button onClick={() => setPreconfFilter(f => f === 'Punto a Punto' ? null : 'Punto a Punto')}
                                         className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                             preconfFilter === 'Punto a Punto' ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-blue-500/50'
                                         }`}>🔄 PUNTO A PUNTO</button>
-                                    <button onClick={() => setPreconfFilter('Servicios Especiales')}
+                                    <button onClick={() => setPreconfFilter(f => f === 'Servicios Especiales' ? null : 'Servicios Especiales')}
                                         className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                             preconfFilter === 'Servicios Especiales' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-amber-500/50'
                                         }`}>⭐ ESPECIALES</button>
@@ -3893,15 +3907,20 @@
 
                                 <div className="space-y-4">
                                     {(() => {
+                                        if (!preconfFilter) return (
+                                            <div className="text-center py-12">
+                                                <Zap size={48} className="text-gray-600 mx-auto mb-3" />
+                                                <p className="text-gray-400 text-sm font-bold">Selecciona una categoría</p>
+                                                <p className="text-gray-500 text-xs mt-1">Elige APTO Cancún, APTO Tulúm, Punto a Punto o Especiales</p>
+                                            </div>
+                                        );
                                         const allComms = getFilteredCommissions(selectedUnitType);
-                                        const filtered = preconfFilter 
-                                            ? Object.fromEntries(Object.entries(allComms).filter(([cat]) => cat === preconfFilter))
-                                            : allComms;
+                                        const filtered = Object.fromEntries(Object.entries(allComms).filter(([cat]) => cat === preconfFilter));
                                         return Object.keys(filtered).length === 0 ? (
                                         <div className="text-center py-12">
                                             <Sparkles size={48} className="text-gray-600 mx-auto mb-3" />
-                                            <p className="text-gray-500 text-sm font-semibold">No hay comisiones para este tipo de unidad</p>
-                                            <p className="text-gray-600 text-xs mt-1">Selecciona "Todas las unidades" para ver todas las opciones</p>
+                                            <p className="text-gray-500 text-sm font-semibold">No hay comisiones disponibles</p>
+                                            <p className="text-gray-600 text-xs mt-1">Prueba con otra categoría o tipo de unidad</p>
                                         </div>
                                     ) : (
                                         Object.entries(filtered).map(([category, commissions]) => (
@@ -4273,7 +4292,12 @@
                                                 showToast('No hay datos para respaldar', 'warning');
                                                 return;
                                             }
-                                            if (exportBackup(records)) {
+                                            if (exportBackup(records, {
+                                                userName,
+                                                employeeId,
+                                                unitType: selectedUnitType,
+                                                rates: safeLocalStorage.getItem('worktracker_rates') || null
+                                            })) {
                                                 showToast('✓ Respaldo creado exitosamente', 'success');
                                             } else {
                                                 showToast('Error al crear el respaldo', 'error');
@@ -4296,7 +4320,12 @@
                                         onChange={(e) => {
                                             const file = e.target.files?.[0];
                                             if (file) {
-                                                importBackup(file, setRecords, showToast);
+                                                importBackup(file, setRecords, showToast, (settings) => {
+                                                    if (settings.userName) { setUserName(settings.userName); safeLocalStorage.setItem('worktracker_userName', settings.userName); }
+                                                    if (settings.employeeId) { setEmployeeId(settings.employeeId); safeLocalStorage.setItem('worktracker_employeeId', settings.employeeId); }
+                                                    if (settings.unitType) { setSelectedUnitType(settings.unitType); }
+                                                    if (settings.rates) { safeLocalStorage.setItem('worktracker_rates', settings.rates); }
+                                                });
                                             }
                                             e.target.value = '';
                                         }}
@@ -4531,7 +4560,6 @@
                                         setShowQuickCommissionModal(true);
                                     } else {
                                         // No existe registro de hoy → abrir modal de registro de jornada
-                                        setSelectedUnitType('');
                                         setSelectedCategory('');
                                         setUnitIdentifier('');
                                         setFormData(prev => ({...initialFormData, date: new Date().toISOString().split('T')[0]}));
