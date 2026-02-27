@@ -2148,7 +2148,7 @@
                                         })()}
                                         
                                         <div className="mb-6">
-                                            <p className="text-white text-5xl font-black tracking-tight mb-0.5" style={{letterSpacing: '-0.03em'}}>
+                                            <p className="text-white text-6xl font-black tracking-tight mb-0.5" style={{letterSpacing: '-0.03em'}}>
                                                 ${totals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                             </p>
                                             <p className="text-emerald-100/80 text-xs font-bold uppercase tracking-widest">Total a recibir</p>
@@ -2160,21 +2160,21 @@
                                                     <Clock size={12} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Trabajo</p>
                                                 </div>
-                                                <p className="text-white text-base font-black">${totals.worked.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-lg font-black">${totals.worked.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                             <div className="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/20">
                                                 <div className="flex items-center gap-1.5 mb-1">
                                                     <Sparkles size={12} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Comisión</p>
                                                 </div>
-                                                <p className="text-white text-base font-black">${totals.commissions.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-lg font-black">${totals.commissions.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                             <div className="bg-white/10 backdrop-blur rounded-xl p-3 border border-white/20">
                                                 <div className="flex items-center gap-1.5 mb-1">
                                                     <CreditCard size={12} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Gastos</p>
                                                 </div>
-                                                <p className="text-white text-base font-black">${totals.expenses.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-lg font-black">${totals.expenses.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -2202,7 +2202,7 @@
                                                     </div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Promedio</p>
                                                 </div>
-                                                <p className="text-xl font-black text-white">${avgDaily.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                                <p className="text-2xl font-black text-white">${avgDaily.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
                                                 <p className="text-xs text-gray-400 font-semibold mt-0.5">por día trabajado</p>
                                             </div>
                                             <div className="glass-effect rounded-xl p-4 shadow-xl border-l-[3px] border-l-emerald-500">
@@ -2212,7 +2212,7 @@
                                                     </div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Horas</p>
                                                 </div>
-                                                <p className="text-xl font-black text-white">{totalHours.toFixed(1)}<span className="text-sm text-gray-400 ml-0.5">h</span></p>
+                                                <p className="text-2xl font-black text-white">{totalHours.toFixed(1)}<span className="text-sm text-gray-400 ml-0.5">h</span></p>
                                                 <p className="text-xs text-gray-400 font-semibold mt-0.5">{workedDays.length} días trabajados</p>
                                             </div>
                                             <div className="glass-effect rounded-xl p-4 shadow-xl border-l-[3px] border-l-amber-500">
@@ -2222,7 +2222,7 @@
                                                     </div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Comisiones</p>
                                                 </div>
-                                                <p className="text-xl font-black text-white">{totalComms}</p>
+                                                <p className="text-2xl font-black text-white">{totalComms}</p>
                                                 <p className="text-xs text-gray-400 font-semibold mt-0.5">servicios realizados</p>
                                             </div>
                                             <div className="glass-effect rounded-xl p-4 shadow-xl border-l-[3px] border-l-purple-500">
@@ -2234,7 +2234,7 @@
                                                     </div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Mejor día</p>
                                                 </div>
-                                                <p className="text-xl font-black text-white">${bestDay.total.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+                                                <p className="text-2xl font-black text-white">${bestDay.total.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
                                                 {bestDay.date && <p className="text-xs text-gray-400 font-semibold mt-0.5">{new Date(bestDay.date + 'T00:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })}</p>}
                                             </div>
                                         </div>
