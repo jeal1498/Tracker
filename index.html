@@ -1126,6 +1126,15 @@
             // periodTabType kept for History filters
             const [periodTabType, setPeriodTabType] = useState('payroll'); // 'payroll' | 'commission'
             
+            // Estado para selector de periodo en el DASHBOARD (independiente del historial)
+            const [showDashboardPeriodPicker, setShowDashboardPeriodPicker] = useState(false);
+            const [dashboardPeriodLabel, setDashboardPeriodLabel] = useState(() => {
+                const now = new Date();
+                const periods = generateCommissionPeriods(2026);
+                const current = periods.find(p => now >= p.startDate && now <= p.endDate);
+                return current ? current.label : periods[0].label;
+            });
+            
             // Estado para modal de comisiones preconfiguradas con QR
             const [showCommissionsModal, setShowCommissionsModal] = useState(false);
             const [preconfFilter, setPreconfFilter] = useState(null);
@@ -1915,6 +1924,25 @@
                 };
             }, [filteredRecords]);
 
+            // Dashboard: periodo seleccionado independientemente
+            const dashboardPeriod = useMemo(() => 
+                commissionPeriods.find(p => p.label === dashboardPeriodLabel),
+                [commissionPeriods, dashboardPeriodLabel]
+            );
+            const dashboardRecords = useMemo(() => {
+                if (!dashboardPeriod) return records;
+                return records.filter(r => {
+                    const d = new Date(r.date + 'T00:00:00');
+                    return d >= dashboardPeriod.startDate && d <= dashboardPeriod.endDate;
+                });
+            }, [records, dashboardPeriod]);
+            const dashboardTotals = useMemo(() => {
+                const worked = dashboardRecords.reduce((sum, r) => sum + (r.baseSalary || 0), 0);
+                const commissions = dashboardRecords.reduce((sum, r) => sum + (r.totalComm || 0), 0);
+                const expenses = dashboardRecords.reduce((sum, r) => sum + (r.totalExp || 0), 0);
+                return { worked, commissions, expenses, total: worked + commissions - expenses };
+            }, [dashboardRecords]);
+
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
             const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
             
@@ -2119,29 +2147,34 @@
                                     
                                     <div className="relative p-4">
                                         {(() => {
-                                            const now = new Date();
-                                            const currentPeriod = commissionPeriods.find(p => now >= p.startDate && now <= p.endDate);
-                                            const payDayNum = currentPeriod ? currentPeriod.payDay.getDate() : null;
+                                            const payDayNum = dashboardPeriod ? dashboardPeriod.payDay.getDate() : null;
                                             return (
                                                 <div className="flex items-center justify-between mb-3">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur">
+                                                    <button 
+                                                        onClick={() => setShowDashboardPeriodPicker(true)}
+                                                        className="flex items-center gap-2 group active:scale-95 transition-transform"
+                                                        title="Cambiar periodo"
+                                                    >
+                                                        <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur group-hover:bg-white/30 transition-colors">
                                                             <DollarSign size={15} className="text-white" />
                                                         </div>
-                                                        <div>
-                                                            <p className="text-emerald-100 text-xs font-bold uppercase tracking-wider">
-                                                                {currentPeriod ? currentPeriod.label : 'Periodo actual'}
-                                                            </p>
+                                                        <div className="text-left">
+                                                            <div className="flex items-center gap-1">
+                                                                <p className="text-emerald-100 text-xs font-bold uppercase tracking-wider underline decoration-dotted underline-offset-2">
+                                                                    {dashboardPeriod ? dashboardPeriod.label : 'Periodo actual'}
+                                                                </p>
+                                                                <ChevronDown size={12} className="text-emerald-200 group-hover:text-white transition-colors" />
+                                                            </div>
                                                             {payDayNum && (
                                                                 <p className="text-emerald-200/70 text-xs font-semibold">
                                                                     Cobro: día {payDayNum}
                                                                 </p>
                                                             )}
                                                         </div>
-                                                    </div>
+                                                    </button>
                                                     <div className="flex items-center gap-1.5">
                                                         <TrendingUp size={14} className="text-emerald-200" />
-                                                        <span className="text-xs font-bold text-emerald-200">{filteredRecords.length} día{filteredRecords.length !== 1 ? 's' : ''}</span>
+                                                        <span className="text-xs font-bold text-emerald-200">{dashboardRecords.length} día{dashboardRecords.length !== 1 ? 's' : ''}</span>
                                                     </div>
                                                 </div>
                                             );
@@ -2149,7 +2182,7 @@
                                         
                                         <div className="mb-4">
                                             <p className="text-white text-2xl font-black tracking-tight mb-0.5" style={{letterSpacing: '-0.03em', wordBreak: 'break-all', overflowWrap: 'break-word', lineHeight: '1.1'}}>
-                                                ${totals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                ${dashboardTotals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                             </p>
                                             <p className="text-emerald-100/80 text-xs font-bold uppercase tracking-widest">Total a recibir</p>
                                         </div>
@@ -2160,35 +2193,35 @@
                                                     <Clock size={10} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Trabajo</p>
                                                 </div>
-                                                <p className="text-white text-xs font-black truncate">${totals.worked.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-xs font-black truncate">${dashboardTotals.worked.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                             <div className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20">
                                                 <div className="flex items-center gap-1 mb-1">
                                                     <Sparkles size={10} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Comisión</p>
                                                 </div>
-                                                <p className="text-white text-xs font-black truncate">${totals.commissions.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-xs font-black truncate">${dashboardTotals.commissions.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                             <div className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20">
                                                 <div className="flex items-center gap-1 mb-1">
                                                     <CreditCard size={10} className="text-emerald-200" />
                                                     <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Gastos</p>
                                                 </div>
-                                                <p className="text-white text-xs font-black truncate">${totals.expenses.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                <p className="text-white text-xs font-black truncate">${dashboardTotals.expenses.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Estadísticas Rápidas */}
-                                {filteredRecords.length > 0 && (() => {
-                                    const workedDays = filteredRecords.filter(r => r.status === 'worked');
+                                {dashboardRecords.length > 0 && (() => {
+                                    const workedDays = dashboardRecords.filter(r => r.status === 'worked');
                                     const totalHours = workedDays.reduce((sum, r) => sum + (r.hoursWorked || 0), 0);
-                                    const totalComms = filteredRecords.reduce((sum, r) => sum + (r.commissions?.length || 0), 0);
-                                    const avgDaily = filteredRecords.length > 0 
-                                        ? filteredRecords.reduce((sum, r) => sum + (r.baseSalary || 0) + (r.totalComm || 0) - (r.totalExp || 0), 0) / filteredRecords.length 
+                                    const totalComms = dashboardRecords.reduce((sum, r) => sum + (r.commissions?.length || 0), 0);
+                                    const avgDaily = dashboardRecords.length > 0 
+                                        ? dashboardRecords.reduce((sum, r) => sum + (r.baseSalary || 0) + (r.totalComm || 0) - (r.totalExp || 0), 0) / dashboardRecords.length 
                                         : 0;
-                                    const bestDay = filteredRecords.reduce((best, r) => {
+                                    const bestDay = dashboardRecords.reduce((best, r) => {
                                         const dayTotal = (r.baseSalary || 0) + (r.totalComm || 0) - (r.totalExp || 0);
                                         return dayTotal > best.total ? { total: dayTotal, date: r.date, unit: r.unit } : best;
                                     }, { total: 0, date: '', unit: '' });
@@ -2242,7 +2275,7 @@
                                 })()}
 
                                 {/* Actividad del Periodo - mini resumen por estado */}
-                                {filteredRecords.length > 0 && (
+                                {dashboardRecords.length > 0 && (
                                     <div className="glass-effect rounded-xl p-4 shadow-xl">
                                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                                             <BarChart3 size={14} className="text-emerald-400" />
@@ -2250,11 +2283,11 @@
                                         </h3>
                                         <div className="space-y-2">
                                             {Object.entries(STATUS_LABELS).map(([status, label]) => {
-                                                const count = filteredRecords.filter(r => r.status === status).length;
-                                                const total = filteredRecords
+                                                const count = dashboardRecords.filter(r => r.status === status).length;
+                                                const total = dashboardRecords
                                                     .filter(r => r.status === status)
                                                     .reduce((sum, r) => sum + (r.baseSalary || 0) + (r.totalComm || 0) - (r.totalExp || 0), 0);
-                                                const pct = filteredRecords.length > 0 ? (count / filteredRecords.length) * 100 : 0;
+                                                const pct = dashboardRecords.length > 0 ? (count / dashboardRecords.length) * 100 : 0;
                                                 
                                                 if (count === 0) return null;
                                                 
@@ -4518,6 +4551,87 @@
                                             <Check size={18} />
                                             Confirmar
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal Selector de Periodo - Dashboard */}
+                    {showDashboardPeriodPicker && (
+                        <div 
+                            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[65] flex items-end justify-center p-0 animate-fade-in"
+                            onClick={() => setShowDashboardPeriodPicker(false)}
+                        >
+                            <div 
+                                className="glass-effect w-full max-w-md rounded-t-3xl shadow-2xl overflow-hidden animate-slide-up"
+                                style={{maxHeight: '75vh'}}
+                                onClick={e => e.stopPropagation()}
+                            >
+                                {/* Handle bar */}
+                                <div className="flex justify-center pt-3 pb-1">
+                                    <div className="w-10 h-1 rounded-full bg-gray-600"></div>
+                                </div>
+                                
+                                {/* Header */}
+                                <div className="px-5 pt-2 pb-4 border-b border-dark-border/60">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="text-base font-black text-white">Seleccionar Periodo</h3>
+                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">Periodos de comisiones 2026</p>
+                                        </div>
+                                        <button 
+                                            onClick={() => setShowDashboardPeriodPicker(false)}
+                                            className="w-9 h-9 rounded-xl bg-dark-hover flex items-center justify-center hover:bg-dark-card transition-all"
+                                        >
+                                            <X size={18} className="text-gray-400" />
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                {/* Lista de periodos */}
+                                <div className="overflow-y-auto" style={{maxHeight: 'calc(75vh - 110px)'}}>
+                                    <div className="p-3 space-y-1.5">
+                                        {commissionPeriods.map((period, idx) => {
+                                            const isSelected = period.label === dashboardPeriodLabel;
+                                            const now = new Date();
+                                            const isCurrent = now >= period.startDate && now <= period.endDate;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => {
+                                                        setDashboardPeriodLabel(period.label);
+                                                        setShowDashboardPeriodPicker(false);
+                                                    }}
+                                                    className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all active:scale-[0.98] ${
+                                                        isSelected 
+                                                            ? 'bg-emerald-500/20 border border-emerald-500/40' 
+                                                            : 'bg-dark-hover hover:bg-dark-card border border-transparent'
+                                                    }`}
+                                                >
+                                                    <div className="flex items-center gap-3 text-left">
+                                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                            isSelected ? 'bg-emerald-500' : isCurrent ? 'bg-emerald-500/20' : 'bg-dark-border'
+                                                        }`}>
+                                                            {isSelected 
+                                                                ? <Check size={14} className="text-white" />
+                                                                : <Calendar size={14} className={isCurrent ? 'text-emerald-400' : 'text-gray-500'} />
+                                                            }
+                                                        </div>
+                                                        <div>
+                                                            <p className={`text-sm font-bold ${isSelected ? 'text-emerald-400' : 'text-white'}`}>
+                                                                {period.label}
+                                                                {isCurrent && <span className="ml-2 text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full font-bold">ACTUAL</span>}
+                                                            </p>
+                                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">
+                                                                Cobro: día {period.payDay.getDate()} · {period.quincena}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    {isSelected && <div className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></div>}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
