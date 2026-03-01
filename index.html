@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="ControlCheck - Sistema de seguimiento de nómina y asistencia">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#00c2e0">
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="./manifest.json">
@@ -29,10 +29,10 @@
                 extend: {
                     colors: {
                         dark: {
-                            bg: '#0a0a0a',
-                            card: '#141414',
-                            hover: '#1a1a1a',
-                            border: '#262626'
+                            bg: '#0a0f14',
+                            card: '#111820',
+                            hover: '#162030',
+                            border: '#1e2d3d'
                         }
                     },
                     animation: {
@@ -82,9 +82,9 @@
         }
         
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #141414; }
-        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #333; }
+        ::-webkit-scrollbar-track { background: #111820; }
+        ::-webkit-scrollbar-thumb { background: #1e2d3d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a3d52; }
         
         button, a, input, select, textarea, .glass-effect { 
             transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
@@ -109,17 +109,17 @@
         }
         
         .glass-effect {
-            background: rgba(20, 20, 20, 0.75);
+            background: rgba(17, 24, 32, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 194, 224, 0.08);
         }
         
         .glass-effect-light {
-            background: rgba(30, 30, 30, 0.5);
+            background: rgba(17, 24, 32, 0.5);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(0, 194, 224, 0.06);
         }
         
         .card-glow {
@@ -132,26 +132,26 @@
             border-radius: inherit;
             opacity: 0;
             transition: opacity 0.2s;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 0 20px rgba(0, 194, 224, 0.12);
         }
         .card-glow:hover::after {
             opacity: 1;
         }
         
         .stat-card {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.03) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.15);
+            background: linear-gradient(145deg, rgba(0, 194, 224, 0.08) 0%, rgba(0, 144, 168, 0.03) 100%);
+            border: 1px solid rgba(0, 194, 224, 0.15);
         }
         
         .stat-card:hover {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.06) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            background: linear-gradient(145deg, rgba(0, 194, 224, 0.14) 0%, rgba(0, 144, 168, 0.06) 100%);
+            border: 1px solid rgba(0, 194, 224, 0.25);
             transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 194, 224, 0.08);
         }
         
         input:focus, select:focus, textarea:focus {
-            outline: 2px solid rgba(16, 185, 129, 0.5);
+            outline: 2px solid rgba(0, 194, 224, 0.5);
             outline-offset: 2px;
         }
         
@@ -201,14 +201,14 @@
         /* LIGHT MODE - Complete Override               */
         /* ============================================ */
         .light-mode {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #f1f5f9;
+            --bg-primary: #eef4f8;
+            --bg-secondary: #e2edf4;
             --bg-card: #ffffff;
-            --bg-hover: #f1f5f9;
-            --border-color: #e2e8f0;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
+            --bg-hover: #ddeef5;
+            --border-color: #ccdde8;
+            --text-primary: #0a1a22;
+            --text-secondary: #3a5a6a;
+            --text-muted: #7a9aaa;
         }
         
         /* Body & Root */
@@ -257,24 +257,24 @@
             color: var(--text-primary) !important;
         }
         /* KEEP white text inside colored backgrounds (status pills, gradients, buttons) */
-        .light-mode .bg-emerald-500 .text-white,
-        .light-mode .bg-emerald-600 .text-white,
+        .light-mode .bg-cyan-500 .text-white,
+        .light-mode .bg-cyan-600 .text-white,
         .light-mode .bg-blue-500 .text-white,
         .light-mode .bg-purple-500 .text-white,
         .light-mode .bg-amber-500 .text-white,
         .light-mode .bg-rose-500 .text-white,
         .light-mode .bg-red-500 .text-white,
         .light-mode [class*="bg-gradient-to"] .text-white,
-        .light-mode [class*="from-emerald"] .text-white,
-        .light-mode [class*="from-emerald"] .text-emerald-100,
-        .light-mode [class*="from-emerald"] .text-emerald-200,
-        .light-mode [class*="from-emerald"] [class*="text-white"],
-        .light-mode [class*="from-emerald"] [class*="text-emerald"],
+        .light-mode [class*="from-cyan"] .text-white,
+        .light-mode [class*="from-cyan"] .text-cyan-100,
+        .light-mode [class*="from-cyan"] .text-cyan-200,
+        .light-mode [class*="from-cyan"] [class*="text-white"],
+        .light-mode [class*="from-cyan"] [class*="text-cyan"],
         .light-mode [class*="bg-gradient"] [class*="text-white"] {
             color: #ffffff !important;
         }
         /* Calendar day cells with status colors must keep white text */
-        .light-mode .bg-emerald-500.text-white,
+        .light-mode .bg-cyan-500.text-white,
         .light-mode .bg-blue-500.text-white,
         .light-mode .bg-purple-500.text-white,
         .light-mode .bg-amber-500.text-white,
@@ -284,7 +284,9 @@
         }
         
         /* --- ACCENT COLORS (accessible for light bg) --- */
-        .light-mode .text-emerald-400 { color: #059669 !important; }
+        .light-mode .text-cyan-400 { color: #059669 !important; }
+        .light-mode .text-cyan-400, .light-mode .text-cyan-500 { color: #0090a8 !important; }
+        .light-mode .text-sky-400, .light-mode .text-sky-500 { color: #0077b6 !important; }
         .light-mode .text-blue-400, .light-mode .text-blue-500 { color: #2563eb !important; }
         .light-mode .text-amber-400, .light-mode .text-amber-300 { color: #b45309 !important; }
         .light-mode .text-rose-400 { color: #e11d48 !important; }
@@ -302,8 +304,8 @@
         
         /* --- STAT CARD --- */
         .light-mode .stat-card {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.06), rgba(5, 150, 105, 0.02)) !important;
-            border: 1px solid rgba(16, 185, 129, 0.2) !important;
+            background: linear-gradient(145deg, rgba(0, 194, 224, 0.06), rgba(0, 144, 168, 0.02)) !important;
+            border: 1px solid rgba(0, 194, 224, 0.2) !important;
         }
         
         /* --- MODALS --- */
@@ -341,9 +343,9 @@
         }
 
         /* --- HEADER BAR --- */
-        .light-mode .bg-gradient-to-br.from-emerald-600,
-        .light-mode [class*="from-emerald-600"][class*="to-emerald"] {
-            background: linear-gradient(135deg, #059669, #047857) !important;
+        .light-mode .bg-gradient-to-br.from-cyan-600,
+        .light-mode [class*="from-cyan-600"][class*="to-sky"] {
+            background: linear-gradient(135deg, #0090a8, #0077b6) !important;
         }
         
         /* --- CALENDAR SPECIFIC --- */
@@ -379,7 +381,7 @@
         }
         
         /* --- TOAST --- */
-        .light-mode .glass-effect[class*="border-emerald"],
+        .light-mode .glass-effect[class*="border-cyan"],
         .light-mode .glass-effect[class*="border-rose"],
         .light-mode .glass-effect[class*="border-amber"],
         .light-mode .glass-effect[class*="border-blue"] {
@@ -391,7 +393,7 @@
             background-color: rgba(0, 0, 0, 0.04) !important;
         }
         /* But keep white/opaque inside colored headers */
-        .light-mode [class*="from-emerald"] [class*="bg-white/"] {
+        .light-mode [class*="from-cyan"] [class*="bg-white/"] {
             background-color: rgba(255, 255, 255, 0.15) !important;
         }
         
@@ -484,6 +486,7 @@
         const Square = (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></IconBase>;
         const Shield = (props) => <IconBase {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>;
         const User = (props) => <IconBase {...props}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconBase>;
+        const Zap = (props) => <IconBase {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></IconBase>;
         
         const StarFilled = ({ size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -600,7 +603,7 @@
         // ============================================
         // COMPONENTE MODAL
         // ============================================
-        const Modal = ({ isOpen, onClose, onConfirm, title, message, confirmText = 'Confirmar', confirmColor = 'emerald' }) => {
+        const Modal = ({ isOpen, onClose, onConfirm, title, message, confirmText = 'Confirmar', confirmColor = 'cyan' }) => {
             if (!isOpen) return null;
 
             return (
@@ -1128,12 +1131,23 @@
             
             // Estado para selector de periodo en el DASHBOARD (independiente del historial)
             const [showDashboardPeriodPicker, setShowDashboardPeriodPicker] = useState(false);
-            const [dashboardPeriodLabel, setDashboardPeriodLabel] = useState(() => {
+            // Tipo de periodo activo en el dashboard: 'payroll' | 'commission'
+            const [dashboardPeriodType, setDashboardPeriodType] = useState('commission');
+            const [dashboardPeriodLabels, setDashboardPeriodLabels] = useState(() => {
                 const now = new Date();
                 const periods = generateCommissionPeriods(2026);
                 const current = periods.find(p => now >= p.startDate && now <= p.endDate);
-                return current ? current.label : periods[0].label;
+                return current ? [current.label] : [periods[0].label];
             });
+            const [dashboardPayrollLabels, setDashboardPayrollLabels] = useState(() => {
+                const now = new Date();
+                const periods = generatePayrollPeriods(2026);
+                const current = periods.find(p => now >= p.startDate && now <= p.endDate);
+                return current ? [current.label] : [periods[0].label];
+            });
+            // Modal de detalle por tipo (trabajo/comisión/gastos)
+            const [showDetailModal, setShowDetailModal] = useState(false);
+            const [detailModalType, setDetailModalType] = useState(null); // 'work' | 'commission' | 'expenses'
             
             // Estado para modal de comisiones preconfiguradas con QR
             const [showCommissionsModal, setShowCommissionsModal] = useState(false);
@@ -1515,7 +1529,7 @@
                 document.documentElement.className = modeClass;
                 
                 // Aplicar color del tema a todo el documento
-                const themeColor = '#10b981';
+                const themeColor = '#00c2e0';
                 document.documentElement.style.setProperty('--theme-color', themeColor);
                 
                 // Cambiar meta theme-color para navegador
@@ -1924,24 +1938,31 @@
                 };
             }, [filteredRecords]);
 
-            // Dashboard: periodo seleccionado independientemente
-            const dashboardPeriod = useMemo(() => 
-                commissionPeriods.find(p => p.label === dashboardPeriodLabel),
-                [commissionPeriods, dashboardPeriodLabel]
+            // Dashboard: periodos seleccionados según tipo activo
+            const activeDashboardLabels = dashboardPeriodType === 'commission' ? dashboardPeriodLabels : dashboardPayrollLabels;
+            const activeDashboardPeriodPool = dashboardPeriodType === 'commission' ? commissionPeriods : payrollPeriods;
+            const dashboardPeriod = useMemo(() =>
+                activeDashboardPeriodPool.find(p => activeDashboardLabels.includes(p.label)),
+                [activeDashboardPeriodPool, activeDashboardLabels]
             );
             const dashboardRecords = useMemo(() => {
-                if (!dashboardPeriod) return records;
+                if (!activeDashboardLabels.length) return records;
+                const selectedPeriods = activeDashboardPeriodPool.filter(p => activeDashboardLabels.includes(p.label));
                 return records.filter(r => {
                     const d = new Date(r.date + 'T00:00:00');
-                    return d >= dashboardPeriod.startDate && d <= dashboardPeriod.endDate;
+                    return selectedPeriods.some(p => d >= p.startDate && d <= p.endDate);
                 });
-            }, [records, dashboardPeriod]);
+            }, [records, activeDashboardPeriodPool, activeDashboardLabels]);
             const dashboardTotals = useMemo(() => {
                 const worked = dashboardRecords.reduce((sum, r) => sum + (r.baseSalary || 0), 0);
                 const commissions = dashboardRecords.reduce((sum, r) => sum + (r.totalComm || 0), 0);
                 const expenses = dashboardRecords.reduce((sum, r) => sum + (r.totalExp || 0), 0);
-                return { worked, commissions, expenses, total: worked + commissions - expenses };
-            }, [dashboardRecords]);
+                // El total principal cambia según el tab activo
+                const total = dashboardPeriodType === 'payroll'
+                    ? worked - expenses           // Nómina: solo salario base
+                    : commissions - expenses;     // Comisiones: solo comisiones
+                return { worked, commissions, expenses, total };
+            }, [dashboardRecords, dashboardPeriodType]);
 
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
             const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -2040,7 +2061,7 @@
                     {isLoading && (
                         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center">
                             <div className="bg-dark-card p-6 rounded-xl shadow-xl border border-dark-border flex flex-col items-center gap-3">
-                                <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                                <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
                                 <p className="text-white font-bold">{loadingMessage || 'Cargando...'}</p>
                             </div>
                         </div>
@@ -2072,16 +2093,16 @@
                     <div className="glass-effect sticky top-0 z-40 px-4 py-3 mb-1">
                         <div className="max-w-md mx-auto">
                             <div className="flex items-center gap-3 mb-2">
-                                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg">
                                     <Briefcase size={16} className="text-white" />
                                 </div>
                                 <div className="flex-1">
                                     <h1 className="text-sm font-black text-white tracking-tight">ControlCheck</h1>
-                                    <p className="text-xs font-semibold text-emerald-400">{getGreeting()}</p>
+                                    <p className="text-xs font-semibold text-cyan-400">{getGreeting()}</p>
                                 </div>
                                 <button 
                                     onClick={() => setShowUserProfile(true)}
-                                    className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95"
+                                    className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95"
                                 >
                                     <User size={18} className="text-white" />
                                 </button>
@@ -2118,7 +2139,7 @@
                                                 {item.onClick ? (
                                                     <button 
                                                         onClick={item.onClick}
-                                                        className="hover:text-emerald-400 transition-colors"
+                                                        className="hover:text-cyan-400 transition-colors"
                                                     >
                                                         {item.label}
                                                     </button>
@@ -2140,15 +2161,33 @@
                                 
                                 {/* Card Principal de Totales */}
                                 <div className="relative overflow-hidden rounded-xl shadow-xl">
-                                    <div className={`absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800`}></div>
+                                    <div className={`absolute inset-0 bg-gradient-to-br from-cyan-500 via-cyan-600 to-indigo-700`}></div>
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] to-transparent"></div>
                                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/[0.04] rounded-full"></div>
                                     <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/[0.03] rounded-full"></div>
                                     
                                     <div className="relative p-4">
                                         {(() => {
-                                            const payDayNum = dashboardPeriod ? dashboardPeriod.payDay.getDate() : null;
+                                            const payDayNum = dashboardPeriod ? dashboardPeriod.payDay?.getDate?.() || dashboardPeriod.payDay : null;
+                                            const currentLabels = dashboardPeriodType === 'commission' ? dashboardPeriodLabels : dashboardPayrollLabels;
                                             return (
+                                                <>
+                                                {/* Tabs Nómina / Comisiones */}
+                                                <div className="flex gap-1.5 mb-3 bg-black/20 p-1 rounded-xl">
+                                                    <button
+                                                        onClick={() => setDashboardPeriodType('payroll')}
+                                                        className={`flex-1 py-1.5 rounded-lg text-xs font-black transition-all ${dashboardPeriodType === 'payroll' ? 'bg-white text-cyan-700 shadow' : 'text-white/70 hover:text-white'}`}
+                                                    >
+                                                        💼 Nómina
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setDashboardPeriodType('commission')}
+                                                        className={`flex-1 py-1.5 rounded-lg text-xs font-black transition-all ${dashboardPeriodType === 'commission' ? 'bg-white text-cyan-700 shadow' : 'text-white/70 hover:text-white'}`}
+                                                    >
+                                                        ✨ Comisiones
+                                                    </button>
+                                                </div>
+
                                                 <div className="flex items-center justify-between mb-3">
                                                     <button 
                                                         onClick={() => setShowDashboardPeriodPicker(true)}
@@ -2160,23 +2199,26 @@
                                                         </div>
                                                         <div className="text-left">
                                                             <div className="flex items-center gap-1">
-                                                                <p className="text-emerald-100 text-xs font-bold uppercase tracking-wider underline decoration-dotted underline-offset-2">
-                                                                    {dashboardPeriod ? dashboardPeriod.label : 'Periodo actual'}
+                                                                <p className="text-cyan-100 text-xs font-bold uppercase tracking-wider underline decoration-dotted underline-offset-2">
+                                                                    {currentLabels.length === 1 
+                                                                        ? currentLabels[0]
+                                                                        : `${currentLabels.length} periodos`}
                                                                 </p>
-                                                                <ChevronDown size={12} className="text-emerald-200 group-hover:text-white transition-colors" />
+                                                                <ChevronDown size={12} className="text-cyan-200 group-hover:text-white transition-colors" />
                                                             </div>
                                                             {payDayNum && (
-                                                                <p className="text-emerald-200/70 text-xs font-semibold">
+                                                                <p className="text-cyan-200/70 text-xs font-semibold">
                                                                     Cobro: día {payDayNum}
                                                                 </p>
                                                             )}
                                                         </div>
                                                     </button>
                                                     <div className="flex items-center gap-1.5">
-                                                        <TrendingUp size={14} className="text-emerald-200" />
-                                                        <span className="text-xs font-bold text-emerald-200">{dashboardRecords.length} día{dashboardRecords.length !== 1 ? 's' : ''}</span>
+                                                        <TrendingUp size={14} className="text-cyan-200" />
+                                                        <span className="text-xs font-bold text-cyan-200">{dashboardRecords.length} día{dashboardRecords.length !== 1 ? 's' : ''}</span>
                                                     </div>
                                                 </div>
+                                                </>
                                             );
                                         })()}
                                         
@@ -2184,31 +2226,31 @@
                                             <p className="text-white text-2xl font-black tracking-tight mb-0.5" style={{letterSpacing: '-0.03em', wordBreak: 'break-all', overflowWrap: 'break-word', lineHeight: '1.1'}}>
                                                 ${dashboardTotals.total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                             </p>
-                                            <p className="text-emerald-100/80 text-xs font-bold uppercase tracking-widest">Total a recibir</p>
+                                            <p className="text-cyan-100/80 text-xs font-bold uppercase tracking-widest">Total a recibir</p>
                                         </div>
                                         
                                         <div className="grid grid-cols-3 gap-1.5">
-                                            <div className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20">
+                                            <button onClick={() => { setDetailModalType('work'); setShowDetailModal(true); }} className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20 text-left hover:bg-white/20 active:scale-95 transition-all">
                                                 <div className="flex items-center gap-1 mb-1">
-                                                    <Clock size={10} className="text-emerald-200" />
-                                                    <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Trabajo</p>
+                                                    <Clock size={10} className="text-cyan-200" />
+                                                    <p className="text-xs text-cyan-100 font-bold uppercase tracking-wide">Nómina</p>
                                                 </div>
                                                 <p className="text-white text-xs font-black truncate">${dashboardTotals.worked.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
-                                            </div>
-                                            <div className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20">
+                                            </button>
+                                            <button onClick={() => { setDetailModalType('commission'); setShowDetailModal(true); }} className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20 text-left hover:bg-white/20 active:scale-95 transition-all">
                                                 <div className="flex items-center gap-1 mb-1">
-                                                    <Sparkles size={10} className="text-emerald-200" />
-                                                    <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Comisión</p>
+                                                    <Sparkles size={10} className="text-cyan-200" />
+                                                    <p className="text-xs text-cyan-100 font-bold uppercase tracking-wide">Comisión</p>
                                                 </div>
                                                 <p className="text-white text-xs font-black truncate">${dashboardTotals.commissions.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
-                                            </div>
-                                            <div className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20">
+                                            </button>
+                                            <button onClick={() => { setDetailModalType('expenses'); setShowDetailModal(true); }} className="bg-white/10 backdrop-blur rounded-lg p-2.5 border border-white/20 text-left hover:bg-white/20 active:scale-95 transition-all">
                                                 <div className="flex items-center gap-1 mb-1">
-                                                    <CreditCard size={10} className="text-emerald-200" />
-                                                    <p className="text-xs text-emerald-100 font-bold uppercase tracking-wide">Gastos</p>
+                                                    <CreditCard size={10} className="text-cyan-200" />
+                                                    <p className="text-xs text-cyan-100 font-bold uppercase tracking-wide">Gastos</p>
                                                 </div>
                                                 <p className="text-white text-xs font-black truncate">${dashboardTotals.expenses.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
-                                            </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -2238,10 +2280,10 @@
                                                 <p className="text-sm font-black text-white truncate">${avgDaily.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
                                                 <p className="text-xs text-gray-400 font-semibold mt-0.5">por día trabajado</p>
                                             </div>
-                                            <div className="glass-effect rounded-xl p-3 shadow-xl border-l-[3px] border-l-emerald-500">
+                                            <div className="glass-effect rounded-xl p-3 shadow-xl border-l-[3px] border-l-cyan-500">
                                                 <div className="flex items-center justify-between mb-2">
-                                                    <div className="w-9 h-9 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                                                        <Clock size={15} className="text-emerald-400" />
+                                                    <div className="w-9 h-9 rounded-xl bg-cyan-500/15 flex items-center justify-center">
+                                                        <Clock size={15} className="text-cyan-400" />
                                                     </div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Horas</p>
                                                 </div>
@@ -2278,7 +2320,7 @@
                                 {dashboardRecords.length > 0 && (
                                     <div className="glass-effect rounded-xl p-4 shadow-xl">
                                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                            <BarChart3 size={14} className="text-emerald-400" />
+                                            <BarChart3 size={14} className="text-cyan-400" />
                                             Actividad del Periodo
                                         </h3>
                                         <div className="space-y-2">
@@ -2344,43 +2386,114 @@
                                     
                                     {/* Grid de días */}
                                     <div className="calendar-grid">
-                                        {calendarDays.map((day, idx) => {
-                                            if (!day) return <div key={idx} className="aspect-square"></div>;
-                                            const record = getRecordForDate(day);
-                                            const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                                            const holiday = HOLIDAYS_2026.find(h => h.date === dateStr);
-                                            const isToday = new Date().getDate() === day && new Date().getMonth() === currentMonth && new Date().getFullYear() === currentYear;
-                                            
-                                            return (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => handleDayClick(day)}
-                                                    title={holiday ? holiday.name : ''}
-                                                    className={`aspect-square rounded-lg flex flex-col items-center justify-center text-xs font-bold transition-all ${
-                                                        record 
-                                                            ? `${STATUS_COLORS[record.status]} text-white shadow-sm` 
-                                                            : holiday
-                                                                ? 'bg-purple-500/15 text-purple-300'
-                                                                : 'bg-dark-card/60 text-gray-500 hover:bg-dark-hover hover:text-white'
-                                                    } ${isToday ? 'ring-2 ring-emerald-400 ring-offset-1 ring-offset-dark-bg' : ''}`}
-                                                >
-                                                    <span className="text-xs font-black">{day}</span>
-                                                    {record && (
-                                                        <span className="text-[10px] opacity-80 font-bold">${(record.baseSalary + record.totalComm - record.totalExp).toFixed(0)}</span>
-                                                    )}
-                                                </button>
+                                        {(() => {
+                                            // Detectar todos los periodos que se solapan con el mes visible
+                                            const monthStart = new Date(currentYear, currentMonth, 1);
+                                            const monthEnd = new Date(currentYear, currentMonth + 1, 0);
+                                            const visiblePeriods = commissionPeriods.filter(p =>
+                                                p.startDate <= monthEnd && p.endDate >= monthStart
                                             );
-                                        })}
+                                            // Paleta de colores por índice (sin conflicto con estados)
+                                            const periodPalette = [
+                                                { bg: 'bg-sky-500/50', text: 'text-white' },
+                                                { bg: 'bg-orange-500/50', text: 'text-white' },
+                                                { bg: 'bg-fuchsia-500/50', text: 'text-white' },
+                                            ];
+
+                                            // Colores sólidos del círculo interior por estatus
+                                            const statusBgSolid = {
+                                                worked: 'bg-emerald-500',
+                                                rest: 'bg-blue-500',
+                                                permit: 'bg-amber-500',
+                                                holiday: 'bg-purple-500',
+                                                absent: 'bg-rose-500',
+                                            };
+
+                                            return calendarDays.map((day, idx) => {
+                                                if (!day) return <div key={idx} className="aspect-square"></div>;
+                                                const record = getRecordForDate(day);
+                                                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                                const holiday = HOLIDAYS_2026.find(h => h.date === dateStr);
+                                                const isToday = new Date().getDate() === day && new Date().getMonth() === currentMonth && new Date().getFullYear() === currentYear;
+                                                const dayDate = new Date(currentYear, currentMonth, day);
+                                                
+                                                const periodIdx = visiblePeriods.findIndex(p => dayDate >= p.startDate && dayDate <= p.endDate);
+                                                const palette = periodIdx >= 0 ? periodPalette[periodIdx % periodPalette.length] : null;
+                                                const isInPeriod = palette !== null;
+
+                                                // Fondo de la celda: color del periodo o color de estado si no está en periodo
+                                                const cellBg = isInPeriod
+                                                    ? palette.bg
+                                                    : record
+                                                        ? STATUS_COLORS[record.status]
+                                                        : holiday
+                                                            ? 'bg-purple-500/15'
+                                                            : 'bg-dark-card/60';
+
+                                                const STATUS_ICONS = { worked:'💼', rest:'🌙', permit:'📋', holiday:'🎉', absent:'❌' };
+                                                const hasInnerCircle = isInPeriod && (record || holiday);
+                                                const innerCircleColor = record ? statusBgSolid[record.status] : 'bg-purple-500';
+                                                const iconStatus = record ? record.status : (holiday ? 'holiday' : null);
+
+                                                return (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => handleDayClick(day)}
+                                                        title={holiday ? holiday.name : ''}
+                                                        className={`aspect-square rounded-md flex items-center justify-center font-black transition-all relative overflow-hidden ${cellBg} ${isToday ? 'ring-2 ring-white ring-offset-1 ring-offset-dark-bg' : ''}`}
+                                                    >
+                                                        {hasInnerCircle ? (
+                                                            <>
+                                                                <div className={`absolute inset-[5px] rounded-full ${innerCircleColor} flex items-center justify-center`}>
+                                                                    <span style={{fontSize:'11px',lineHeight:'1'}}>{STATUS_ICONS[iconStatus]}</span>
+                                                                </div>
+                                                                <span className="absolute bottom-[2px] text-[7px] font-black text-white/60 z-10 leading-none">{day}</span>
+                                                            </>
+                                                        ) : record ? (
+                                                            <>
+                                                                <div className={`absolute inset-[5px] rounded-full ${STATUS_COLORS[record.status]} flex items-center justify-center`}>
+                                                                    <span style={{fontSize:'11px',lineHeight:'1'}}>{STATUS_ICONS[record.status]}</span>
+                                                                </div>
+                                                                <span className="absolute bottom-[2px] text-[7px] font-black text-white/60 z-10 leading-none">{day}</span>
+                                                            </>
+                                                        ) : (
+                                                            <span className={`text-xs font-black ${isInPeriod ? 'text-white/80' : holiday ? 'text-purple-300' : 'text-gray-500'}`}>{day}</span>
+                                                        )}
+                                                    </button>
+                                                );
+                                            });
+                                        })()}
                                     </div>
                                     
                                     {/* Leyenda compacta */}
-                                    <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center mt-3 pt-3 border-t border-dark-border/40">
-                                        {Object.entries(STATUS_LABELS).map(([key, label]) => (
-                                            <div key={key} className="flex items-center gap-1">
-                                                <div className={`w-2 h-2 rounded-full ${STATUS_COLORS[key]}`}></div>
-                                                <span className="text-xs text-gray-500 font-semibold">{label}</span>
-                                            </div>
-                                        ))}
+                                    <div className="mt-3 pt-3 border-t border-dark-border/40 space-y-2">
+                                        <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center">
+                                            <span className="text-xs font-semibold text-cyan-400">💼 Trabajado</span>
+                                            <span className="text-xs font-semibold text-blue-400">🌙 Descansó</span>
+                                            <span className="text-xs font-semibold text-amber-400">📋 Permiso</span>
+                                            <span className="text-xs font-semibold text-purple-400">🎉 Festivo</span>
+                                            <span className="text-xs font-semibold text-rose-400">❌ Falta</span>
+                                        </div>
+                                        {(() => {
+                                            const monthStart = new Date(currentYear, currentMonth, 1);
+                                            const monthEnd = new Date(currentYear, currentMonth + 1, 0);
+                                            const visiblePeriods = commissionPeriods.filter(p =>
+                                                p.startDate <= monthEnd && p.endDate >= monthStart
+                                            );
+                                            const paletteLegend = [
+                                                { text: 'text-sky-400' },
+                                                { text: 'text-orange-400' },
+                                                { text: 'text-fuchsia-400' },
+                                            ];
+                                            if (visiblePeriods.length === 0) return null;
+                                            return (
+                                                <div className="flex items-center justify-center gap-3 flex-nowrap overflow-hidden">
+                                                    {visiblePeriods.map((p, i) => (
+                                                        <span key={i} className={`text-[10px] font-semibold whitespace-nowrap ${paletteLegend[i % paletteLegend.length].text}`}>{p.label}</span>
+                                                    ))}
+                                                </div>
+                                            );
+                                        })()}
                                     </div>
                                 </div>
 
@@ -2420,7 +2533,7 @@
                                                                     onClick={() => selectMonth(idx)}
                                                                     className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all ${
                                                                         idx === currentMonth 
-                                                                            ? 'bg-emerald-500 text-white' 
+                                                                            ? 'bg-cyan-500 text-white' 
                                                                             : 'text-gray-400 hover:bg-dark-hover'
                                                                     }`}
                                                                 >
@@ -2468,8 +2581,8 @@
                                                                     ? `${STATUS_COLORS[record.status]} text-white shadow-md hover:scale-110 hover:shadow-lg` 
                                                                     : holiday
                                                                         ? 'bg-purple-500/15 text-purple-300 border border-purple-500/30 hover:bg-purple-500/25'
-                                                                        : 'bg-dark-card/80 hover:bg-dark-hover text-gray-400 border border-dark-border/60 hover:border-emerald-500/40 hover:text-white'
-                                                            } ${isToday ? 'ring-2 ring-emerald-400 ring-offset-2 ring-offset-dark-bg scale-105' : ''}`}
+                                                                        : 'bg-dark-card/80 hover:bg-dark-hover text-gray-400 border border-dark-border/60 hover:border-cyan-500/40 hover:text-white'
+                                                            } ${isToday ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-dark-bg scale-105' : ''}`}
                                                         >
                                                             <span className={`text-sm font-black ${!record && !isToday ? 'text-gray-500' : ''}`}>{day}</span>
                                                             {record && (
@@ -2505,13 +2618,13 @@
                                     <form onSubmit={submitRecord} className="space-y-4 animate-slide-up">
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                <div className={`w-11 h-11 rounded-xl ${editingId ? 'bg-blue-500/20' : 'bg-emerald-500/20'} flex items-center justify-center`}>
+                                                <div className={`w-11 h-11 rounded-xl ${editingId ? 'bg-blue-500/20' : 'bg-cyan-500/20'} flex items-center justify-center`}>
                                                     {editingId ? (
                                                         <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                         </svg>
                                                     ) : (
-                                                        <Plus size={20} className="text-emerald-400" />
+                                                        <Plus size={20} className="text-cyan-400" />
                                                     )}
                                                 </div>
                                                 <h2 className="text-xl font-black text-white">{editingId ? 'Editar' : 'Nuevo'} Registro</h2>
@@ -2533,7 +2646,7 @@
                                         <div className="glass-effect p-5 rounded-xl shadow-xl space-y-5">
                                             {/* SECCIÓN: Fecha y Estado */}
                                             <div className="space-y-3">
-                                                <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                                                <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2">
                                                     <Calendar size={11} />
                                                     Información del día
                                                 </p>
@@ -2543,7 +2656,7 @@
                                                         type="date" 
                                                         value={formData.date} 
                                                         onChange={e => setFormData({...formData, date: e.target.value})} 
-                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                                         required
                                                     />
                                                 </div>
@@ -2553,7 +2666,7 @@
                                                     <select 
                                                         value={formData.status} 
                                                         onChange={e => setFormData({...formData, status: e.target.value})} 
-                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                                     >
                                                         {Object.entries(STATUS_LABELS).map(([k,v]) => {
                                                             const currentRates = getCurrentRates();
@@ -2595,7 +2708,7 @@
                                                             }
                                                             setFormData({...formData, startTime: newStartTime, endTime: newEndTime});
                                                         }} 
-                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                                     />
                                                 </div>
                                                 <div>
@@ -2604,7 +2717,7 @@
                                                         type="time" 
                                                         value={formData.endTime} 
                                                         onChange={e => setFormData({...formData, endTime: e.target.value})} 
-                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                        className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                                     />
                                                 </div>
                                             </div>
@@ -2614,8 +2727,8 @@
                                                     let hours = (new Date(`2000-01-01T${formData.endTime}`) - new Date(`2000-01-01T${formData.startTime}`)) / (1000 * 60 * 60);
                                                     if (hours <= 0) hours += 24;
                                                     return (
-                                                        <div className="p-3 bg-emerald-500/20 border border-emerald-500/30 rounded-xl">
-                                                            <p className="text-xs text-emerald-400 font-semibold">
+                                                        <div className="p-3 bg-cyan-500/20 border border-cyan-500/30 rounded-xl">
+                                                            <p className="text-xs text-cyan-400 font-semibold">
                                                                 ⏱️ Horas trabajadas: {hours.toFixed(2)}h {hours > 12 ? '(turno nocturno)' : ''}
                                                             </p>
                                                         </div>
@@ -2642,7 +2755,7 @@
                                                     value={formData.unit} 
                                                     onChange={e => setFormData({...formData, unit: e.target.value})} 
                                                     maxLength={50}
-                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-emerald-500/50"
+                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-cyan-500/50"
                                                 />
                                             </div>
 
@@ -2651,7 +2764,7 @@
                                                 <select 
                                                     value={selectedUnitType}
                                                     onChange={e => setSelectedUnitType(e.target.value)}
-                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                                 >
                                                     <option value="all">📋 Todas las unidades</option>
                                                     <option value="crafter">🚐 Crafter / Sprinter / Transporter / Urvan</option>
@@ -2673,7 +2786,7 @@
                                                     value={formData.description} 
                                                     onChange={e => setFormData({...formData, description: e.target.value})} 
                                                     maxLength={500}
-                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 resize-none hover:border-emerald-500/50"
+                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 resize-none hover:border-cyan-500/50"
                                                     rows="2"
                                                 />
                                             </div>
@@ -2691,7 +2804,7 @@
                                                     <div className="flex gap-2">
                                                         <button 
                                                             type="button" 
-                                                            onClick={() => { setPreconfFilter(null); setShowCommissionsModal(true); }} 
+                                                        onClick={() => { setPreconfFilter(prev => prev || 'Desde Aeropuerto Cancún'); setShowCommissionsModal(true); }} 
                                                             className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
                                                         >
                                                             <Sparkles size={14} /> Preconfiguradas
@@ -2699,7 +2812,7 @@
                                                         <button 
                                                             type="button" 
                                                             onClick={addCommission} 
-                                                            className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                                                            className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
                                                         >
                                                             <Plus size={14} /> Agregar
                                                         </button>
@@ -2713,7 +2826,7 @@
                                                                     placeholder="Nombre de comisión" 
                                                                     type="text" 
                                                                     maxLength={50}
-                                                                    className="flex-1 bg-dark-hover border border-dark-border p-3 rounded-xl text-xs font-semibold outline-none text-white placeholder-gray-500 hover:border-emerald-500/50" 
+                                                                    className="flex-1 bg-dark-hover border border-dark-border p-3 rounded-xl text-xs font-semibold outline-none text-white placeholder-gray-500 hover:border-cyan-500/50" 
                                                                     value={comm.name} 
                                                                     onChange={e => { 
                                                                         const newC = [...formData.commissions]; 
@@ -2726,7 +2839,7 @@
                                                                     type="number" 
                                                                     step="0.01"
                                                                     min="0"
-                                                                    className="w-28 bg-dark-hover border border-dark-border p-3 rounded-xl text-xs font-bold text-emerald-400 outline-none hover:border-emerald-500/50" 
+                                                                    className="w-28 bg-dark-hover border border-dark-border p-3 rounded-xl text-xs font-bold text-cyan-400 outline-none hover:border-cyan-500/50" 
                                                                     value={comm.amount} 
                                                                     onChange={e => { 
                                                                         const newC = [...formData.commissions]; 
@@ -2833,7 +2946,7 @@
                                             )}
                                             <button 
                                                 type="submit"
-                                                className="flex-1 px-6 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-sm font-black text-white shadow-lg shadow-emerald-500/20 hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-95 flex items-center justify-center gap-2"
+                                                className="flex-1 px-6 py-4 bg-gradient-to-r from-cyan-500 to-sky-600 rounded-xl text-sm font-black text-white shadow-lg shadow-cyan-500/20 hover:from-cyan-600 hover:to-sky-700 transition-all active:scale-95 flex items-center justify-center gap-2"
                                             >
                                                 {editingId ? <><Check size={20} /> Actualizar</> : <><Plus size={20} /> Crear</>}
                                             </button>
@@ -2855,7 +2968,7 @@
                                                 onClick={() => setIsMultiSelectMode(!isMultiSelectMode)}
                                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                                     isMultiSelectMode
-                                                        ? 'bg-emerald-500 text-white'
+                                                        ? 'bg-cyan-500 text-white'
                                                         : 'bg-dark-hover text-gray-400 hover:bg-dark-card'
                                                 }`}
                                             >
@@ -2893,7 +3006,7 @@
                                             </div>
                                             <div className="text-center">
                                                 <p className="text-xs font-bold text-gray-500 uppercase mb-1">Total</p>
-                                                <p className="text-base font-black text-emerald-400 truncate">
+                                                <p className="text-base font-black text-cyan-400 truncate">
                                                     ${filteredRecords.reduce((sum, r) => sum + (r.baseSalary || 0) + (r.totalComm || 0) - (r.totalExp || 0), 0).toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                                                 </p>
                                             </div>
@@ -2911,14 +3024,14 @@
                                                 placeholder="Buscar..."
                                                 value={searchQuery}
                                                 onChange={e => setSearchQuery(e.target.value)}
-                                                className="w-full bg-dark-hover border border-dark-border pl-10 pr-3 py-2.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-emerald-500/50"
+                                                className="w-full bg-dark-hover border border-dark-border pl-10 pr-3 py-2.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-cyan-500/50"
                                             />
                                         </div>
                                         <button
                                             onClick={() => setShowHistoryFilters(!showHistoryFilters)}
                                             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                                                 showHistoryFilters || !filterStatuses.includes('all') || selectedPeriod !== 'custom'
-                                                    ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-400'
+                                                    ? 'bg-cyan-500/20 border border-cyan-500/40 text-cyan-400'
                                                     : 'bg-dark-hover border border-dark-border text-gray-400 hover:bg-dark-card'
                                             }`}
                                         >
@@ -2927,7 +3040,7 @@
                                             </svg>
                                             Filtros
                                             {(!filterStatuses.includes('all') || selectedPeriod !== 'custom') && (
-                                                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                                <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
                                             )}
                                         </button>
                                     </div>
@@ -2945,7 +3058,7 @@
                                                         onClick={() => setPeriodTabType('payroll')}
                                                         className={`flex-1 py-2 text-xs font-bold transition-all ${
                                                             periodTabType === 'payroll' 
-                                                                ? 'bg-emerald-500/20 text-emerald-400' 
+                                                                ? 'bg-cyan-500/20 text-cyan-400' 
                                                                 : 'text-gray-500 hover:text-gray-300'
                                                         }`}
                                                     >
@@ -2969,12 +3082,12 @@
                                                         onClick={() => { setSelectedPeriod('custom'); }}
                                                         className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
                                                             selectedPeriod === 'custom' 
-                                                                ? 'bg-emerald-500/20 text-emerald-400' 
+                                                                ? 'bg-cyan-500/20 text-cyan-400' 
                                                                 : 'text-gray-400 hover:bg-dark-card'
                                                         }`}
                                                     >
                                                         📅 Personalizado
-                                                        {selectedPeriod === 'custom' && <Check size={12} className="ml-auto text-emerald-400" />}
+                                                        {selectedPeriod === 'custom' && <Check size={12} className="ml-auto text-cyan-400" />}
                                                     </button>
                                                     
                                                     {(periodTabType === 'payroll' ? payrollPeriods : commissionPeriods).map((period, idx) => {
@@ -2992,16 +3105,16 @@
                                                                 }}
                                                                 className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
                                                                     isSelected 
-                                                                        ? 'bg-emerald-500/20 text-emerald-400' 
+                                                                        ? 'bg-cyan-500/20 text-cyan-400' 
                                                                         : isCurrent
-                                                                            ? 'bg-dark-card text-white ring-1 ring-emerald-500/30'
+                                                                            ? 'bg-dark-card text-white ring-1 ring-cyan-500/30'
                                                                             : 'text-gray-400 hover:bg-dark-card'
                                                                 }`}
                                                             >
                                                                 <span>{periodTabType === 'payroll' ? '💰' : '⭐'}</span>
                                                                 <span className="flex-1">{period.label}{period.payDay ? ` • Cobro: día ${typeof period.payDay === 'object' ? period.payDay.getDate() : period.payDay}` : ''}</span>
-                                                                {isCurrent && <span className="px-1.5 py-0.5 bg-emerald-500/20 rounded text-[10px] font-black text-emerald-400 uppercase">Actual</span>}
-                                                                {isSelected && <Check size={12} className="flex-shrink-0 text-emerald-400" />}
+                                                                {isCurrent && <span className="px-1.5 py-0.5 bg-cyan-500/20 rounded text-[10px] font-black text-cyan-400 uppercase">Actual</span>}
+                                                                {isSelected && <Check size={12} className="flex-shrink-0 text-cyan-400" />}
                                                             </button>
                                                         );
                                                     })}
@@ -3013,12 +3126,12 @@
                                                     <div className="flex-1">
                                                         <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Inicio</label>
                                                         <input type="date" value={filterStartDate} onChange={e => setFilterStartDate(e.target.value)} 
-                                                            className="w-full bg-dark-hover border border-dark-border p-2 rounded-lg text-xs font-semibold outline-none text-white hover:border-emerald-500/50" />
+                                                            className="w-full bg-dark-hover border border-dark-border p-2 rounded-lg text-xs font-semibold outline-none text-white hover:border-cyan-500/50" />
                                                     </div>
                                                     <div className="flex-1">
                                                         <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Fin</label>
                                                         <input type="date" value={filterEndDate} onChange={e => setFilterEndDate(e.target.value)} 
-                                                            className="w-full bg-dark-hover border border-dark-border p-2 rounded-lg text-xs font-semibold outline-none text-white hover:border-emerald-500/50" />
+                                                            className="w-full bg-dark-hover border border-dark-border p-2 rounded-lg text-xs font-semibold outline-none text-white hover:border-cyan-500/50" />
                                                     </div>
                                                 </div>
                                             )}
@@ -3028,7 +3141,7 @@
                                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 block">Estado</label>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     <button type="button" onClick={() => handleStatusToggle('all')}
-                                                        className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all ${filterStatuses.includes('all') ? 'bg-emerald-500 text-white' : 'bg-dark-hover border border-dark-border text-gray-400'}`}>
+                                                        className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all ${filterStatuses.includes('all') ? 'bg-cyan-500 text-white' : 'bg-dark-hover border border-dark-border text-gray-400'}`}>
                                                         Todo
                                                     </button>
                                                     {Object.entries(STATUS_LABELS).map(([key, label]) => (
@@ -3059,7 +3172,7 @@
                                                 <HistoryIcon size={28} className="text-gray-600" />
                                             </div>
                                             <p className="text-gray-400 text-sm font-bold mb-1">Sin registros</p>
-                                            <p className="text-gray-600 text-xs">Ajusta los filtros o usa el botón <span className="text-emerald-400 font-bold">+</span> para agregar</p>
+                                            <p className="text-gray-600 text-xs">Ajusta los filtros o usa el botón <span className="text-cyan-400 font-bold">+</span> para agregar</p>
                                         </div>
                                     ) : (
                                         filteredRecords.map(r => {
@@ -3084,7 +3197,7 @@
                                                                 className="flex-shrink-0"
                                                             >
                                                                 {selectedRecords.includes(r.id) ? (
-                                                                    <CheckSquare size={22} className="text-emerald-400" />
+                                                                    <CheckSquare size={22} className="text-cyan-400" />
                                                                 ) : (
                                                                     <Square size={22} className="text-gray-600" />
                                                                 )}
@@ -3114,7 +3227,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div className="text-right flex-shrink-0">
-                                                                    <p className="text-base font-black text-emerald-400">
+                                                                    <p className="text-base font-black text-cyan-400">
                                                                         ${totalDay.toLocaleString('es-MX', { minimumFractionDigits: 2 })}
                                                                     </p>
                                                                 </div>
@@ -3195,8 +3308,8 @@
                                     {(selectedDayRecord.startTime || selectedDayRecord.endTime) && (
                                         <div className="flex items-center justify-between p-3.5 bg-dark-hover rounded-xl">
                                             <div className="flex items-center gap-2.5">
-                                                <div className="w-11 h-11 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                                                    <Clock size={16} className="text-emerald-400" />
+                                                <div className="w-11 h-11 rounded-xl bg-cyan-500/15 flex items-center justify-center">
+                                                    <Clock size={16} className="text-cyan-400" />
                                                 </div>
                                                 <div>
                                                     <p className="text-xs font-bold text-gray-500 uppercase">Horario</p>
@@ -3204,7 +3317,7 @@
                                                 </div>
                                             </div>
                                             {selectedDayRecord.hoursWorked && (
-                                                <span className="text-sm font-black text-emerald-400">{selectedDayRecord.hoursWorked.toFixed(1)}h</span>
+                                                <span className="text-sm font-black text-cyan-400">{selectedDayRecord.hoursWorked.toFixed(1)}h</span>
                                             )}
                                         </div>
                                     )}
@@ -3239,7 +3352,7 @@
                                                             <p className="text-xs font-bold text-white truncate">{comm.name ? comm.name.replace(/\s*\(.*?\)\s*$/, '') : 'Comisión'}</p>
                                                             
                                                         </div>
-                                                        <span className="text-sm font-black text-emerald-400 flex-shrink-0 ml-3">${parseFloat(comm.amount).toFixed(2)}</span>
+                                                        <span className="text-sm font-black text-cyan-400 flex-shrink-0 ml-3">${parseFloat(comm.amount).toFixed(2)}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -3305,7 +3418,7 @@
                                                     setTargetRecordDate(selectedDayRecord.date);
                                                     setShowQuickCommissionModal(true);
                                                 }}
-                                                className="flex-1 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-sm font-black text-white hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                                                className="flex-1 py-3.5 bg-gradient-to-r from-cyan-500 to-sky-600 rounded-xl text-sm font-black text-white hover:from-cyan-600 hover:to-sky-700 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
                                             >
                                                 <Plus size={16} />
                                                 Comisión
@@ -3348,7 +3461,7 @@
                                  onClick={(e) => e.stopPropagation()}>
                                 
                                 {/* Header con gradiente */}
-                                <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 p-5 relative overflow-hidden">
+                                <div className="bg-gradient-to-br from-cyan-600 to-sky-700 p-5 relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] to-transparent"></div>
                                     <div className="absolute -top-8 -right-8 w-28 h-28 bg-white/[0.04] rounded-full"></div>
                                     <div className="relative flex items-center justify-between">
@@ -3380,7 +3493,7 @@
                                                 safeLocalStorage.setItem('worktracker_userName', e.target.value);
                                             }}
                                             placeholder="Nombre completo"
-                                            className="w-full bg-dark-hover border border-dark-border p-3.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-emerald-500/50"
+                                            className="w-full bg-dark-hover border border-dark-border p-3.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-cyan-500/50"
                                         />
                                     </div>
                                     
@@ -3394,7 +3507,7 @@
                                                 safeLocalStorage.setItem('worktracker_employeeId', e.target.value);
                                             }}
                                             placeholder="Ej: 15724"
-                                            className="w-full bg-dark-hover border border-dark-border p-3.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-emerald-500/50"
+                                            className="w-full bg-dark-hover border border-dark-border p-3.5 rounded-xl text-sm font-semibold outline-none text-white placeholder-gray-500 hover:border-cyan-500/50"
                                         />
                                     </div>
                                 </div>
@@ -3448,8 +3561,8 @@
                                         }}
                                         className="w-full glass-effect p-4 rounded-xl flex items-center gap-3 hover:bg-dark-hover transition-all"
                                     >
-                                        <div className="w-11 h-11 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                            <Download size={20} className="text-emerald-400" />
+                                        <div className="w-11 h-11 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                                            <Download size={20} className="text-cyan-400" />
                                         </div>
                                         <div className="flex-1 text-left">
                                             <h4 className="text-sm font-bold text-white">Exportar</h4>
@@ -3551,7 +3664,7 @@
                                     {!qrImage ? (
                                         <div 
                                             onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                                            className="border-2 border-dashed border-dark-border rounded-2xl p-12 text-center cursor-pointer hover:border-emerald-500/50 hover:bg-dark-hover/50 transition-all"
+                                            className="border-2 border-dashed border-dark-border rounded-2xl p-12 text-center cursor-pointer hover:border-cyan-500/50 hover:bg-dark-hover/50 transition-all"
                                         >
                                             <div className="flex flex-col items-center gap-3">
                                                 <svg className="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3577,7 +3690,7 @@
                                                     <img src={qrImage} alt="Código QR" className="w-48 h-48 object-contain" />
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2 justify-center text-emerald-400 mb-4">
+                                            <div className="flex items-center gap-2 justify-center text-cyan-400 mb-4">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                 </svg>
@@ -3639,7 +3752,7 @@
                                 <div className="flex items-center justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-black text-white flex items-center gap-2">
-                                            <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                                             </svg>
                                             Agregar Comisión
@@ -3699,7 +3812,7 @@
                                             >
                                                 <img src={qrImage} alt="Código QR" className="w-32 h-32 object-contain" />
                                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-2xl transition-all flex items-center justify-center">
-                                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-emerald-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
+                                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-cyan-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
                                                         🔍 Ver
                                                     </div>
                                                 </div>
@@ -3770,8 +3883,8 @@
                                         return (
                                             <>
                                                 {targetRec && targetRec.unit && (
-                                                    <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-                                                        <p className="text-xs text-emerald-400 font-semibold flex items-center gap-2">
+                                                    <div className="mb-4 p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-xl">
+                                                        <p className="text-xs text-cyan-400 font-semibold flex items-center gap-2">
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                             </svg>
@@ -3787,8 +3900,8 @@
                                             onClick={() => setSelectedCategory('Desde Aeropuerto Cancún')}
                                             className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                                                 selectedCategory === 'Desde Aeropuerto Cancún'
-                                                    ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg scale-105'
-                                                    : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:bg-dark-card hover:border-emerald-500/50'
+                                                    ? 'bg-gradient-to-r from-cyan-500 to-sky-600 text-white shadow-lg scale-105'
+                                                    : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:bg-dark-card hover:border-cyan-500/50'
                                             }`}
                                         >
                                             ✈️ APTO CANCÚN
@@ -3829,7 +3942,7 @@
                                 {/* Lista de Comisiones - Solo se muestra si hay categoría seleccionada */}
                                 {selectedCategory ? (
                                     <div className="space-y-2">
-                                        <h4 className="text-sm font-bold text-emerald-400 mb-3 uppercase tracking-wider">
+                                        <h4 className="text-sm font-bold text-cyan-400 mb-3 uppercase tracking-wider">
                                             {selectedCategory}
                                         </h4>
                                         {Object.entries(getFilteredCommissionsByCategory(selectedCategory, selectedUnitType)).length === 0 ? (
@@ -3848,11 +3961,11 @@
                                                     <button
                                                         key={name}
                                                         onClick={() => setPendingCommission({ name, amount })}
-                                                        className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-emerald-500/50 transition-all group"
+                                                        className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-cyan-500/50 transition-all group"
                                                     >
                                                     <div className="flex items-center justify-between">
                                                         <div className="text-left flex-1">
-                                                            <p className="text-sm font-black text-white group-hover:text-emerald-400 transition-colors mb-1">
+                                                            <p className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors mb-1">
                                                                 {destination}
                                                             </p>
                                                             {vehicleType && (
@@ -3862,7 +3975,7 @@
                                                             )}
                                                         </div>
                                                         <div className="text-right ml-4">
-                                                            <p className="text-2xl font-black text-emerald-400">
+                                                            <p className="text-2xl font-black text-cyan-400">
                                                                 ${amount}
                                                             </p>
                                                         </div>
@@ -3890,7 +4003,7 @@
                     
                     {/* Modal de Comisiones Preconfiguradas */}
                     {showCommissionsModal && (
-                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[55] flex items-start justify-center p-4 pt-8 pb-24 overflow-y-auto animate-fade-in"
+                        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[68] flex items-start justify-center p-4 pt-8 pb-24 overflow-y-auto animate-fade-in"
                              onClick={() => setShowCommissionsModal(false)}>
                             <div className="glass-effect rounded-2xl p-6 max-w-2xl w-full my-auto animate-slide-up"
                                  onClick={(e) => e.stopPropagation()}>
@@ -3918,37 +4031,31 @@
                                     </div>
                                 )}
                                 
-                                {/* Category pills */}
-                                <div className="flex flex-wrap gap-2 mb-4">
+                                {/* Category pills - Grid 2x2 */}
+                                <div className="grid grid-cols-2 gap-2 mb-4">
                                     <button onClick={() => setPreconfFilter(f => f === 'Desde Aeropuerto Cancún' ? null : 'Desde Aeropuerto Cancún')}
-                                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                            preconfFilter === 'Desde Aeropuerto Cancún' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-emerald-500/50'
+                                        className={`py-3 rounded-2xl text-xs font-black transition-all w-full ${
+                                            preconfFilter === 'Desde Aeropuerto Cancún' ? 'bg-gradient-to-r from-cyan-500 to-sky-600 text-white shadow-lg scale-[1.02]' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-cyan-500/50'
                                         }`}>✈️ APTO CANCÚN</button>
                                     <button onClick={() => setPreconfFilter(f => f === 'Desde Aeropuerto Tulúm' ? null : 'Desde Aeropuerto Tulúm')}
-                                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                            preconfFilter === 'Desde Aeropuerto Tulúm' ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-purple-500/50'
+                                        className={`py-3 rounded-2xl text-xs font-black transition-all w-full ${
+                                            preconfFilter === 'Desde Aeropuerto Tulúm' ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg scale-[1.02]' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-purple-500/50'
                                         }`}>✈️ APTO TULÚM</button>
                                     <button onClick={() => setPreconfFilter(f => f === 'Punto a Punto' ? null : 'Punto a Punto')}
-                                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                            preconfFilter === 'Punto a Punto' ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-blue-500/50'
+                                        className={`py-3 rounded-2xl text-xs font-black transition-all w-full ${
+                                            preconfFilter === 'Punto a Punto' ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg scale-[1.02]' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-blue-500/50'
                                         }`}>🔄 PUNTO A PUNTO</button>
                                     <button onClick={() => setPreconfFilter(f => f === 'Servicios Especiales' ? null : 'Servicios Especiales')}
-                                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                            preconfFilter === 'Servicios Especiales' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-amber-500/50'
+                                        className={`py-3 rounded-2xl text-xs font-black transition-all w-full ${
+                                            preconfFilter === 'Servicios Especiales' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg scale-[1.02]' : 'bg-dark-hover border-2 border-dark-border text-gray-400 hover:border-amber-500/50'
                                         }`}>⭐ ESPECIALES</button>
                                 </div>
 
                                 <div className="space-y-4">
                                     {(() => {
-                                        if (!preconfFilter) return (
-                                            <div className="text-center py-12">
-                                                <Zap size={48} className="text-gray-600 mx-auto mb-3" />
-                                                <p className="text-gray-400 text-sm font-bold">Selecciona una categoría</p>
-                                                <p className="text-gray-500 text-xs mt-1">Elige APTO Cancún, APTO Tulúm, Punto a Punto o Especiales</p>
-                                            </div>
-                                        );
+                                        const activeFilter = preconfFilter || 'Desde Aeropuerto Cancún';
                                         const allComms = getFilteredCommissions(selectedUnitType);
-                                        const filtered = Object.fromEntries(Object.entries(allComms).filter(([cat]) => cat === preconfFilter));
+                                        const filtered = Object.fromEntries(Object.entries(allComms).filter(([cat]) => cat === activeFilter));
                                         return Object.keys(filtered).length === 0 ? (
                                         <div className="text-center py-12">
                                             <Sparkles size={48} className="text-gray-600 mx-auto mb-3" />
@@ -3958,7 +4065,7 @@
                                     ) : (
                                         Object.entries(filtered).map(([category, commissions]) => (
                                         <div key={category} className="space-y-3">
-                                            <h4 className="text-sm font-bold text-emerald-400 mb-3">{category}</h4>
+                                            <h4 className="text-sm font-bold text-cyan-400 mb-3">{category}</h4>
                                             <div className="space-y-2">
                                                 {Object.entries(commissions).map(([name, amount]) => {
                                                     // Separar el nombre del destino y el tipo de vehículo
@@ -3978,21 +4085,21 @@
                                                                 setShowCommissionsModal(false);
                                                                 showToast(`✓ ${name} agregada`, 'success');
                                                             }}
-                                                            className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-emerald-500/50 transition-all group"
+                                                            className="w-full p-4 rounded-xl bg-dark-card hover:bg-dark-hover border-2 border-dark-border hover:border-cyan-500/50 transition-all group"
                                                         >
-                                                            <div className="flex items-center justify-between">
-                                                                <div className="text-left flex-1">
-                                                                    <p className="text-base font-black text-white group-hover:text-emerald-400 transition-colors mb-1">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="text-left flex-1 min-w-0">
+                                                                    <p className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors truncate">
                                                                         {destination}
                                                                     </p>
                                                                     {vehicleType && (
-                                                                        <p className="text-xs font-semibold text-gray-500">
+                                                                        <p className="text-xs font-semibold text-gray-500 truncate">
                                                                             ({vehicleType})
                                                                         </p>
                                                                     )}
                                                                 </div>
-                                                                <div className="text-right ml-4">
-                                                                    <p className="text-3xl font-black text-emerald-400">
+                                                                <div className="flex-shrink-0">
+                                                                    <p className="text-2xl font-black text-cyan-400">
                                                                         ${amount}
                                                                     </p>
                                                                 </div>
@@ -4020,7 +4127,7 @@
                                 {/* Header */}
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-black text-white flex items-center gap-2">
-                                        <Clock size={20} className="text-emerald-400" />
+                                        <Clock size={20} className="text-cyan-400" />
                                         Registrar Jornada
                                     </h3>
                                     <button onClick={() => setShowQRModal(false)} aria-label="Cerrar" className="text-gray-500 hover:text-white w-11 h-11 flex items-center justify-center">
@@ -4044,21 +4151,21 @@
                                 {/* Fecha de Registro */}
                                 <div className="mb-5">
                                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block flex items-center gap-2">
-                                        <Calendar size={14} className="text-emerald-400" />
+                                        <Calendar size={14} className="text-cyan-400" />
                                         Fecha de registro
                                     </label>
                                     <input 
                                         type="date" 
                                         value={formData.date || new Date().toISOString().split('T')[0]} 
                                         onChange={e => setFormData({...formData, date: e.target.value})} 
-                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-emerald-500/50 transition-all"
+                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-cyan-500/50 transition-all"
                                     />
                                 </div>
 
                                 {/* Campos de Horario */}
                                 <div className="mb-5 space-y-4">
                                     <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                                        <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                         Horario de Trabajo
@@ -4080,7 +4187,7 @@
                                                     }
                                                     setFormData({...formData, startTime: newStartTime, endTime: newEndTime});
                                                 }} 
-                                                className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-emerald-500/50 transition-all"
+                                                className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-cyan-500/50 transition-all"
                                                 required
                                             />
                                         </div>
@@ -4090,7 +4197,7 @@
                                                 type="time" 
                                                 value={formData.endTime} 
                                                 onChange={e => setFormData({...formData, endTime: e.target.value})} 
-                                                className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-emerald-500/50 transition-all"
+                                                className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-cyan-500/50 transition-all"
                                                 required
                                             />
                                         </div>
@@ -4100,8 +4207,8 @@
                                             let hours = (new Date(`2000-01-01T${formData.endTime}`) - new Date(`2000-01-01T${formData.startTime}`)) / (1000 * 60 * 60);
                                             if (hours <= 0) hours += 24;
                                             return (
-                                                <div className="p-3 bg-emerald-500/20 border border-emerald-500/30 rounded-xl">
-                                                    <p className="text-xs text-emerald-400 font-semibold">
+                                                <div className="p-3 bg-cyan-500/20 border border-cyan-500/30 rounded-xl">
+                                                    <p className="text-xs text-cyan-400 font-semibold">
                                                         ⏱️ Horas trabajadas: {hours.toFixed(2)}h {hours > 12 ? '(turno nocturno)' : ''}
                                                     </p>
                                                 </div>
@@ -4113,7 +4220,7 @@
                                 {/* Tipo de Unidad */}
                                 <div className="mb-4">
                                     <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block flex items-center gap-2">
-                                        <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                                         </svg>
                                         Tipo de Unidad *
@@ -4121,7 +4228,7 @@
                                     <select 
                                         value={selectedUnitType}
                                         onChange={(e) => setSelectedUnitType(e.target.value)}
-                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-emerald-500/50 transition-all"
+                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white hover:border-cyan-500/50 transition-all"
                                         required
                                     >
                                         <option value="" disabled>Selecciona tu tipo de unidad</option>
@@ -4145,7 +4252,7 @@
                                         value={unitIdentifier}
                                         onChange={(e) => setUnitIdentifier(e.target.value.toUpperCase())}
                                         maxLength={20}
-                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white placeholder-gray-500 hover:border-emerald-500/50 transition-all"
+                                        className="w-full bg-dark-hover border-2 border-dark-border p-3 rounded-xl text-sm font-semibold text-white placeholder-gray-500 hover:border-cyan-500/50 transition-all"
                                     />
                                 </div>
 
@@ -4212,7 +4319,7 @@
                                                 setShowQuickCommissionModal(true);
                                             }, 300);
                                         }}
-                                        className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-base font-black text-white hover:from-emerald-600 hover:to-emerald-700 transition-all hover:scale-[1.02] active:scale-95 shadow-lg flex items-center justify-center gap-2"
+                                        className="w-full py-4 bg-gradient-to-r from-cyan-500 to-sky-600 rounded-xl text-base font-black text-white hover:from-cyan-600 hover:to-sky-700 transition-all hover:scale-[1.02] active:scale-95 shadow-lg flex items-center justify-center gap-2"
                                     >
                                         <Check size={20} />
                                         Registrar Jornada y Continuar
@@ -4269,7 +4376,7 @@
                                                         newRates[key] = parseFloat(e.target.value) || 0;
                                                         setCustomRates(newRates);
                                                     }}
-                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-bold text-emerald-400 outline-none hover:border-emerald-500/50"
+                                                    className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-bold text-cyan-400 outline-none hover:border-cyan-500/50"
                                                 />
                                             </div>
                                         );
@@ -4292,7 +4399,7 @@
                                                     setShowRatesConfig(false);
                                                 }
                                             }}
-                                            className="flex-1 px-4 py-3 bg-emerald-500 rounded-xl text-xs font-bold text-white hover:bg-emerald-600 transition-all"
+                                            className="flex-1 px-4 py-3 bg-cyan-500 rounded-xl text-xs font-bold text-white hover:bg-cyan-600 transition-all"
                                         >
                                             Guardar
                                         </button>
@@ -4377,7 +4484,7 @@
                                  onClick={(e) => e.stopPropagation()}>
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-black text-white flex items-center gap-2">
-                                        <Download size={20} className="text-emerald-400" />
+                                        <Download size={20} className="text-cyan-400" />
                                         Exportar Datos
                                     </h3>
                                     <button onClick={() => setShowExportPeriodModal(false)} className="text-gray-500 hover:text-white">
@@ -4392,7 +4499,7 @@
                                         <select
                                             value={exportSelectedPeriod}
                                             onChange={e => setExportSelectedPeriod(e.target.value)}
-                                            className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-emerald-500/50"
+                                            className="w-full bg-dark-hover border border-dark-border p-3 rounded-xl text-sm font-semibold outline-none text-white hover:border-cyan-500/50"
                                         >
                                             <option value="current">📌 Periodo actual ({(() => {
                                                 const now = new Date();
@@ -4431,7 +4538,7 @@
                                             <>
                                                 <div className="p-3 bg-dark-hover rounded-xl flex items-center justify-between">
                                                     <span className="text-xs font-bold text-gray-400">{exportRecords.length} registros</span>
-                                                    <span className="text-sm font-black text-emerald-400">${expTotals.total.toLocaleString('es-MX', {minimumFractionDigits: 2})}</span>
+                                                    <span className="text-sm font-black text-cyan-400">${expTotals.total.toLocaleString('es-MX', {minimumFractionDigits: 2})}</span>
                                                 </div>
 
                                                 {/* Format buttons */}
@@ -4459,7 +4566,7 @@
                                                                     setShowExportPeriodModal(false);
                                                                 }
                                                             }}
-                                                            className="flex flex-col items-center gap-2 p-4 bg-emerald-500/20 rounded-xl text-sm font-bold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all"
+                                                            className="flex flex-col items-center gap-2 p-4 bg-cyan-500/20 rounded-xl text-sm font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30 transition-all"
                                                         >
                                                             <FileText size={24} />
                                                             <span>CSV</span>
@@ -4478,7 +4585,7 @@
                                                     type="checkbox"
                                                     checked={exportSalary}
                                                     onChange={(e) => setExportSalary(e.target.checked)}
-                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-cyan-500 checked:border-cyan-500 cursor-pointer"
                                                 />
                                                 <span className="text-sm font-semibold text-white">Salarios</span>
                                             </label>
@@ -4487,7 +4594,7 @@
                                                     type="checkbox"
                                                     checked={exportCommissions}
                                                     onChange={(e) => setExportCommissions(e.target.checked)}
-                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-cyan-500 checked:border-cyan-500 cursor-pointer"
                                                 />
                                                 <span className="text-sm font-semibold text-white">Comisiones</span>
                                             </label>
@@ -4496,7 +4603,7 @@
                                                     type="checkbox"
                                                     checked={exportExpenses}
                                                     onChange={(e) => setExportExpenses(e.target.checked)}
-                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-emerald-500 checked:border-emerald-500 cursor-pointer"
+                                                    className="w-5 h-5 rounded border-2 border-dark-border bg-dark-bg checked:bg-cyan-500 checked:border-cyan-500 cursor-pointer"
                                                 />
                                                 <span className="text-sm font-semibold text-white">Gastos</span>
                                             </label>
@@ -4522,7 +4629,7 @@
                             <div className="glass-effect rounded-2xl max-w-sm w-full animate-slide-up shadow-2xl overflow-hidden"
                                  onClick={(e) => e.stopPropagation()}>
                                 {/* Header verde */}
-                                <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 p-5 text-center relative overflow-hidden">
+                                <div className="bg-gradient-to-br from-cyan-500 to-sky-600 p-5 text-center relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent"></div>
                                     <div className="absolute -top-6 -right-6 w-24 h-24 bg-white/[0.05] rounded-full"></div>
                                     <div className="relative">
@@ -4535,7 +4642,7 @@
                                 <div className="p-5">
                                     <div className="p-4 bg-dark-hover rounded-xl mb-5 text-center">
                                         <p className="text-sm font-bold text-white mb-2">{pendingCommission.name.split('(')[0].trim()}</p>
-                                        <p className="text-3xl font-black text-emerald-400">${pendingCommission.amount}</p>
+                                        <p className="text-3xl font-black text-cyan-400">${pendingCommission.amount}</p>
                                     </div>
                                     <div className="flex gap-2.5">
                                         <button
@@ -4546,7 +4653,7 @@
                                         </button>
                                         <button
                                             onClick={confirmAddCommission}
-                                            className="flex-1 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-sm font-black text-white hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                                            className="flex-1 py-3.5 bg-gradient-to-r from-cyan-500 to-sky-600 rounded-xl text-sm font-black text-white hover:from-cyan-600 hover:to-sky-700 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
                                         >
                                             <Check size={18} />
                                             Confirmar
@@ -4557,28 +4664,24 @@
                         </div>
                     )}
 
-                    {/* Modal Selector de Periodo - Dashboard */}
+                    {/* Modal Selector de Periodo - Dashboard (Checklist multi-select) */}
                     {showDashboardPeriodPicker && (
                         <div 
-                            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[65] flex items-end justify-center p-0 animate-fade-in"
+                            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[65] flex items-center justify-center p-4 animate-fade-in"
                             onClick={() => setShowDashboardPeriodPicker(false)}
                         >
                             <div 
-                                className="glass-effect w-full max-w-md rounded-t-3xl shadow-2xl overflow-hidden animate-slide-up"
-                                style={{maxHeight: '75vh'}}
+                                className="glass-effect w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden animate-scale-in"
+                                style={{maxHeight: '72vh'}}
                                 onClick={e => e.stopPropagation()}
                             >
-                                {/* Handle bar */}
-                                <div className="flex justify-center pt-3 pb-1">
-                                    <div className="w-10 h-1 rounded-full bg-gray-600"></div>
-                                </div>
-                                
-                                {/* Header */}
-                                <div className="px-5 pt-2 pb-4 border-b border-dark-border/60">
+                                <div className="px-5 pt-5 pb-4 border-b border-dark-border/60">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <h3 className="text-base font-black text-white">Seleccionar Periodo</h3>
-                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">Periodos de comisiones 2026</p>
+                                            <h3 className="text-base font-black text-white">
+                                                {dashboardPeriodType === 'commission' ? '✨ Periodos de Comisiones' : '💼 Periodos de Nómina'}
+                                            </h3>
+                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">Puedes elegir uno o varios</p>
                                         </div>
                                         <button 
                                             onClick={() => setShowDashboardPeriodPicker(false)}
@@ -4589,51 +4692,179 @@
                                     </div>
                                 </div>
                                 
-                                {/* Lista de periodos */}
-                                <div className="overflow-y-auto" style={{maxHeight: 'calc(75vh - 110px)'}}>
-                                    <div className="p-3 space-y-1.5">
-                                        {commissionPeriods.map((period, idx) => {
-                                            const isSelected = period.label === dashboardPeriodLabel;
-                                            const now = new Date();
-                                            const isCurrent = now >= period.startDate && now <= period.endDate;
-                                            return (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => {
-                                                        setDashboardPeriodLabel(period.label);
-                                                        setShowDashboardPeriodPicker(false);
-                                                    }}
-                                                    className={`w-full flex items-center justify-between p-3.5 rounded-xl transition-all active:scale-[0.98] ${
-                                                        isSelected 
-                                                            ? 'bg-emerald-500/20 border border-emerald-500/40' 
-                                                            : 'bg-dark-hover hover:bg-dark-card border border-transparent'
-                                                    }`}
-                                                >
-                                                    <div className="flex items-center gap-3 text-left">
-                                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                                            isSelected ? 'bg-emerald-500' : isCurrent ? 'bg-emerald-500/20' : 'bg-dark-border'
-                                                        }`}>
-                                                            {isSelected 
-                                                                ? <Check size={14} className="text-white" />
-                                                                : <Calendar size={14} className={isCurrent ? 'text-emerald-400' : 'text-gray-500'} />
-                                                            }
+                                {(() => {
+                                    const pool = dashboardPeriodType === 'commission' ? commissionPeriods : payrollPeriods;
+                                    const currentLabels = dashboardPeriodType === 'commission' ? dashboardPeriodLabels : dashboardPayrollLabels;
+                                    const setLabels = dashboardPeriodType === 'commission' ? setDashboardPeriodLabels : setDashboardPayrollLabels;
+
+                                    return (
+                                        <>
+                                        <div className="overflow-y-auto" style={{maxHeight: 'calc(72vh - 140px)'}}>
+                                            <div className="p-3 space-y-1.5">
+                                                {pool.map((period, idx) => {
+                                                    const isSelected = currentLabels.includes(period.label);
+                                                    const now = new Date();
+                                                    const isCurrent = now >= period.startDate && now <= period.endDate;
+                                                    return (
+                                                        <button
+                                                            key={idx}
+                                                            onClick={() => {
+                                                                setLabels(prev =>
+                                                                    prev.includes(period.label)
+                                                                        ? prev.length > 1 ? prev.filter(l => l !== period.label) : prev
+                                                                        : [...prev, period.label]
+                                                                );
+                                                            }}
+                                                            className={`w-full flex items-center gap-3 p-3.5 rounded-xl transition-all active:scale-[0.98] ${
+                                                                isSelected 
+                                                                    ? 'bg-cyan-500/20 border border-cyan-500/40' 
+                                                                    : 'bg-dark-hover hover:bg-dark-card border border-transparent'
+                                                            }`}
+                                                        >
+                                                            <div className={`w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 border-2 transition-all ${
+                                                                isSelected ? 'bg-cyan-500 border-cyan-500' : 'border-gray-600'
+                                                            }`}>
+                                                                {isSelected && <Check size={12} className="text-white" strokeWidth={3} />}
+                                                            </div>
+                                                            <div className="flex-1 text-left">
+                                                                <p className={`text-sm font-bold ${isSelected ? 'text-cyan-400' : 'text-white'}`}>
+                                                                    {period.label}
+                                                                    {isCurrent && <span className="ml-2 text-[10px] bg-cyan-500/20 text-cyan-400 px-1.5 py-0.5 rounded-full font-bold">ACTUAL</span>}
+                                                                </p>
+                                                                <p className="text-xs text-gray-500 font-semibold mt-0.5">
+                                                                    {dashboardPeriodType === 'commission' 
+                                                                        ? `Cobro: ${period.payDay.getDate()} - ${MONTH_NAMES_FULL[period.payDay.getMonth()]}`
+                                                                        : `Pago: día ${period.payDay}`
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                        <div className="px-4 py-3 border-t border-dark-border/60 flex items-center justify-between">
+                                            <p className="text-xs text-gray-500 font-semibold">{currentLabels.length} periodo{currentLabels.length !== 1 ? 's' : ''} seleccionado{currentLabels.length !== 1 ? 's' : ''}</p>
+                                            <button
+                                                onClick={() => setShowDashboardPeriodPicker(false)}
+                                                className="px-4 py-2 bg-cyan-500 rounded-xl text-xs font-black text-white hover:bg-cyan-600 active:scale-95 transition-all"
+                                            >
+                                                Listo
+                                            </button>
+                                        </div>
+                                        </>
+                                    );
+                                })()}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal Detalle por Tipo (Trabajo / Comisión / Gastos) */}
+                    {showDetailModal && detailModalType && (
+                        <div
+                            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[65] flex items-center justify-center p-4 animate-fade-in"
+                            onClick={() => setShowDetailModal(false)}
+                        >
+                            <div
+                                className="glass-effect w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden animate-scale-in"
+                                style={{maxHeight: '75vh'}}
+                                onClick={e => e.stopPropagation()}
+                            >
+                                {/* Header */}
+                                {(() => {
+                                    const cfg = {
+                                        work:       { label: 'Ingresos por Nómina',    icon: <Clock size={18} className="text-white" />,     color: 'from-cyan-500 to-indigo-600' },
+                                        commission: { label: 'Ingresos por Comisiones', icon: <Sparkles size={18} className="text-white" />,  color: 'from-amber-500 to-amber-600' },
+                                        expenses:   { label: 'Gastos del Periodo',      icon: <CreditCard size={18} className="text-white" />, color: 'from-rose-500 to-rose-600' },
+                                    }[detailModalType];
+
+                                    // Construir filas del desglose
+                                    let rows = [];
+                                    let grandTotal = 0;
+
+                                    if (detailModalType === 'work') {
+                                        rows = dashboardRecords
+                                            .filter(r => r.baseSalary && r.baseSalary !== 0)
+                                            .sort((a,b) => a.date.localeCompare(b.date))
+                                            .map(r => ({
+                                                label: new Date(r.date + 'T00:00:00').toLocaleDateString('es-MX', { weekday: 'short', day: 'numeric', month: 'short' }),
+                                                sub: STATUS_LABELS[r.status] || r.status,
+                                                amount: r.baseSalary,
+                                                color: STATUS_COLORS_TEXT[r.status]
+                                            }));
+                                        grandTotal = rows.reduce((s, r) => s + r.amount, 0);
+                                    } else if (detailModalType === 'commission') {
+                                        dashboardRecords.forEach(r => {
+                                            (r.commissions || []).forEach(c => {
+                                                rows.push({
+                                                    label: c.name.split('(')[0].trim(),
+                                                    sub: new Date(r.date + 'T00:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }),
+                                                    amount: parseFloat(c.amount) || 0,
+                                                    color: 'text-amber-400'
+                                                });
+                                            });
+                                        });
+                                        grandTotal = rows.reduce((s, r) => s + r.amount, 0);
+                                    } else {
+                                        dashboardRecords.forEach(r => {
+                                            (r.expenses || []).forEach(e => {
+                                                rows.push({
+                                                    label: e.name || 'Gasto',
+                                                    sub: new Date(r.date + 'T00:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }),
+                                                    amount: parseFloat(e.amount) || 0,
+                                                    color: 'text-rose-400'
+                                                });
+                                            });
+                                        });
+                                        grandTotal = rows.reduce((s, r) => s + r.amount, 0);
+                                    }
+
+                                    return (
+                                        <>
+                                            <div className={`bg-gradient-to-br ${cfg.color} p-5`}>
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                                                            {cfg.icon}
                                                         </div>
                                                         <div>
-                                                            <p className={`text-sm font-bold ${isSelected ? 'text-emerald-400' : 'text-white'}`}>
-                                                                {period.label}
-                                                                {isCurrent && <span className="ml-2 text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full font-bold">ACTUAL</span>}
-                                                            </p>
-                                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">
-                                                                Cobro: día {period.payDay.getDate()} · {period.quincena}
-                                                            </p>
+                                                            <p className="text-white font-black text-sm">{cfg.label}</p>
+                                                            <p className="text-white/70 text-xs font-semibold">{activeDashboardLabels.length === 1 ? activeDashboardLabels[0] : `${activeDashboardLabels.length} periodos`}</p>
                                                         </div>
                                                     </div>
-                                                    {isSelected && <div className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></div>}
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
+                                                    <button onClick={() => setShowDetailModal(false)} className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
+                                                        <X size={16} className="text-white" />
+                                                    </button>
+                                                </div>
+                                                <div className="mt-4">
+                                                    <p className="text-white text-2xl font-black">${grandTotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                    <p className="text-white/70 text-xs font-semibold">{rows.length} {detailModalType === 'work' ? 'días' : 'registros'}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="overflow-y-auto" style={{maxHeight: 'calc(75vh - 180px)'}}>
+                                                {rows.length === 0 ? (
+                                                    <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                                                        <AlertCircle size={32} className="mb-2 opacity-40" />
+                                                        <p className="text-sm font-semibold">Sin registros en este periodo</p>
+                                                    </div>
+                                                ) : (
+                                                    <div className="p-3 space-y-1.5">
+                                                        {rows.map((row, i) => (
+                                                            <div key={i} className="flex items-center justify-between p-3 bg-dark-hover rounded-xl">
+                                                                <div>
+                                                                    <p className="text-sm font-bold text-white leading-tight">{row.label}</p>
+                                                                    <p className={`text-xs font-semibold mt-0.5 ${row.color}`}>{row.sub}</p>
+                                                                </div>
+                                                                <p className={`text-sm font-black ${row.color}`}>${row.amount.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </>
+                                    );
+                                })()}
                             </div>
                         </div>
                     )}
@@ -4643,13 +4874,13 @@
                         <div className="h-full flex justify-around items-center px-4 max-w-md mx-auto">
                         <button 
                             onClick={() => setActiveTab('dashboard')} 
-                            className={`flex flex-col items-center gap-0.5 flex-1 transition-all group ${activeTab === 'dashboard' ? 'text-emerald-400' : 'text-gray-600'}`}
+                            className={`flex flex-col items-center gap-0.5 flex-1 transition-all group ${activeTab === 'dashboard' ? 'text-cyan-400' : 'text-gray-600'}`}
                         >
-                           <div className={`w-10 h-8 rounded-xl flex items-center justify-center transition-all relative ${activeTab === 'dashboard' ? 'bg-emerald-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
-                               <LayoutDashboard size={18} />
-                               {activeTab === 'dashboard' && <div className="absolute -bottom-1 w-4 h-0.5 rounded-full bg-emerald-400"></div>}
+                           <div className={`w-10 h-8 rounded-xl flex items-center justify-center transition-all relative ${activeTab === 'dashboard' ? 'bg-cyan-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
+                               <span style={{fontSize: 18}}>🏠</span>
+                               {activeTab === 'dashboard' && <div className="absolute -bottom-1 w-4 h-0.5 rounded-full bg-cyan-400"></div>}
                            </div>
-                           <span className={`text-xs font-bold uppercase tracking-wider ${activeTab === 'dashboard' ? 'text-emerald-400' : ''}`}>Resumen</span>
+                           <span className={`text-xs font-bold uppercase tracking-wider ${activeTab === 'dashboard' ? 'text-cyan-400' : ''}`}>Resumen</span>
                         </button>
                         
                         {/* Botón Central + */}
@@ -4682,7 +4913,7 @@
                                 }} 
                                 className="flex-shrink-0 -mt-6"
                             >
-                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-2xl shadow-emerald-500/30 flex items-center justify-center hover:scale-110 transition-transform active:scale-95 ring-4 ring-dark-bg">
+                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 shadow-2xl shadow-cyan-500/30 flex items-center justify-center hover:scale-110 transition-transform active:scale-95 ring-4 ring-dark-bg">
                                     <Plus size={26} className="text-white" strokeWidth={3} />
                                 </div>
                             </button>
@@ -4696,13 +4927,13 @@
                                 setFilterCommissionsOnly(false);
                                 setFilterExpensesOnly(false);
                             }} 
-                            className={`flex flex-col items-center gap-0.5 flex-1 transition-all group ${activeTab === 'history' ? 'text-emerald-400' : 'text-gray-600'}`}
+                            className={`flex flex-col items-center gap-0.5 flex-1 transition-all group ${activeTab === 'history' ? 'text-cyan-400' : 'text-gray-600'}`}
                         >
-                           <div className={`w-10 h-8 rounded-xl flex items-center justify-center transition-all relative ${activeTab === 'history' ? 'bg-emerald-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
-                               <HistoryIcon size={18} />
-                               {activeTab === 'history' && <div className="absolute -bottom-1 w-4 h-0.5 rounded-full bg-emerald-400"></div>}
+                           <div className={`w-10 h-8 rounded-xl flex items-center justify-center transition-all relative ${activeTab === 'history' ? 'bg-cyan-500/20 scale-110' : 'group-hover:bg-dark-hover'}`}>
+                               <span style={{fontSize: 18}}>🕐</span>
+                               {activeTab === 'history' && <div className="absolute -bottom-1 w-4 h-0.5 rounded-full bg-cyan-400"></div>}
                            </div>
-                           <span className={`text-xs font-bold uppercase tracking-wider ${activeTab === 'history' ? 'text-emerald-400' : ''}`}>Historial</span>
+                           <span className={`text-xs font-bold uppercase tracking-wider ${activeTab === 'history' ? 'text-cyan-400' : ''}`}>Historial</span>
                         </button>
                         </div>
                     </nav>
